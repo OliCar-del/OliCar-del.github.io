@@ -7,17 +7,16 @@
 
 # Main Page Setup
 
-title: Oliver Carnew's Porject Portfolio # This is what shows up in the tab of the browser
+title: Oliver Carnew's Project Portfolio # This is what shows up in the tab of the browser
 
 
 
 # Hero Section
-name: John Doe
-headline: headline message
+name: Oliver Carnew
+headline: Graduate Electrical and Biomedical Engineer
 description: >- # dont remove this line. this will ignore all new lines until the next section
-  Write an awesome intro and discuss your highlights and qualification. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+I am a highly motivated, task-focused electrical and biomedical engineering graduate, with a drive to take on responsibility and learn from experience.
+Personal interests in machine learning and embedded systems, with projects largely focused on leveraging LLMs for data analysis or independent IoT devices with managed battery power.
 
 # Place your profile image in /assets/images/profile-image/folder and edit the file name
 profile_image: ./assets/images/profile-image/avatar.jpeg
