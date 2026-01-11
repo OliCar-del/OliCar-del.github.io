@@ -19,7 +19,7 @@ description: >- # dont remove this line. this will ignore all new lines until th
   Personal interests in machine learning and embedded systems, with projects largely focused on leveraging LLMs for data analysis or independent IoT devices with managed battery power.
 
 # Place your profile image in /assets/images/profile-image/folder and edit the file name
-profile_image: ./assets/images/profile-image/avatar.jpeg
+profile_image: ./assets/images/profile-image/cropped_headshot.png
 
 
 # Link your resume
