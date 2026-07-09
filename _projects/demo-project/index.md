@@ -77,14 +77,14 @@ MOSFETs to comply with standards. Spade terminals were replaced with keyed JST-P
 ---
 
 **PCB Version 4 (PCBv4 - Final):** Focused on final polish, mounting clearance, and standard compliance. Added a 5V rail power indicator LED, nylon spacers for OLED clearance, solder bridges to isolate the 5V system rail for safer fault finding, and a unified ground plane strategy for the arcade switches.
-{% include image-gallery.html images="PCBV3_render.png" height="600" %}
-<span style="font-size: 14px">PCBv3 Altium render showing removal of USB input/protection and inclusion of keyed connectors</span>
-{% include image-gallery.html images="PCBV3_copper.png" height="600" %}
-<span style="font-size: 14px">PCBv3 Altium copper artwork showing longer USB UART Connections and revised battery charging wiring. 3.3V rail is in aqua, 5V input is in pale yellow, Arcade button signals/power in bright yellow.</span>
-{% include image-gallery.html images="PCBV3_built.jpg" height="600" %}
-<span style="font-size: 14px">PCBv3 fully constructed, tested and functional prototype. Full functionality was achieved at this point, though some compliance issues were yet to be rectified. This version could achieve the specification but wasn't quite robust enough.</span>
-{% include image-gallery.html images="PCBV3_test.png" height="600" %}
-<span style="font-size: 14px">PCBv3 showing informative debug output via USART to PC, while playing the game on LED matrix.</span>
+{% include image-gallery.html images="PCBV4_render.png" height="600" %}
+<span style="font-size: 14px">PCBv4 Altium render showing final layout and fully compliant inclusions</span>
+{% include image-gallery.html images="PCBV4_copper.png" height="600" %}
+<span style="font-size: 14px">PCBv4 Altium copper artwork showing minor changes to V3. Some trace widening and minor debug and ESD inclusions.</span>
+{% include image-gallery.html images="PCBV4_test.jpg" height="600" %}
+<span style="font-size: 14px">PCBv4 fully constructed, tested and functional prototype. Full functionality was achieved at this point, though some compliance issues were yet to be rectified. This version could achieve the specification but wasn't quite robust enough.</span>
+{% include image-gallery.html images="PCBV4_play.jpg" height="600" %}
+<span style="font-size: 14px">PCBv4 in situ, mounted to acrylic playcase with LED matrix and OLED displaying game information.</span>
 
 ---
 
