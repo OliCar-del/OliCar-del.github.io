@@ -12,7 +12,7 @@ skills:
 * Hardware Debugging & Validation
 * State Machine (FSM) Implementation
 
-## main-image: /project_board_render.jpg
+main-image: /mainpicture_final.png
 ---
 
 ---
