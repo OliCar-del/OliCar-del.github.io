@@ -41,8 +41,12 @@ Developing a robust hardware baseline was crucial for the seamless integration o
 Given the strict design guidelines and dense integration requirements, the hardware was developed iteratively across four distinct PCB versions, moving from initial concept verification to a fully polished product.
 
 1. **PCB Version 1 (PCBv1):** The focus was validating power pathing and battery charging via the MP2637 TQFN package. It integrated the audio IC, 3.3V LDO, SD card socket, and low-pass filters (-3dB @ ~340Hz) for user interface hardware debouncing. Extensive debug pins and solder bridges were included for isolated testing.
-{% include image-gallery.html images="PCBV1_render.png, PCBV1_copper.png, PCBV1_built.jpg" height="600" %}
-<span style="font-size: 14px">PCBv1 Altium render, copper artwork and fully constructed and tested prototype</span>
+{% include image-gallery.html images="PCBV1_render.png" height="600" %}
+<span style="font-size: 14px">PCBv1 Altium render</span>
+{% include image-gallery.html images="PCBV1_copper.png" height="600" %}
+<span style="font-size: 14px">PCBv1 Altium copper artwork</span>
+{% include image-gallery.html images="PCBV1_copper.png" height="600" %}
+<span style="font-size: 14px">PCBv1 fully constructed, tested and functional prototype</span>
 
 2. **PCB Version 2 (PCBv2):** Introduced a direct USB-C connector with a TPD8S300 protection IC (for ESD/overvoltage protection) and terminal lugs for direct arcade button interfacing. A backup SEEEDUINO socket was added for redundancy.
 {% include image-gallery.html images="PCBV1_render.png, PCBV1_copper.png, PCBV1_built.jpg" height="600" %}
