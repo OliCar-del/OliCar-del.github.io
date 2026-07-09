@@ -82,9 +82,9 @@ MOSFETs to comply with standards. Spade terminals were replaced with keyed JST-P
 {% include image-gallery.html images="PCBV4_copper.png" height="600" %}
 <span style="font-size: 14px">PCBv4 Altium copper artwork showing minor changes to V3. Some trace widening and minor debug and ESD inclusions.</span>
 {% include image-gallery.html images="PCBV4_test.jpg" height="600" %}
-<span style="font-size: 14px">PCBv4 fully constructed, tested and functional prototype. Full functionality was achieved at this point, though some compliance issues were yet to be rectified. This version could achieve the specification but wasn't quite robust enough.</span>
+<span style="font-size: 14px">PCBv4 fully constructed showing routing of wiring harness into playcase and abundance of keyed connections and mounting hardware.</span>
 {% include image-gallery.html images="PCBV4_play.jpg" height="600" %}
-<span style="font-size: 14px">PCBv4 in situ, mounted to acrylic playcase with LED matrix and OLED displaying game information.</span>
+<span style="font-size: 14px">PCBv4 in situ, mounted to acrylic playcase with LED matrix and OLED displaying game information. Game currently being played. </span>
 
 ---
 
@@ -148,5 +148,3 @@ While the device operates flawlessly as a prototype, evaluating the design throu
 * **Supply Chain Stability:** The project relies heavily on highly integrated, single-source ICs (like the MP2637 for power pathing and the MAX98357A for audio). From a commercial manufacturing perspective, this poses a massive supply chain risk.
 
 **Recommendation:** For a production-ready model, the power and audio sub-systems should be redesigned utilizing discrete, multi-source components. Replacing the integrated MP2637 with a dedicated battery charging IC, a separate boost converter, and diode-based power pathing would increase the BOM component count, but dramatically improve long-term business sustainability, part substitution flexibility, and end-user repairability.
-
-{% include youtube-video.html id="tGCdLEQzde0" autoplay = "false" width= "900px" %}
