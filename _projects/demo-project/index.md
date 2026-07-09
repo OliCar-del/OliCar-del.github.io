@@ -3,14 +3,13 @@ layout: post
 title: tpmania - Miniaturised music based rhythm and dance game
 description: An embedded systems project to design and build a miniaturised arcade rhythm and dance game played with fingers, based on STM32 architecture. The project involved multi-stage PCB prototyping, power management, audio generation, and modular firmware development.
 skills:
-
-* PCB Design & Routing
-* Embedded C Programming
-* STM32 Microcontroller Architecture
-* Power Pathing & Battery Management
-* Audio Generation (I2S/SAI)
-* Hardware Debugging & Validation
-* State Machine (FSM) Implementation
+  - PCB Design & Routing
+  - Embedded C Programming
+  - STM32 Microcontroller Architecture
+  - Power Pathing & Battery Management
+  - Audio Generation (I2S/SAI)
+  - Hardware Debugging & Validation
+  - State Machine (FSM) Implementation
 
 main-image: /mainpicture_final.png
 ---
