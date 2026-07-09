@@ -40,7 +40,9 @@ Developing a robust hardware baseline was crucial for the seamless integration o
 
 Given the strict design guidelines and dense integration requirements, the hardware was developed iteratively across four distinct PCB versions, moving from initial concept verification to a fully polished product.
 
-1. **PCB Version 1 (PCBv1):** The focus was validating power pathing and battery charging via the MP2637 TQFN package. It integrated the audio IC, 3.3V LDO, SD card socket, and low-pass filters (-3dB @ ~340Hz) for user interface hardware debouncing. Extensive debug pins and solder bridges were included for isolated testing.
+---
+
+**PCB Version 1 (PCBv1):** The focus was validating power pathing and battery charging via the MP2637 TQFN package. It integrated the audio IC, 3.3V LDO, SD card socket, and low-pass filters (-3dB @ ~340Hz) for user interface hardware debouncing. Extensive debug pins and solder bridges were included for isolated testing.
 {% include image-gallery.html images="PCBV1_render.png" height="600" %}
 <span style="font-size: 14px">PCBv1 Altium render</span>
 {% include image-gallery.html images="PCBV1_copper.png" height="600" %}
@@ -59,7 +61,9 @@ Given the strict design guidelines and dense integration requirements, the hardw
 {% include image-gallery.html images="PCBV2_batt.png" height="600" %}
 <span style="font-size: 14px">PCBv2 running off battery power</span>
 
-3. **PCB Version 3 (PCBv3):** Major compliance and functional overhauls. Audio pins were re-routed to SAI1 (LCLOCK, BCLOCK) for proper I2S function. Arcade button LEDs were shifted to the 5V rail and controlled via BSS138 N-Channel 
+---
+
+**PCB Version 3 (PCBv3):** Major compliance and functional overhauls. Audio pins were re-routed to SAI1 (LCLOCK, BCLOCK) for proper I2S function. Arcade button LEDs were shifted to the 5V rail and controlled via BSS138 N-Channel 
 MOSFETs to comply with standards. Spade terminals were replaced with keyed JST-PH 2.0mm connectors.
 {% include image-gallery.html images="PCBV3_render.png" height="600" %}
 <span style="font-size: 14px">PCBv3 Altium render showing removal of USB input/protection and inclusion of keyed connectors</span>
@@ -70,7 +74,19 @@ MOSFETs to comply with standards. Spade terminals were replaced with keyed JST-P
 {% include image-gallery.html images="PCBV3_test.png" height="600" %}
 <span style="font-size: 14px">PCBv3 showing informative debug output via USART to PC, while playing the game on LED matrix.</span>
 
-4. **PCB Version 4 (PCBv4 - Final):** Focused on final polish, mounting clearance, and standard compliance. Added a 5V rail power indicator LED, nylon spacers for OLED clearance, solder bridges to isolate the 5V system rail for safer fault finding, and a unified ground plane strategy for the arcade switches.
+---
+
+**PCB Version 4 (PCBv4 - Final):** Focused on final polish, mounting clearance, and standard compliance. Added a 5V rail power indicator LED, nylon spacers for OLED clearance, solder bridges to isolate the 5V system rail for safer fault finding, and a unified ground plane strategy for the arcade switches.
+{% include image-gallery.html images="PCBV3_render.png" height="600" %}
+<span style="font-size: 14px">PCBv3 Altium render showing removal of USB input/protection and inclusion of keyed connectors</span>
+{% include image-gallery.html images="PCBV3_copper.png" height="600" %}
+<span style="font-size: 14px">PCBv3 Altium copper artwork showing longer USB UART Connections and revised battery charging wiring. 3.3V rail is in aqua, 5V input is in pale yellow, Arcade button signals/power in bright yellow.</span>
+{% include image-gallery.html images="PCBV3_built.jpg" height="600" %}
+<span style="font-size: 14px">PCBv3 fully constructed, tested and functional prototype. Full functionality was achieved at this point, though some compliance issues were yet to be rectified. This version could achieve the specification but wasn't quite robust enough.</span>
+{% include image-gallery.html images="PCBV3_test.png" height="600" %}
+<span style="font-size: 14px">PCBv3 showing informative debug output via USART to PC, while playing the game on LED matrix.</span>
+
+---
 
 ### Embedded Images
 
