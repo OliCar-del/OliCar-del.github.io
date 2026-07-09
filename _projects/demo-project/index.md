@@ -47,7 +47,6 @@ Given the strict design guidelines and dense integration requirements, the hardw
 <span style="font-size: 14px">PCBv1 Altium copper artwork</span>
 {% include image-gallery.html images="PCBV1_built.jpg" height="600" %}
 <span style="font-size: 14px">PCBv1 fully constructed, tested and functional prototype</span>
-
 2. **PCB Version 2 (PCBv2):** Introduced a direct USB-C connector with a TPD8S300 protection IC (for ESD/overvoltage protection) and terminal lugs for direct arcade button interfacing. A backup SEEEDUINO socket was added for redundancy.
 {% include image-gallery.html images="PCBV2_render.png" height="600" %}
 <span style="font-size: 14px">PCBv2 Altium render</span>
