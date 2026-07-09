@@ -11,7 +11,7 @@ skills:
   - Hardware Debugging & Validation
   - State Machine (FSM) Implementation
 
-main-image: /mainpicture_final.png
+main-image: /mainpicture2.png
 ---
 
 ---
@@ -40,7 +40,7 @@ Developing a robust hardware baseline was crucial for the seamless integration o
 
 Given the strict design guidelines and dense integration requirements, the hardware was developed iteratively across four distinct PCB versions, moving from initial concept verification to a fully polished product.
 
-1. **PCB Version 1 (PCBv1):** Expedited and completed by Week 4. The focus was validating power pathing and battery charging via the MP2637 TQFN package. It integrated the audio IC, 3.3V LDO, SD card socket, and low-pass filters (-3dB @ ~340Hz) for user interface hardware debouncing. Extensive debug pins and solder bridges were included for isolated testing.
+1. **PCB Version 1 (PCBv1):** The focus was validating power pathing and battery charging via the MP2637 TQFN package. It integrated the audio IC, 3.3V LDO, SD card socket, and low-pass filters (-3dB @ ~340Hz) for user interface hardware debouncing. Extensive debug pins and solder bridges were included for isolated testing.
 2. **PCB Version 2 (PCBv2):** Introduced a direct USB-C connector with a TPD8S300 protection IC (for ESD/overvoltage protection) and terminal lugs for direct arcade button interfacing. A backup SEEEDUINO socket was added for redundancy.
 3. **PCB Version 3 (PCBv3):** Major compliance and functional overhauls. Audio pins were re-routed to SAI1 (LCLOCK, BCLOCK) for proper I2S function. Arcade button LEDs were shifted to the 5V rail and controlled via BSS138 N-Channel MOSFETs to comply with standards. Spade terminals were replaced with keyed JST-PH 2.0mm connectors.
 4. **PCB Version 4 (PCBv4 - Final):** Focused on final polish, mounting clearance, and standard compliance. Added a 5V rail power indicator LED, nylon spacers for OLED clearance, solder bridges to isolate the 5V system rail for safer fault finding, and a unified ground plane strategy for the arcade switches.
@@ -89,9 +89,9 @@ void Process_System_State() {
 
 ```
 
-## Challenges & Team Dynamics
+## Challenges
 
-A major operational challenge during this project was a severe imbalance in team workload. Joining the group at the end of Week 4 meant I was significantly behind the initial planning curve. Due to a mix of member unavailability, illness, and a lack of experience among peers, the intended division of labor dissolved.
+A major operational challenge during this project was a severe imbalance in team workload. Due to a mix of member unavailability, illness, and a lack of experience among peers, the intended division of labor dissolved.
 
 To ensure the project's success, I took on the vast majority of technical responsibilities. I was solely responsible for designing all four iterations of the PCB, implementing the power management/hot-swapping systems, selecting the components, wiring the harnesses, writing the core state machine, interfacing the SD card, parsing sequence data, and managing the integration between the GUI and the device. This experience underscored the importance of *defensive engineering*—using solder bridges, isolation headers, and verbose UART debug logging—to guarantee that if one sub-system failed, it wouldn't stall the development of the rest of the board.
 
