@@ -49,8 +49,14 @@ Given the strict design guidelines and dense integration requirements, the hardw
 <span style="font-size: 14px">PCBv1 fully constructed, tested and functional prototype</span>
 
 2. **PCB Version 2 (PCBv2):** Introduced a direct USB-C connector with a TPD8S300 protection IC (for ESD/overvoltage protection) and terminal lugs for direct arcade button interfacing. A backup SEEEDUINO socket was added for redundancy.
-{% include image-gallery.html images="PCBV1_render.png, PCBV1_copper.png, PCBV1_built.jpg" height="600" %}
-<span style="font-size: 14px">PCBv1 Altium render, copper artwork and fully constructed and tested prototype</span>
+{% include image-gallery.html images="PCBV2_render.png" height="600" %}
+<span style="font-size: 14px">PCBv2 Altium render</span>
+{% include image-gallery.html images="PCBV2_copper.png" height="600" %}
+<span style="font-size: 14px">PCBv2 Altium copper artwork</span>
+{% include image-gallery.html images="PCBV2_built.jpg" height="600" %}
+<span style="font-size: 14px">PCBv2 fully constructed, tested and functional prototype</span>
+{% include image-gallery.html images="PCBV2_batt.png" height="600" %}
+<span style="font-size: 14px">PCBv2 frunning off battery power and being tested</span>
 
 3. **PCB Version 3 (PCBv3):** Major compliance and functional overhauls. Audio pins were re-routed to SAI1 (LCLOCK, BCLOCK) for proper I2S function. Arcade button LEDs were shifted to the 5V rail and controlled via BSS138 N-Channel 
 MOSFETs to comply with standards. Spade terminals were replaced with keyed JST-PH 2.0mm connectors.
