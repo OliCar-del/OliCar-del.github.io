@@ -20,9 +20,9 @@ skills:
 
 ## Project Overview & Scope
 
-`tpmania` (pronounced "tap-mania") is a miniaturised arcade rhythm and dance game played with the fingers, drawing heavy inspiration from full-sized arcade cabinets like *Dance Dance Revolution* and *StepmaniaX*. The core objective is for players to follow rhythm cues displayed on a screen by hitting the correct arcade pushbuttons. The cues are perfectly synchronised to music, and the player's timing accuracy determines their score.
+***tap-mania*** is a miniaturised arcade rhythm and dance game played with the fingers, drawing heavy inspiration from full-sized arcade cabinets like *Dance Dance Revolution* and *StepmaniaX*. The core objective is for players to follow rhythm cues displayed on a screen by hitting the correct arcade pushbuttons. The cues are perfectly synchronised to music, and the player's timing accuracy determines their score.
 
-The scope of this project required building a fully functional embedded system from the ground up, compliant with strict technical standards (TP-STD). This involved designing a custom Printed Circuit Board (PCB), managing complex power constraints (3.7V LiPo battery, USB charging, 5V/3.3V rails), generating high-fidelity audio, parsing sequence files from a microSD card, outputting gameplay data to a 1.3" OLED screen, and driving an LED matrix alongside individual arcade button LEDs.
+The scope of this project required building a fully functional embedded system from the ground up, compliant with strict technical standards. This involved designing a custom Printed Circuit Board (PCB), managing complex power constraints (3.7V LiPo battery, USB charging, 5V/3.3V rails), generating high-fidelity audio, parsing sequence files from a microSD card, outputting gameplay data to a 1.3" OLED screen, and driving an LED matrix alongside individual arcade button LEDs while monitoring for millisecond precise presses.
 
 ## Hardware Architecture & Component Selection
 
