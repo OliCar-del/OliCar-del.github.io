@@ -54,7 +54,7 @@ Given the strict design guidelines and dense integration requirements, the hardw
 {% include image-gallery.html images="PCBV2_copper.png" height="600" %}
 <span style="font-size: 14px">PCBv2 Altium copper artwork</span>
 {% include image-gallery.html images="PCBV2_built.jpg" height="600" %}
-<span style="font-size: 14px">PCBv2 fully constructed, tested and functional prototype</span>
+<span style="font-size: 14px">PCBv2 fully constructed, tested and functional prototype. Board has distinct areas noted on the silk screen. Bottom edge (L->R) has SD card socket, UI buttons connections, Arcade button connections. Top edge (L->R) has Programming header + MCU, USB input and protection, Audio chip+jack footprint and battery charger+boost supply.</span>
 {% include image-gallery.html images="PCBV2_batt.png" height="600" %}
 <span style="font-size: 14px">PCBv2 frunning off battery power and being tested</span>
 
