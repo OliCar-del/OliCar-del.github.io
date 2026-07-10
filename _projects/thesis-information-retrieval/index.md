@@ -153,5 +153,3 @@ This thesis proves that while Neural IR and PLMs have revolutionized search effe
 * **Compute Infrastructure Scaling**: Transitioning the computational workload from ephemeral Colab notebooks to dedicated cloud instances (e.g., AWS EC2 or GCP Compute Engine) with automated orchestrators like Apache Airflow to handle large scale index loading and distributed training loops smoothly.
 
 > *The full thesis document, alongside Jupyter Notebooks containing the query variation generation and evaluation scripts, are available upon request.*
-
-*(Note: The `` citation tags have been appended to the suggested edits per documentation constraints. Feel free to manually remove these tags before publishing your portfolio page.)*
