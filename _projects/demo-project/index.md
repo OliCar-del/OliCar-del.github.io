@@ -88,11 +88,6 @@ MOSFETs to comply with standards. Spade terminals were replaced with keyed JST-P
 
 ---
 
-### Embedded Images
-
-{% include image-gallery.html images="project2.jpg" height="400" %}
-PCB Routing and copper plane design from the prototype iterations.
-
 ## Software & Firmware Implementation
 
 The firmware needed to be highly responsive to maintain perfect synchronization between the audio, the LED matrix cues, and user inputs.
@@ -148,3 +143,5 @@ While the device operates flawlessly as a prototype, evaluating the design throu
 * **Supply Chain Stability:** The project relies heavily on highly integrated, single-source ICs (like the MP2637 for power pathing and the MAX98357A for audio). From a commercial manufacturing perspective, this poses a massive supply chain risk.
 
 **Recommendation:** For a production-ready model, the power and audio sub-systems should be redesigned utilizing discrete, multi-source components. Replacing the integrated MP2637 with a dedicated battery charging IC, a separate boost converter, and diode-based power pathing would increase the BOM component count, but dramatically improve long-term business sustainability, part substitution flexibility, and end-user repairability.
+
+> Project files including code for the embedded device, Altium Designer files, Gerber files, schematics, other design artifacts, BOM, GUI code (written by collaborator Nanfeng Ding) and more can be found on my github: [text](https://github.com/OliCar-del/tap-mania)
