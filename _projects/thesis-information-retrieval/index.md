@@ -152,4 +152,4 @@ This thesis proves that while Neural IR and PLMs have revolutionized search effe
 * **Adversarial Training**: Integrating this query-generation step directly into a continual learning pipeline for ranking models so they learn to be robust against variations during training.
 * **Compute Infrastructure Scaling**: Transitioning the computational workload from ephemeral Colab notebooks to dedicated cloud instances (e.g., AWS EC2 or GCP Compute Engine) with automated orchestrators like Apache Airflow to handle large scale index loading and distributed training loops smoothly.
 
-> *The full thesis document, alongside Jupyter Notebooks containing the query variation generation and evaluation scripts, are available upon request.*
+> *The full thesis document, alongside Jupyter Notebooks containing the query variation generation and evaluation scripts, are available at my [GitHub](https://github.com/OliCar-del/EvaluatingRobustRetrivalPipelines).*
