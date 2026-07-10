@@ -3,75 +3,101 @@ layout: post
 title: Evaluating Robust Retrieval Pipelines
 description: An undergraduate engineering thesis investigating the robustness of Information Retrieval (IR) pipelines, specifically Pretrained Language Models (PLMs), against query variations. The project involved generating adversarial and semantic query variations and evaluating their impact on state-of-the-art neural ranking models.
 skills:
-  - Information Retrieval (IR)
-  - Pretrained Language Models (PLMs)
-  - Natural Language Processing (NLP)
-  - Large Language Models (LLMs)
-  - Data Wrangling (Pandas, ir_datasets)
-  - Neural Network Training
-  - Distributed Workloads (Google Colab)
+
+* Information Retrieval (IR)
+* Pretrained Language Models (PLMs)
+* Natural Language Processing (NLP)
+* Large Language Models (LLMs)
+* Data Wrangling (Pandas, ir_datasets)
+* Neural Network Training
+* Distributed Workloads (Google Colab)
 main-image: /assets/images/thesis-retrieval.png
+
 ---
 
 # Evaluating Robust Retrieval Pipelines
 
+> "Modern search engines seem practically omniscient—until you ask them the exact same question in a slightly different way. Then, state-of-the-art models can silently fail."
+
 ## Project Overview & Scope
-As part of my Bachelor of Engineering (Honours) in Computer Systems / Electrical and Electronic Engineering at the University of Queensland, I undertook a year-long thesis project focusing on **Information Retrieval (IR) systems**. Modern search engines and IR pipelines increasingly rely on Pretrained Language Models (PLMs) to rank documents. However, these systems are typically benchmarked against a single standard query for a given information need, failing to account for the vast diversity in human expression. 
 
-This project aimed to rigorously evaluate the robustness of recent PLM-based IR pipelines on large datasets. By generating novel and established query variations—while carefully maintaining core semantic meaning—I tested how "brittle" these advanced ranking architectures truly are.
+As part of my Bachelor of Engineering (Honours) in Computer Systems / Electrical and Electronic Engineering at the University of Queensland, I undertook a year-long thesis project focusing on **Information Retrieval (IR) systems**.
 
-The scope of the project required building a complete evaluation pipeline: fetching large-scale datasets, algorithmically generating query variations (using LLMs, lemmatization, and character deletion), and running these inputs through various retrieval models to quantify performance degradation.
+Modern search engines and IR pipelines increasingly rely on Pretrained Language Models (PLMs) to rank documents. However, these systems are typically benchmarked against a single standard query for a given information need. This ignores the vast diversity in human expression, leading to a critical question: *How brittle are these advanced ranking architectures in the real world?*
+
+> **Image Suggestion**: *Insert a bar chart or line graph here comparing the baseline performance (e.g., MRR@10 or NDCG@10) of a standard query versus the degraded performance of the varied queries across different models. Visualizing this sharp drop makes the structural problem immediately tangible to a technical recruiter.*
+
+This project aimed to rigorously evaluate robustness by generating novel and established query variations—while strictly maintaining core semantic meaning—and quantifying the resulting performance degradation across multiple search architectures.
 
 ---
 
 ## Core Objectives & Methodology
 
-The bulk of my efforts were dedicated to **generating varied search queries and determining their retrieval effects**. This required a methodical approach to data handling and model evaluation.
+The bulk of my efforts centered around **generating varied search queries and determining their retrieval effects**.
 
 ### Datasets & Baselines
-* **MS MARCO & ANTIQUE**: Utilized industry-standard datasets to ensure the evaluations were grounded in realistic, large-scale search scenarios.
-* **Data Wrangling**: Leveraged libraries like `ir_datasets` and `pandas` to align, parse, and clean variations from existing databases (e.g., querying variations from G. Penha's repository) alongside my own generated queries.
 
-### Query Variation Generation
-To test model robustness, I designed and integrated multiple variation strategies:
-1.  **LLM-Driven Variations**: Utilizing Large Language Models (like OpenAI's GPT) to paraphrase and rephrase queries naturally.
-2.  **Lexical/Morphological Perturbations**: Implementing Lemmatization and Character Deletion to mimic user misspellings and syntax adjustments.
+I utilized industry-standard datasets, including **MS MARCO & ANTIQUE**, to ensure evaluations were grounded in realistic, large-scale search scenarios. By leveraging libraries like `ir_datasets` and `pandas`, I aligned, parsed, and cleaned variations from existing databases (such as G. Penha's repository) alongside my own dynamically generated queries.
+
+```python
+# Snippet: Processing variations and managing query datasets
+import pandas as pd
+import ir_datasets
+
+# Load MS MARCO train queries 
+dataset = ir_datasets.load("msmarco-passage/train")
+queries_df = pd.DataFrame(dataset.queries_iter())
+
+def apply_lexical_perturbation(query_text):
+    # Apply lemmatization or targeted character deletion
+    # to simulate user typos and morphological shifts
+    # ... 
+    return modified_query
+
+# Generate variations tracking provenance
+queries_df['varied_query'] = queries_df['text'].apply(apply_lexical_perturbation)
+queries_df['variation_type'] = 'lexical_typo'
+
+```
+
+> **Code Suggestion**: *Replace this placeholder snippet with a specific, clean excerpt from your Jupyter notebooks showing either your LLM prompt-generation logic or your exact data-wrangling routine to highlight your Python data-engineering proficiency.*
 
 ### Ranking Architectures Evaluated
-The generated queries were tested against a historical spectrum of IR models to establish a baseline of robustness:
+
+Queries were tested against a historical spectrum of IR models to establish a comprehensive baseline of robustness:
+
 * **Traditional/Lexical**: BM25, Relevance Model 3 (RM3)
 * **Neural IR**: KNRM, Conv-KNRM
 * **Pretrained Language Models (PLMs)**: BERT, EPIC, T5
 
 ---
 
-## Key Learnings & Design Choices
+## Key Learnings: The 45% Problem
 
-Through the design and execution of this pipeline, several critical insights emerged:
+> **The Fragility of PLMs**: Variations that maintained the *exact same* query semantics caused traditional, neural, and PLM-based retrieval systems to lose approximately **45%** of their retrieval effectiveness.
 
-* **The Fragility of PLMs**: A primary discovery was that variations maintaining the exact same query semantics caused traditional, neural, and PLM-based retrieval systems to lose retrieval effectivity by approximately **45%**. This underscores a critical gap between benchmark performance and real-world robustness.
-* **Evaluation Infrastructure**: Designing a pipeline that could interchangeably accept different query files and run them against varied models required highly modular code. This modularity allowed for rapid iteration when testing new generation techniques.
-* **Data Provenance**: Managing the state of generated queries (e.g., distinguishing between misspelling, naturality, ordering, paraphrase, and synonym transformations) was handled rigorously via CSV tracking, which streamlined the final analytical phase.
+This finding underscores a massive gap between controlled benchmark performance and real-world robustness. To manage the analytical phase and prove this drop, **data provenance** was crucial. I rigorously tracked the state of generated queries—distinguishing between misspellings, naturality, ordering, paraphrasing, and synonym transformations—via CSVs to isolate exactly *which* types of variations caused the worst system failures.
 
 ---
 
 ## Technical Challenges & Computational Hurdles
 
-A significant portion of the project involved navigating the computational constraints of deep learning.
+Training and evaluating complex transformer architectures requires substantial GPU resources. I utilized Google Colab as my primary compute environment, which presented serious difficulties for long-running neural learning tasks.
 
-### Overcoming Google Colab Limitations
-Training and evaluating complex neural networks and transformer architectures (like BERT and T5) requires substantial GPU resources. I utilized Google Colab as the primary compute environment, which presented major difficulties for long-running neural learning tasks:
-* **Session Timeouts & Resource Limits**: Colab instances frequently disconnect during extended training and evaluation loops. 
-* **State Management**: I engineered the pipeline to heavily rely on Google Drive mounting (`drive.mount('/content/gdrive/')`). Intermediate states, model checkpoints, and generated query batches were continuously serialized to Drive. If a session crashed, the pipeline could resume from the last saved state rather than restarting.
-* **Memory Optimization**: Loading large retrieval indexes (like MS MARCO) into Colab's limited RAM required chunking data operations and heavily utilizing efficient data structures in `pandas` and standardizing string operations using `re`.
+> **Image Suggestion**: *Add a simple flowchart showing your Colab state management pipeline: from data generation -> Google Drive checkpointing -> Model Evaluation. This visually proves your systems-engineering mindset and ability to architect workarounds.*
+
+### Overcoming Colab Limitations
+
+* **Session Timeouts & State Management**: Colab instances frequently disconnect. I engineered the pipeline to heavily rely on Google Drive mounting (`drive.mount('/content/gdrive/')`). Intermediate states, model checkpoints, and generated query batches were continuously serialized so the pipeline could resume from the last saved state rather than restarting from scratch.
+* **Memory Optimization**: Loading large retrieval indexes (like MS MARCO) into Colab's limited RAM required careful data chunking, highly efficient data structures in `pandas`, and standardized string operations utilizing Python's `re` library to minimize overhead.
 
 ---
 
-## Conclusions & Sustainability
+## Sustainability & Future Recommendations
 
-The findings from this thesis highlight that while Neural IR and PLMs have revolutionized search effectiveness, their *robustness* remains a vulnerability. If a user asks the exact same question in a slightly different way, the system's performance essentially drops by half.
+This thesis proves that while Neural IR and PLMs have revolutionized search effectiveness, their lack of robustness remains a severe vulnerability. Viewing this through an engineering lens highlights key operational areas for scaling this pipeline in future work:
 
-**Future Recommendations:**
-For future iterations or commercial applications of this work, the query-generation step could be integrated directly into a continual learning pipeline for ranking models (e.g., adversarial training). Furthermore, transitioning the computational workload from ephemeral Colab notebooks to dedicated cloud instances (like AWS EC2 or GCP Compute Engine) with automated orchestrators (like Airflow) would vastly improve the sustainability and scale of the evaluation runs.
+* **Adversarial Training**: Integrating this query-generation step directly into a continual learning pipeline for ranking models so they learn to be robust against variations during training.
+* **Compute Infrastructure Scaling**: Transitioning the computational workload from ephemeral Colab notebooks to dedicated cloud instances (e.g., AWS EC2 or GCP Compute Engine) with automated orchestrators like Apache Airflow to handle large scale index loading and distributed training loops smoothly.
 
-> The full thesis document, alongside Jupyter Notebooks containing the query variation generation and evaluation scripts, are available upon request.
+> *The full thesis document, alongside Jupyter Notebooks containing the query variation generation and evaluation scripts, are available upon request.*
