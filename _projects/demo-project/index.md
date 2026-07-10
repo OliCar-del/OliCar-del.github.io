@@ -144,4 +144,4 @@ While the device operates flawlessly as a prototype, evaluating the design throu
 
 **Recommendation:** For a production-ready model, the power and audio sub-systems should be redesigned utilizing discrete, multi-source components. Replacing the integrated MP2637 with a dedicated battery charging IC, a separate boost converter, and diode-based power pathing would increase the BOM component count, but dramatically improve long-term business sustainability, part substitution flexibility, and end-user repairability.
 
-> Project files including code for the embedded device, Altium Designer files, Gerber files, schematics, other design artifacts, BOM, GUI code (written by collaborator Nanfeng Ding) and more can be found on my github: [text](https://github.com/OliCar-del/tap-mania)
+> Project files including code for the embedded device, Altium Designer files, Gerber files, schematics, other design artifacts, BOM, GUI code (written by collaborator Nanfeng Ding) and more can be found on my [GitHub](https://github.com/OliCar-del/tap-mania).
