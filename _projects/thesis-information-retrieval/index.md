@@ -4,6 +4,7 @@ layout: post
 title: Evaluating Robust Retrieval Pipelines
 description: An undergraduate engineering thesis investigating the robustness of Information Retrieval (IR) pipelines, specifically Pretrained Language Models (PLMs), against query variations. The project involved generating adversarial and semantic query variations and evaluating their impact on state-of-the-art neural ranking models.
 skills:
+
   - Information Retrieval (IR)
   - Pretrained Language Models (PLMs)
   - Natural Language Processing (NLP)
@@ -23,9 +24,20 @@ main-image: /assets/images/thesis-retrieval.png
 
 As part of my Bachelor of Engineering (Honours) in Computer Systems / Electrical and Electronic Engineering at the University of Queensland, I undertook a year-long thesis project focusing on **Information Retrieval (IR) systems**.
 
+> 
+> *"This project aims to evaluate the robustness of recent PLM IR pipelines on large datasets with novel and established query variation techniques, to establish how variations which maintain query semantics affect systems' effectiveness."* 
+> 
+> 
+
 Modern search engines and IR pipelines increasingly rely on Pretrained Language Models (PLMs) to rank documents. However, these systems are typically benchmarked against a single standard query for a given information need. This ignores the vast diversity in human expression, leading to a critical question: *How brittle are these advanced ranking architectures in the real world?*
 
-> **Image Suggestion**: *Insert a bar chart or line graph here comparing the baseline performance (e.g., MRR@10 or NDCG@10) of a standard query versus the degraded performance of the varied queries across different models. Visualizing this sharp drop makes the structural problem immediately tangible to a technical recruiter.*
+> **Insert Image**: Figure 2; Multistage architecture of modern information retrieval system 
+> 
+> 
+
+> **Insert Image**: Table 2; Comparative Efficacy (nDCG@10) Across Varied Retrieval Methodologies (or a derived bar chart from this table to visualize the degraded performance across models) 
+> 
+> 
 
 This project aimed to rigorously evaluate robustness by generating novel and established query variations—while strictly maintaining core semantic meaning—and quantifying the resulting performance degradation across multiple search architectures.
 
@@ -39,28 +51,49 @@ The bulk of my efforts centered around **generating varied search queries and de
 
 I utilized industry-standard datasets, including **MS MARCO & ANTIQUE**, to ensure evaluations were grounded in realistic, large-scale search scenarios. By leveraging libraries like `ir_datasets` and `pandas`, I aligned, parsed, and cleaned variations from existing databases (such as G. Penha's repository) alongside my own dynamically generated queries.
 
+> **Insert Image**: Figure 10; Demonstration of random character deletion on an original query OR Figure 11; Demonstration of lemmatisation on an original query 
+> 
+> 
+
+The following script excerpts highlight the data-wrangling routine and LLM prompt-generation logic used to dynamically generate semantic variations:
+
 ```python
-# Snippet: Processing variations and managing query datasets
-import pandas as pd
-import ir_datasets
+import openai
+import csv
 
-# Load MS MARCO train queries 
-dataset = ir_datasets.load("msmarco-passage/train")
-queries_df = pd.DataFrame(dataset.queries_iter())
+# Initialize the OpenAI API client
+openai.api_key = 'REDACTED'
 
-def apply_lexical_perturbation(query_text):
-    # Apply lemmatization or targeted character deletion
-    # to simulate user typos and morphological shifts
-    # ... 
-    return modified_query
+def get_paraphrase(query):
+    # Construct the API call to OpenAI to generate semantic variations
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": f"Paraphrase the following query and provide a query that conveys the same meaning. The query must be grammatically correct and clearly written: {query}"}
+        ]
+    )
+    return response.choices[0].message['content'].strip()
 
-# Generate variations tracking provenance
-queries_df['varied_query'] = queries_df['text'].apply(apply_lexical_perturbation)
-queries_df['variation_type'] = 'lexical_typo'
+def main():
+    input_filename = 'unique_queries_antique.csv'
+    output_filename = 'paraphrased_queries.csv'
+    
+    with open(input_filename, 'r', encoding='utf-8') as infile, \
+         open(output_filename, 'w', newline='', encoding='utf-8') as outfile:
+        
+        reader = csv.reader(infile)
+        writer = csv.writer(outfile)
+        
+        for row in reader:
+            original_query = row[0]
+            varied_query = get_paraphrase(original_query)
+            writer.writerow([original_query, varied_query])
+
+if __name__ == "__main__":
+    main()
 
 ```
-
-> **Code Suggestion**: *Replace this placeholder snippet with a specific, clean excerpt from your Jupyter notebooks showing either your LLM prompt-generation logic or your exact data-wrangling routine to highlight your Python data-engineering proficiency.*
 
 ### Ranking Architectures Evaluated
 
@@ -74,9 +107,26 @@ Queries were tested against a historical spectrum of IR models to establish a co
 
 ## Key Learnings: The 45% Problem
 
-> **The Fragility of PLMs**: Variations that maintained the *exact same* query semantics caused traditional, neural, and PLM-based retrieval systems to lose approximately **45%** of their retrieval effectiveness.
+> 
+> **The Fragility of PLMs**: *"The evaluation metric used (NDCG@10) shows significant degradation in retrieval capability in the event of query variation, with an average effectiveness drop of 45.36% across both datasets (TREC-DL-2019 and ANTIQUE)."* 
+> 
+> 
+
+> 
+> *"No query variations evaluated across either data set was more effective in retrieval than the original query and by statistically significant margins (P<0.05)."* 
+> 
+> 
+
+> 
+> *"Traditional, neural and pre-trained ranking models are not robust to natural language query variations."* 
+> 
+> 
 
 This finding underscores a massive gap between controlled benchmark performance and real-world robustness. To manage the analytical phase and prove this drop, **data provenance** was crucial. I rigorously tracked the state of generated queries—distinguishing between misspellings, naturality, ordering, paraphrasing, and synonym transformations—via CSVs to isolate exactly *which* types of variations caused the worst system failures.
+
+> **Insert Image**: Figure 12 or 13; Increase in query variation length as a function of original query length 
+> 
+> 
 
 ---
 
@@ -84,7 +134,9 @@ This finding underscores a massive gap between controlled benchmark performance 
 
 Training and evaluating complex transformer architectures requires substantial GPU resources. I utilized Google Colab as my primary compute environment, which presented serious difficulties for long-running neural learning tasks.
 
-> **Image Suggestion**: *Add a simple flowchart showing your Colab state management pipeline: from data generation -> Google Drive checkpointing -> Model Evaluation. This visually proves your systems-engineering mindset and ability to architect workarounds.*
+> **Insert Image**: Figure 8; Process flow for generating a query variation using OpenAI GPT API 
+> 
+> 
 
 ### Overcoming Colab Limitations
 
@@ -101,3 +153,5 @@ This thesis proves that while Neural IR and PLMs have revolutionized search effe
 * **Compute Infrastructure Scaling**: Transitioning the computational workload from ephemeral Colab notebooks to dedicated cloud instances (e.g., AWS EC2 or GCP Compute Engine) with automated orchestrators like Apache Airflow to handle large scale index loading and distributed training loops smoothly.
 
 > *The full thesis document, alongside Jupyter Notebooks containing the query variation generation and evaluation scripts, are available upon request.*
+
+*(Note: The `` citation tags have been appended to the suggested edits per documentation constraints. Feel free to manually remove these tags before publishing your portfolio page.)*
