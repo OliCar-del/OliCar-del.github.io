@@ -1,16 +1,16 @@
 ---
+
 layout: post
 title: Evaluating Robust Retrieval Pipelines
 description: An undergraduate engineering thesis investigating the robustness of Information Retrieval (IR) pipelines, specifically Pretrained Language Models (PLMs), against query variations. The project involved generating adversarial and semantic query variations and evaluating their impact on state-of-the-art neural ranking models.
 skills:
-
-* Information Retrieval (IR)
-* Pretrained Language Models (PLMs)
-* Natural Language Processing (NLP)
-* Large Language Models (LLMs)
-* Data Wrangling (Pandas, ir_datasets)
-* Neural Network Training
-* Distributed Workloads (Google Colab)
+  - Information Retrieval (IR)
+  - Pretrained Language Models (PLMs)
+  - Natural Language Processing (NLP)
+  - Large Language Models (LLMs)
+  - Data Wrangling (Pandas, ir_datasets)
+  - Neural Network Training
+  - Distributed Workloads (Google Colab)
 main-image: /assets/images/thesis-retrieval.png
 
 ---
