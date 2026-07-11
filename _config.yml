@@ -30,8 +30,8 @@ resume-url: /assets/resume/OliverCarnew_CV_2026.pdf # or /assets/resume/resume.p
 # Set up external links - this will show up as small icons next to your name.
 
 external-links:    # input only your own url slug. The icons with missing entries will not appear.
-  linkedin: https://www.linkedin.com/in/oliver-carnew/    # https://www.linkedin.com/in/oliver-carnew/
-  github: https://github.com/OliCar-del?tab=repositories    # https://github.com/OliCar-del 
+  linkedin: oliver-carnew/    # https://www.linkedin.com/in/oliver-carnew/
+  github: OliCar-del?tab=repositories    # https://github.com/OliCar-del 
   stackoverflow:      # https://stackoverflow.com/users/{your url slug}
   medium:            # https://medium.com/@{your url slug} 
   x-twitter:   # https://x.com/{your url slug} 
