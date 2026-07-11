@@ -187,4 +187,4 @@ plus `lander --selftest`, the full-application autonomous flight with shadow-ver
 * **Numerical honesty is a habit, not a feature.** A truncated float cost a week of "impossible" symptoms; a rounding rule and a bounds guard cost two lines. The differential is why simulation code deserves test harnesses.
 * **Instrumentation pays compound interest.** Every gauge built to *demonstrate* theory (term bars, strip charts, prediction-vs-measurement) ended up being the tool that *debugged* the system.
 
-> Full source - the simulation, controller, analysis plots, autotuner, UI toolkit, and all test harnesses - is available on my [GitHub](https://github.com/OliCar-del/pid-lander).
+> Full source - the simulation, controller, analysis plots, autotuner, UI toolkit, and all test harnesses - is available on my [GitHub](https://github.com/OliCar-del/PIDlander).
