@@ -39,7 +39,19 @@ Modern search engines and IR pipelines increasingly rely on Pretrained Language 
 > 
 > 
 
-> **Insert Image**: Figure 2; Comparative Efficacy (nDCG@10) Across Varied Retrieval Methodologies (or a derived bar chart from this table to visualize the degraded performance across models) 
+{% include image-gallery.html images="Fig1.png" height="600" %}
+<span style="font-size: 14px">Figure 1; Multistage architecture of modern information retrieval system. Image Source *J Guo et al.,  2022*.</span> 
+
+
+{% include image-gallery.html images="TRECefficacy.png" height="600" %}
+{% include image-gallery.html images="ANTIQUEefficacy.png" height="600" %}
+<span style="font-size: 14px">Figures 2&3; Comparative Efficacy (nDCG@10) Across Varied Retrieval Methodologies in TREC-DL-2019 and ANTIQUE Datasets Subject to Query Modifications. All query variation methods result in statistically significant (P<0.05) effectivity drops across both datasets (ANTIQUE and TREC-DL-2019).
+
+</span> 
+
+
+
+>
 > 
 > 
 
