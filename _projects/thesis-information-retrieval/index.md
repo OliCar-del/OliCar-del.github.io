@@ -12,7 +12,8 @@ skills:
   - Data Wrangling (Pandas, ir_datasets)
   - Neural Network Training
   - Distributed Workloads (Google Colab)
-main-image: /assets/images/thesis-retrieval.png
+
+main-image: /fighead.png
 
 ---
 
