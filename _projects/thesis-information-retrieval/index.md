@@ -1,5 +1,5 @@
 ---
-
+main-image: /fighead.png
 layout: post
 title: Evaluating Robust Retrieval Pipelines
 description: An undergraduate engineering thesis investigating the robustness of Information Retrieval (IR) pipelines, specifically Pretrained Language Models (PLMs), against query variations. The project involved generating adversarial and semantic query variations and evaluating their impact on state-of-the-art neural ranking models.
@@ -32,13 +32,13 @@ As part of my Bachelor of Engineering (Honours) in Computer Systems / Electrical
 Modern search engines and IR pipelines increasingly rely on Pretrained Language Models (PLMs) to rank documents. However, these systems are typically benchmarked against a single standard query for a given information need. This ignores the vast diversity in human expression, leading to a critical question: *How brittle are these advanced ranking architectures in the real world?*
 
 {% include image-gallery.html images="Fig1.png" height="600" %}
-<span style="font-size: 14px">Figure 3; Multistage architecture of modern information retrieval system. Image Source *J Guo et al.,  2022*.</span>
+<span style="font-size: 14px">Figure 1; Multistage architecture of modern information retrieval system. Image Source *J Guo et al.,  2022*.</span>
 
 >  
 > 
 > 
 
-> **Insert Image**: Table 2; Comparative Efficacy (nDCG@10) Across Varied Retrieval Methodologies (or a derived bar chart from this table to visualize the degraded performance across models) 
+> **Insert Image**: Figure 2; Comparative Efficacy (nDCG@10) Across Varied Retrieval Methodologies (or a derived bar chart from this table to visualize the degraded performance across models) 
 > 
 > 
 
