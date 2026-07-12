@@ -30,7 +30,7 @@ The project is written in C99 against [raylib](https://www.raylib.com/) for rend
 400
 {% include image-gallery.html images="loadscreen.jpg" height="400" %} 
 
-![gameplay](console.png "stepping through PID toggle control")
+![gameplay](assets\images\pidlander\console.png "stepping through PID toggle control")
 <span style="font-size: 14px">Figure 1; The full flight console: telemetry and per-term control effort (left), flight view with wind streaks (center), controller design panel (right), 20-second history strips, analysis plot, and mission sequence editor (bottom).</span>
 
 {% include image-gallery.html images="console.png" height="800"%}
