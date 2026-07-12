@@ -25,26 +25,20 @@ main-image: /console.png
 The deliberate constraint that makes the problem interesting is that **the actuator is one-sided**: thrust can only push up (`u ≥ 0`). The controller's only downward authority is gravity itself, so descending means cutting thrust entirely and waiting - overshoot is punished slowly, saturation is routine, and naive textbook PID visibly fails. Every "extra" in this project exists to expose, measure, or fix a real consequence of that constraint.
 
 The project is written in C99 against [raylib](https://www.raylib.com/) for rendering, structured as ten small modules (plant, controller, instruments, analysis plots, autotuner, UI widgets) with a headless test suite and an autonomous self-test mode that regression-checks the instrumentation itself.
-600
-{% include image-gallery.html images="console.png" height="600" %}
-400
-{% include image-gallery.html images="loadscreen.jpg" height="400" %} 
+
 
 ![gameplay](assets\images\pidlander\console.png "stepping through PID toggle control")
 <span style="font-size: 14px">Figure 1; The full flight console: telemetry and per-term control effort (left), flight view with wind streaks (center), controller design panel (right), 20-second history strips, analysis plot, and mission sequence editor (bottom).</span>
 
-{% include image-gallery.html images="console.png" height="800"%}
 
-![gameplay](begin_toggle_pid.gif "stepping through PID toggle control")
-<span style="font-size: 14px">Figure 2; Brief sample of gameplay. Game is started with button press and manually controlled by user-presses on spacebar by default. PID control can be started by pressing 'P'. Control gain bars and telemtry are at left, history plot of altitude, wind force, thrust and altitude set at bottom. Toggle panel at right sets controls.</span>
 
-{% include image-gallery.html images="plot_toggle.gif" height="600" %} 
+Figure 2; Brief sample of gameplay. Game is started with button press and manually controlled by user-presses on spacebar by default. PID control can be started by pressing 'P'. Control gain bars and telemtry are at left, history plot of altitude, wind force, thrust and altitude set at bottom. Toggle panel at right sets controls.
 
-![gameplay](plot_toggle.gif "Changing plots between bode, phase, root locus and step response")
+
+"Changing plots between bode, phase, root locus and step response"
 <span style="font-size: 14px">Figure 3; Changing plots between bode, phase, root locus and step response</span>
 
-![sequence changing](set_sequence.gif "Adjusting sequence of altitudes and timing/number of points")
-<span style="font-size: 14px">Figure 4; Adjusting flight sequence, number of altitudes, timespan and altitude setting. Errors and effort are logged for plays on each sequence. Control weights can be adjusted and tested against known sequence.</span>
+Figure 4; Adjusting flight sequence, number of altitudes, timespan and altitude setting. Errors and effort are logged for plays on each sequence. Control weights can be adjusted and tested against known sequence.</span>
 
 <!-- <a href="https://youtu.be/yYE1kUrhGyA" target="_blank">
   <img src="https://img.youtube.com/vi/yYE1kUrhGyA/maxresdefault.jpg" alt="PIDlander gameplay sequence" width="800" />
