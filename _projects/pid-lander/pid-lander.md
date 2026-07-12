@@ -46,6 +46,9 @@ The project is written in C99 against [raylib](https://www.raylib.com/) for rend
 <br>
 <span style="font-size: 14px">Figure 5; Youtube vide of sample playing the sequence. Craft is landed successfully as displayed with m/s landing speed. Sequence can be rerun with different parameters.</span>
 
+{% include youtube-video.html id="yYE1kUrhGyA" autoplay = "true" %}
+
+
 ## The Plant: Physics & Real-Time Architecture
 
 The craft is a rigid body on a vertical axis with linear drag and a disturbance force:
