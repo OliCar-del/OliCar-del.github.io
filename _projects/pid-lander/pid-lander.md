@@ -30,20 +30,17 @@ The project is written in C99 against [raylib](https://www.raylib.com/) for rend
 <span style="font-size: 14px">Figure 1; The full flight console: telemetry and per-term control effort (left), flight view with wind streaks (center), controller design panel (right), 20-second history strips, analysis plot, and mission sequence editor (bottom).</span>
 
 ![gameplay](begin_toggle_pid.gif "stepping through PID toggle control")
-<br>
 <span style="font-size: 14px">Figure 2; Brief sample of gameplay. Game is started with button press and manually controlled by user-presses on spacebar by default. PID control can be started by pressing 'P'. Control gain bars and telemtry are at left, history plot of altitude, wind force, thrust and altitude set at bottom. Toggle panel at right sets controls.</span>
 
 ![gameplay](plot_toggle.gif "Changing plots between bode, phase, root locus and step response")
 <span style="font-size: 14px">Figure 3; Changing plots between bode, phase, root locus and step response</span>
 
 ![sequence changing](set_sequence.gif "Adjusting sequence of altitudes and timing/number of points")
-<br>
 <span style="font-size: 14px">Figure 4; Adjusting flight sequence, number of altitudes, timespan and altitude setting. Errors and effort are logged for plays on each sequence. Control weights can be adjusted and tested against known sequence.</span>
 
 <a href="https://youtu.be/yYE1kUrhGyA" target="_blank">
   <img src="https://img.youtube.com/vi/yYE1kUrhGyA/maxresdefault.jpg" alt="PIDlander gameplay sequence" width="560" />
 </a>
-<br>
 <span style="font-size: 14px">Figure 5; Youtube vide of sample playing the sequence. Craft is landed successfully as displayed with m/s landing speed. Sequence can be rerun with different parameters.</span>
 
 ## The Plant: Physics & Real-Time Architecture
