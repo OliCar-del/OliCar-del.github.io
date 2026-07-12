@@ -32,6 +32,8 @@ The project is written in C99 against [raylib](https://www.raylib.com/) for rend
 ![gameplay](begin_toggle_pid.gif "stepping through PID toggle control")
 <span style="font-size: 14px">Figure 2; Brief sample of gameplay. Game is started with button press and manually controlled by user-presses on spacebar by default. PID control can be started by pressing 'P'. Control gain bars and telemtry are at left, history plot of altitude, wind force, thrust and altitude set at bottom. Toggle panel at right sets controls.</span>
 
+{% include image-gallery.html images="plot_toggle.gif" height="400" %} 
+
 ![gameplay](plot_toggle.gif "Changing plots between bode, phase, root locus and step response")
 <span style="font-size: 14px">Figure 3; Changing plots between bode, phase, root locus and step response</span>
 
