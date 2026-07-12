@@ -45,9 +45,9 @@ Figure 4; Adjusting flight sequence, number of altitudes, timespan and altitude 
 </a>
  -->
 
-{% include youtube-video.html id="yYE1kUrhGyA" autoplay = "true" width= "1200px"%}
+<!-- {% include youtube-video.html id="yYE1kUrhGyA" autoplay = "true" width= "1200px"%}
 <span style="font-size: 14px">Figure 5; Youtube vide of sample playing the sequence. Craft is landed successfully as displayed with m/s landing speed. Sequence can be rerun with different parameters.</span>
-
+ -->
 ## The Plant: Physics & Real-Time Architecture
 
 The craft is a rigid body on a vertical axis with linear drag and a disturbance force:
