@@ -30,7 +30,7 @@ The project is written in C99 against [raylib](https://www.raylib.com/) for rend
 <span style="font-size: 14px">Figure 1; Multistage architecture of modern information retrieval system. Image Source *J Guo et al.,  2022*.</span> 
 
 
-![gameplay](console.png "stepping through PID toggle control")
+![gameplay](/console.png "stepping through PID toggle control")
 
 <span style="font-size: 14px">Figure 1; The full flight console: telemetry and per-term control effort (left), flight view with wind streaks (center), controller design panel (right), 20-second history strips, analysis plot, and mission sequence editor (bottom).</span>
 
