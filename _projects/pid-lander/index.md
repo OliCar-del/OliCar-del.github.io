@@ -26,11 +26,11 @@ The deliberate constraint that makes the problem interesting is that **the actua
 
 The project is written in C99 against [raylib](https://www.raylib.com/) for rendering, structured as ten small modules (plant, controller, instruments, analysis plots, autotuner, UI widgets) with a headless test suite and an autonomous self-test mode that regression-checks the instrumentation itself.
 
-{% include image-gallery.html images="Fig1.png" height="600" %}
+{% include image-gallery.html images="begin_toggle_pid.gif" height="600" %}
 <span style="font-size: 14px">Figure 1; Multistage architecture of modern information retrieval system. Image Source *J Guo et al.,  2022*.</span> 
 
 
-![gameplay](/console.png "stepping through PID toggle control")
+![gameplay](dashboard.png "stepping through PID toggle control")
 
 <span style="font-size: 14px">Figure 1; The full flight console: telemetry and per-term control effort (left), flight view with wind streaks (center), controller design panel (right), 20-second history strips, analysis plot, and mission sequence editor (bottom).</span>
 
