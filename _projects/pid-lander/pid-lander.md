@@ -25,8 +25,10 @@ main-image: /console.png
 The deliberate constraint that makes the problem interesting is that **the actuator is one-sided**: thrust can only push up (`u ≥ 0`). The controller's only downward authority is gravity itself, so descending means cutting thrust entirely and waiting - overshoot is punished slowly, saturation is routine, and naive textbook PID visibly fails. Every "extra" in this project exists to expose, measure, or fix a real consequence of that constraint.
 
 The project is written in C99 against [raylib](https://www.raylib.com/) for rendering, structured as ten small modules (plant, controller, instruments, analysis plots, autotuner, UI widgets) with a headless test suite and an autonomous self-test mode that regression-checks the instrumentation itself.
-
+600
 {% include image-gallery.html images="console.png" height="600" %}
+400
+{% include image-gallery.html images="loadscreen.jpg" height="400" %} 
 
 ![gameplay](console.png "stepping through PID toggle control")
 <span style="font-size: 14px">Figure 1; The full flight console: telemetry and per-term control effort (left), flight view with wind streaks (center), controller design panel (right), 20-second history strips, analysis plot, and mission sequence editor (bottom).</span>
