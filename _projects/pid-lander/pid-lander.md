@@ -29,7 +29,7 @@ The project is written in C99 against [raylib](https://www.raylib.com/) for rend
 ![gameplay](console.png "stepping through PID toggle control")
 <span style="font-size: 14px">Figure 1; The full flight console: telemetry and per-term control effort (left), flight view with wind streaks (center), controller design panel (right), 20-second history strips, analysis plot, and mission sequence editor (bottom).</span>
 
-{% include image-gallery.html images="begin_toggle_pid.gif" height="800"%}
+{% include image-gallery.html images="console.png" height="800"%}
 
 ![gameplay](begin_toggle_pid.gif "stepping through PID toggle control")
 <span style="font-size: 14px">Figure 2; Brief sample of gameplay. Game is started with button press and manually controlled by user-presses on spacebar by default. PID control can be started by pressing 'P'. Control gain bars and telemtry are at left, history plot of altitude, wind force, thrust and altitude set at bottom. Toggle panel at right sets controls.</span>
