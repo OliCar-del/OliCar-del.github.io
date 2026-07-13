@@ -37,7 +37,7 @@ The project is written in C99 against [raylib](https://www.raylib.com/) for rend
 
  -->
 
-{% include image-gallery.html images="plot_toggle_pid.gif" height="600" %}
+{% include image-gallery.html images="plot_toggle.gif" height="600" %}
 <span style="font-size: 14px">Figure 2; Changing plots between bode, phase, root locus and step response</span> 
 
 {% include image-gallery.html images="set_sequence.gif" height="600" %}
