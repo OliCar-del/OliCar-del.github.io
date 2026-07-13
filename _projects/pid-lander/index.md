@@ -12,7 +12,7 @@ skills:
   - Numerical Methods (Cardano cubic solver, complex frequency response)
   - Test Harness Design & Memory-Corruption Debugging
 
-main-image: /console.png
+main-image: /dashboard.png
 ---
 
 ---
@@ -30,7 +30,7 @@ The project is written in C99 against [raylib](https://www.raylib.com/) for rend
 <span style="font-size: 14px">Figure 1; Multistage architecture of modern information retrieval system. Image Source *J Guo et al.,  2022*.</span> 
 
 
-![gameplay](dashboard.png "stepping through PID toggle control")
+![gameplay](/dashboard.png "stepping through PID toggle control")
 
 <span style="font-size: 14px">Figure 1; The full flight console: telemetry and per-term control effort (left), flight view with wind streaks (center), controller design panel (right), 20-second history strips, analysis plot, and mission sequence editor (bottom).</span>
 
@@ -50,7 +50,7 @@ Figure 4; Adjusting flight sequence, number of altitudes, timespan and altitude 
  -->
 
 {% include youtube-video.html id="yYE1kUrhGyA" autoplay = "true" width= "1200px"%}
-<span style="font-size: 14px">Figure 5; Youtube vide of sample playing the sequence. Craft is landed successfully as displayed with m/s landing speed. Sequence can be rerun with different parameters.</span>
+<span style="font-size: 14px">Figure 5; Youtube video of sample playing the sequence. Craft is landed successfully as displayed with m/s landing speed. Sequence can be rerun with different parameters.</span>
 
 ## The Plant: Physics & Real-Time Architecture
 
