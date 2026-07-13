@@ -26,23 +26,22 @@ The deliberate constraint that makes the problem interesting is that **the actua
 
 The project is written in C99 against [raylib](https://www.raylib.com/) for rendering, structured as ten small modules (plant, controller, instruments, analysis plots, autotuner, UI widgets) with a headless test suite and an autonomous self-test mode that regression-checks the instrumentation itself.
 
+<!-- {% include image-gallery.html images="begin_toggle_pid.gif" height="600" %}
+<span style="font-size: 14px">Figure 1; The full flight console: telemetry and per-term control effort (left), flight view with wind streaks (center), controller design panel (right), 20-second history strips, analysis plot, and mission sequence editor (bottom).</span> -->
+
 {% include image-gallery.html images="begin_toggle_pid.gif" height="600" %}
-<span style="font-size: 14px">Figure 1; Multistage architecture of modern information retrieval system. Image Source *J Guo et al.,  2022*.</span> 
+<span style="font-size: 14px">Figure 1; Brief sample of gameplay. Game is started with button press and manually controlled by user-presses on spacebar by default. PID control can be started by pressing 'P'. Control gain bars and telemtry are at left, history plot of altitude, wind force, thrust and altitude set at bottom. Toggle panel at right sets controls.</span> 
 
-
-![gameplay](/dashboard.png "stepping through PID toggle control")
-
+<!-- {% include image-gallery.html images="plot_toggle.gif" height="600" %}
 <span style="font-size: 14px">Figure 1; The full flight console: telemetry and per-term control effort (left), flight view with wind streaks (center), controller design panel (right), 20-second history strips, analysis plot, and mission sequence editor (bottom).</span>
 
+ -->
 
+{% include image-gallery.html images="plot_toggle_pid.gif" height="600" %}
+<span style="font-size: 14px">Figure 2; Changing plots between bode, phase, root locus and step response</span> 
 
-Figure 2; Brief sample of gameplay. Game is started with button press and manually controlled by user-presses on spacebar by default. PID control can be started by pressing 'P'. Control gain bars and telemtry are at left, history plot of altitude, wind force, thrust and altitude set at bottom. Toggle panel at right sets controls.
-
-
-"Changing plots between bode, phase, root locus and step response"
-<span style="font-size: 14px">Figure 3; Changing plots between bode, phase, root locus and step response</span>
-
-Figure 4; Adjusting flight sequence, number of altitudes, timespan and altitude setting. Errors and effort are logged for plays on each sequence. Control weights can be adjusted and tested against known sequence.</span>
+{% include image-gallery.html images="set_sequence.gif" height="600" %}
+<span style="font-size: 14px">Figure 3; Adjusting flight sequence, number of altitudes, timespan and altitude setting. Errors and effort are logged for plays on each sequence. Control weights can be adjusted and tested against known sequence.</span> 
 
 <!-- <a href="https://youtu.be/yYE1kUrhGyA" target="_blank">
   <img src="https://img.youtube.com/vi/yYE1kUrhGyA/maxresdefault.jpg" alt="PIDlander gameplay sequence" width="800" />
