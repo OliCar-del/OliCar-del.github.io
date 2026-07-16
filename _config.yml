@@ -13,10 +13,12 @@ title: Oliver Carnew's Project Portfolio # This is what shows up in the tab of t
 
 # Hero Section
 name: Oliver Carnew
-headline: Graduate Electrical and Biomedical Engineer
+headline: Graduate Electrical Engineer
 description: >- # dont remove this line. this will ignore all new lines until the next section
-  I am a highly motivated, task-focused electrical and biomedical engineering graduate, with a drive to take on responsibility and learn from experience.
-  Personal interests in machine learning and embedded systems, with projects largely focused on leveraging LLMs for data analysis or independent IoT devices with managed battery power.
+  Hands-on electrical engineering graduate (University of Queensland, 2025) who designs, builds and tests real hardware -
+  power electronics and battery systems, instrumentation and data acquisition, embedded firmware and control systems.
+  Projects are taken from concept to verified result: schematic capture, PCB layout, firmware, bench bring-up and
+  fault-finding, with measured performance reported honestly.
 
 # Place your profile image in /assets/images/profile-image/folder and edit the file name
 profile_image: ./assets/images/profile-image/cropped_headshot.png
@@ -24,7 +26,7 @@ profile_image: ./assets/images/profile-image/cropped_headshot.png
 
 # Link your resume
 # You can place your resume in assets/resume/{resume.pdf or add external link such as pdf saved in google drive 
-resume-url: /assets/resume/Oliver_Carnew_07_26.pdf # or /assets/resume/resume.pdf
+resume-url: /assets/resume/Oliver_Carnew_CV_07_26.pdf # or /assets/resume/resume.pdf
 
 
 # Set up external links - this will show up as small icons next to your name.
@@ -42,41 +44,51 @@ external-links:    # input only your own url slug. The icons with missing entrie
   bluesky:           # https://bsky.app/profile/{your url slug} 
   
 
-# Skills Section - Add the list of your Skills by categories/tools. The indentation for each level needs to be precise. 
-skills: #[cite: 2]
-  - category: Programming #[cite: 1]
+# Skills Section - Add the list of your Skills by categories/tools. The indentation for each level needs to be precise.
+skills:
+  - category: Power & Analog Electronics
     tools:
-    - Python (NumPy, pandas, Jupyter) #[cite: 1]
-    - C/C++ (embedded) #[cite: 1]
-    - MATLAB/Simulink #[cite: 1]
-    - JavaScript #[cite: 1]
-    - SQL #[cite: 1]
-    
-  - category: Embedded & Hardware #[cite: 1]
+    - Battery systems (LiFePO4 pack construction, BMS integration, protection & fusing)
+    - Solar MPPT, DC-DC conversion and USB-C/USB-PD power-path design
+    - Analog front ends - signal conditioning, precision current sources, input protection
+    - Circuit simulation & verification (LTspice)
+
+  - category: PCB Design & Hardware Bring-up
     tools:
-    - Microcontroller firmware (C/C++) #[cite: 1]
-    - FreeRTOS #[cite: 1]
-    - Serial protocols (UART, SPI, I2C) #[cite: 1]
-    - KiCad #[cite: 1]
-    - Altium Designer #[cite: 1]
-    - Hardware bring-up #[cite: 1]
-    - Bench test/debug (oscilloscope, logic analyser) #[cite: 1]
-    - Instrumentation and data acquisition #[cite: 1]
-    
-  - category: Data & Machine Learning #[cite: 1]
+    - Schematic capture & PCB layout (Altium Designer, KiCad)
+    - Iterative prototyping - breadboard to revision-driven PCB spins, design-for-debug
+    - Bench test & fault-finding (oscilloscope, logic analyser, multimeter)
+    - SMT & through-hole assembly, soldering and rework
+    - BOM management & cost engineering
+
+  - category: Embedded Systems & Instrumentation
     tools:
-    - Large-dataset processing and pipeline automation #[cite: 1]
-    - TensorFlow #[cite: 1]
-    - Statistical analysis #[cite: 1]
-    - Data visualisation #[cite: 1]
-    
-  - category: Engineering Practice #[cite: 1]
+    - Microcontroller firmware in C/C++ (STM32, FreeRTOS)
+    - Data acquisition - ADCs, sensor integration, alarms and logging
+    - Serial protocols (UART, SPI, I2C) and custom optical links
+    - Real-time firmware - interrupts, timers, state machines
+
+  - category: Control Systems
     tools:
-    - Technical documentation #[cite: 1]
-    - Quality assurance #[cite: 1]
-    - Git (version control) #[cite: 1]
-    - Scrum/Agile #[cite: 1]
-    - WHS and electrical safety awareness #[cite: 1]
+    - PID design - anti-windup, feedforward, derivative filtering
+    - Frequency-domain analysis (Bode margins, root locus, Routh-Hurwitz)
+    - Dead-time compensation (Smith predictor) and relay autotuning
+    - MATLAB/Simulink and real-time simulation in C
+
+  - category: Software, Data & Machine Learning
+    tools:
+    - Python (NumPy, pandas, pipeline automation)
+    - Large-dataset processing, statistical analysis and visualisation
+    - NLP & neural ranking model evaluation (LLMs, TensorFlow)
+    - SQL, JavaScript
+    - Git (version control)
+
+  - category: Engineering Practice
+    tools:
+    - Technical documentation & reporting
+    - Verification culture - test harnesses, regression self-tests, quality assurance
+    - Scrum/Agile
+    - WHS and electrical safety awareness
 
 
 # Contact Form Setup. Setup an account and copy over the key. When someone fills out the form, it will be received in your email.
