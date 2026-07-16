@@ -16,9 +16,36 @@
 
     <script src="{{ '/assets/js/script.js' | relative_url }}"></script>
 
-    
-    <title>{{ site.title }}</title>
-    
+    <link rel="icon" type="image/png" href="/assets/images/profile-image/cropped_headshot.png">
+
+    {% seo %}
+
+    {% if page.url == "/" %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Oliver Carnew",
+      "url": "https://olicar-del.github.io/",
+      "jobTitle": "Graduate Electrical Engineer",
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "The University of Queensland"
+      },
+      "knowsAbout": [
+        "Power electronics",
+        "PCB design",
+        "Embedded systems",
+        "Control systems",
+        "Instrumentation and data acquisition"
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/oliver-carnew",
+        "https://github.com/OliCar-del"
+      ]
+    }
+    </script>
+    {% endif %}
 
 </head>
 <body>

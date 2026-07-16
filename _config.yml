@@ -9,6 +9,18 @@
 
 title: Oliver Carnew's Project Portfolio # This is what shows up in the tab of the browser
 
+# Site URL - required for canonical links, sitemap.xml and SEO tags
+url: "https://olicar-del.github.io"
+baseurl: ""
+author: Oliver Carnew
+
+# Used by jekyll-seo-tag to link this site to other profiles in structured data
+social:
+  name: Oliver Carnew
+  links:
+    - https://www.linkedin.com/in/oliver-carnew
+    - https://github.com/OliCar-del
+
 
 
 # Hero Section
@@ -166,6 +178,8 @@ kramdown:
 
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
 include:
   - _projects
