@@ -13,6 +13,7 @@ skills:
   - Test Harness Design & Memory-Corruption Debugging
 
 main-image: /dashboard.png
+image: /_projects/03_pid-lander/dashboard.png
 ---
 
 ---

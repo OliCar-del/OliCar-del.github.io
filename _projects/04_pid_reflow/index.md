@@ -13,6 +13,7 @@ skills:
   - Test Harness Design (headless suites, shadow-verified self-test)
 
 main-image: /console.png
+image: /_projects/04_pid_reflow/console.png
 ---
 
 ---
@@ -27,7 +28,7 @@ I wrote the project to a specification I drafted first (a 400-line `ROADMAP.md` 
 {% include image-gallery.html images="console.png" height="600" %}
 <span style="font-size: 14px">Figure 1; The console mid-reflow: telemetry and per-term PID effort (left), oven cross-section with heater glow, temperature-mapped PCB and thermometer scale (center), controller/plant/sensor sliders (right), 120 s history chart, analysis plot and draggable solder-profile editor (bottom).</span>
 
-{% include image-gallery.html images="smith.gif" height="600" %}
+{% include video.html file="smith.mp4" height="600" %}
 <span style="font-size: 14px">Figure 2; The AGGRESSIVE preset (Kp = 120, deliberately past the delay-limited ultimate gain) limit-cycling on a 150 °C hold; pressing SMITH: ON with the same gains collapses the oscillation.</span>
 
 ## The Plant
@@ -78,7 +79,7 @@ The acceptance demonstration is an assertion in `test_pid.c` - gains past the de
 
 The Bode plot draws the open loop `L(jω) = C(jω)·G(jω)·e^(−jωτ_d)` with the delay's phase **exact - I refused a Padé approximation**. Dragging the delay slider tilts the phase floor down without bound and collapses the margins, which is the behavior the app exists to show.
 
-{% include image-gallery.html images="bode_delay.gif" height="500" %}
+{% include video.html file="bode_delay.mp4" height="500" %}
 <span style="font-size: 14px">Figure 3; Dragging the sensor-delay slider 0 → 8 s on the BODE view: gain unchanged, phase falling without bound, margins collapsing, verdict flipping to UNSTABLE.</span>
 
 Exactness has a consequence I had to design around: the closed-loop characteristic equation becomes transcendental, so the lander's Routh-Hurwitz verdict is mathematically unavailable - there is no polynomial to give it. Margins alone were already ruled out (the lander's conditional-stability episode showed a positive phase margin on a provably unstable loop). So the stability verdict here is computed by the method the lander used only as a *validator*: the linearized closed loop - exact discrete PID, the real delay line, the derivative filter, the Smith predictor when enabled - is simulated over six dominant time constants and tested for amplitude decay. To keep that affordable per frame, every parameter the verdict depends on sits in one padding-free struct and a `memcmp` decides whether anything changed since the last frame; the simulation reruns only when a slider actually moves. The same linear simulation drives the predicted-STEP plot, with predicted and measured overshoot/settling printed side by side as in the lander.

@@ -13,6 +13,7 @@ skills:
   - Distributed Workloads (Google Colab)
 
 main-image: /fighead.png
+image: /_projects/02_thesis-information-retrieval/fighead.png
 
 ---
 
