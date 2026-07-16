@@ -27,7 +27,7 @@ I wrote the project to a specification I drafted first (a 400-line `ROADMAP.md` 
 {% include image-gallery.html images="console.png" height="600" %}
 <span style="font-size: 14px">Figure 1; The console mid-reflow: telemetry and per-term PID effort (left), oven cross-section with heater glow, temperature-mapped PCB and thermometer scale (center), controller/plant/sensor sliders (right), 120 s history chart, analysis plot and draggable solder-profile editor (bottom).</span>
 
-{% include image-gallery.html images="smith_toggle.gif" height="600" %}
+{% include image-gallery.html images="smith.gif" height="600" %}
 <span style="font-size: 14px">Figure 2; The AGGRESSIVE preset (Kp = 120, deliberately past the delay-limited ultimate gain) limit-cycling on a 150 °C hold; pressing SMITH: ON with the same gains collapses the oscillation.</span>
 
 ## The Plant
