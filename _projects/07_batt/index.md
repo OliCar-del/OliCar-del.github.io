@@ -51,6 +51,9 @@ Over 4kWh of stored energy behind very low internal resistance drove several non
 {% include image-gallery.html images="batt.png" height="600" %}
 <span style="font-size: 14px">Assembled pack: Kapton-insulated flexible copper busbars linking the cells, balance leads routed for the JK BMS, and the main positive terminal under its red protective cover.</span>
 
+{% include image-gallery.html images="bms.jpg" height="50" %}
+<span style="font-size: 14px">Testing BMS off.</span>
+
 ## Phase 2: Future Expansion (Custom MPPT & Load Distribution)
 
 With the energy storage foundation complete, Phase 2 involves designing a custom Maximum Power Point Tracking (MPPT) solar charge controller and a load-distribution header board using KiCad. 
