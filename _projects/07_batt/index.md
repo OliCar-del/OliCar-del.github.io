@@ -52,7 +52,7 @@ Over 4kWh of stored energy behind very low internal resistance drove several non
 <span style="font-size: 14px">Assembled pack: Kapton-insulated flexible copper busbars linking the cells, balance leads routed for the JK BMS, and the main positive terminal under its red protective cover.</span>
 
 {% include image-gallery.html images="bms.jpg" height="50" %}
-<span style="font-size: 14px">Testing BMS off.</span>
+<span style="font-size: 14px">Testing BMS discharge off functionality.</span>
 
 ## Phase 2: Future Expansion (Custom MPPT & Load Distribution)
 
