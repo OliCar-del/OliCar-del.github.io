@@ -1,1 +1,2 @@
-example-project/*
+/example-project/*
+/sonos-teardown/*
