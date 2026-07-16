@@ -100,8 +100,9 @@ The profile editor is the lander's sequence editor with one substantive change: 
 
 plus IAE / ITAE / max error / heater effort kept per run in a four-slot scoreboard with the gains that flew them. Three presets ship: `SAC305` (the standard lead-free profile; earns `GOOD SOLDER` with the shipped gains), `LEADED` (Sn63/Pb37 - flown well it still scores `COLD JOINT`, because the pass bands judge lead-free solder and its 183 °C alloy never needs to reach 217; I kept that mismatch deliberately), and `SLOW` (long-soak, wide margins).
 
+<!-- TODO recording pending — uncomment when sac305_run.gif is added:
 {% include image-gallery.html images="sac305_run.gif" height="600" %}
-<span style="font-size: 14px">Figure 4; A SAC305 run at 16×: gold staircase is the recipe, white the air, amber the board lagging it; the solder bead melts above the liquidus line, the door opens on the cooldown segment, and the run posts peak/TAL/ramp scores and a GOOD SOLDER verdict.</span>
+<span style="font-size: 14px">Figure 4; A SAC305 run at 16×: gold staircase is the recipe, white the air, amber the board lagging it; the solder bead melts above the liquidus line, the door opens on the cooldown segment, and the run posts peak/TAL/ramp scores and a GOOD SOLDER verdict.</span> -->
 
 ## Challenges & Bugs
 
