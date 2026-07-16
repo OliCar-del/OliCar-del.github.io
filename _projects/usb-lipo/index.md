@@ -8,7 +8,7 @@ skills:
  - Circuit Simulation (LTspice)
  - Schematic Capture & BOM Management
 
-main-image: /render.png
+main-image: /constructed.jpeg
 ---
 
 # Uninterruptible 3.3V Power Management PCB
@@ -43,12 +43,16 @@ The circuit utilizes a P-Channel MOSFET and a Schottky diode. When USB 5V is pre
 {% include image-gallery.html images="hotswap.png" height="500" %}
 LTspice transient analysis circuit verifying the hand-off timing and voltage stability between the USB and Battery sources.
 
-## Board Layout & Routing
+## Bring-up Process
 
-The layout prioritized thick power traces and substantial copper pours to handle necessary current and aid in thermal dissipation from the LDO and Charging IC. A unified ground plane ensures a low-impedance return path for the entire board.
+Breadboard was followed by PCB design and layout then manufacture. Abundant testpoints and bridges were included for ease of testing and troubleshooting.
 
 {% include image-gallery.html images="copper_art.png" height="500" %}
-PCB Copper Artwork: Highlighting the high-current 5V (yellow) and 3.3V (blue) routing, with a continuous ground plane for thermal relief.
+<span style="font-size: 14px">PCB Copper Artwork</span> 
+
 
 {% include image-gallery.html images="render.png" height="600" %}
-Final 3D Render of the populated board, demonstrating the physical layout, robust USB-C mounting, and strategically placed test points.
+<span style="font-size: 14px">Final 3D Render of the populated board, demonstrating the physical layout, robust USB-C mounting, and strategically placed test points.</span> 
+
+{% include image-gallery.html images="constructed.jpeg" height="600" %}
+<span style="font-size: 14px">Constructed and tested final PCB. Some testpoints unpopulated. Easy access to different nets and molex terminals for off-board connections.</span> 
