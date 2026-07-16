@@ -44,7 +44,7 @@ Modern search engines and IR pipelines increasingly rely on Pretrained Language 
 
 {% include image-gallery.html images="TRECefficacy.png" height="600" %}
 {% include image-gallery.html images="ANTIQUEefficacy.png" height="600" %}
-<span style="font-size: 14px">Figures 2&3; Comparative Efficacy (nDCG@10) Across Varied Retrieval Methodologies in TREC-DL-2019 and ANTIQUE Datasets Subject to Query Modifications. All query variation methods result in statistically significant (P<0.05) effectivity drops across both datasets (ANTIQUE and TREC-DL-2019).
+<span style="font-size: 14px">Figures 2 and 3; Comparative Efficacy (nDCG@10) Across Varied Retrieval Methodologies in TREC-DL-2019 and ANTIQUE Datasets Subject to Query Modifications. All query variation methods result in statistically significant (P<0.05) effectivity drops across both datasets (ANTIQUE and TREC-DL-2019).
 
 </span> 
 

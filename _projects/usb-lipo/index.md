@@ -66,6 +66,6 @@ Breadboard was followed by PCB design and layout then manufacture. Abundant test
 
 * Ground planes on both layers
 * Thicker traces for power (not an issue at 2A but wouldn't hurt)
-* Too many testpoints constructed, could have left as probe-able vias.
+* Too many testpoints constructed, could have left as probeable vias.
 * Silkscreen alignment and orientation
 * More indicator LEDs
