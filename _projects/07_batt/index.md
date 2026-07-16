@@ -26,19 +26,19 @@ To achieve this, I engineered a 4S (4-series) Lithium Iron Phosphate (LiFePO4) b
 | **Nominal System Voltage** | 12.8V | Operating range: 10.0V (cutoff) to 14.6V (max charge). |
 | **Total Capacity** | 314Ah (Approx. 4000Wh) | Provides multiple days of autonomy for a 12V fridge and accessories. |
 | **Battery Management** | 200A JK BMS | Includes active balancing and Bluetooth telemetry. |
-| **Interconnects** | Flexible Copper Braid | Mitigates mechanical stress on cell terminals during vehicle vibration. |
+| **Interconnects** | Flexible copper busbars | Absorb cell movement without transferring stress to the terminals during vehicle vibration. |
 
-> The decision to use flexible copper braids rather than solid copper busbars was a deliberate mechanical design choice. In an automotive environment, chassis flex and continuous vibration can cause solid busbars to apply lateral shear force to the internal cell terminals, leading to premature cell failure or micro-cracking.
+> The decision to use flexible copper busbars rather than rigid solid ones was a deliberate mechanical design choice. In an automotive environment, chassis flex and continuous vibration can cause a rigid busbar to apply lateral shear force to the internal cell terminals, leading to premature cell failure or micro-cracking. The flexible links absorb that movement, and each busbar is insulated with Kapton tape over the exposed copper.
 
 ## Hardware Construction & Mechanical Design
 
 Raw-cell pack longevity is set by mechanics as much as electronics: EVE specifies consistent, even compression to prevent swelling (delamination of the internal electrodes), and the build was designed around that constraint.
 
-* **Mechanical Compression:** The EVE MB31 cells require consistent, even pressure to maintain their rated lifespan. I constructed a compression rig using heavy-duty timber end-plates secured by threaded rods at all four corners. The nuts were tightened using a torque wrench to meet the manufacturer's specified compression force (typically around 300 kgf). 
-* **Vibration Resistance:** To adapt the timber and threaded rod design for a mobile environment, all fasteners were upgraded to Nyloc nuts with LocTite (blue). This prevents the compression rig from slowly backing off under the constant high-frequency vibration of driving.
+* **Mechanical Compression:** The EVE MB31 cells require consistent, even pressure across their faces to maintain their rated lifespan. The rig clamps the four cells between 3/4" plywood end plates banded with steel tension straps. Plywood was chosen over solid timber because its cross-laminated plies are dimensionally stable and cannot split along a grain line under sustained clamping load, and the straps spread that load across the whole plate face rather than concentrating it at corner fixings.
+* **Vibration Resistance:** The strap-and-plate arrangement suits a vehicle: with no threaded fasteners in the compression path there is nothing to back off under the constant high-frequency vibration of driving — the crimped strap ends permanently lock in the preload.
 
 {% include image-gallery.html images="testfit.png" height="600" %}
-<span style="font-size: 14px">Initial cell layout and timber compression plate test-fit.</span>
+<span style="font-size: 14px">Cell test-fit under compression: four MB31 cells between 3/4" plywood end plates, banded with crimped tension straps. The FR4 sheet under the straps isolates the cell cases on the outer face.</span>
 
 ## Safety Integrations & Electrical Protection
 
@@ -48,8 +48,8 @@ Over 4kWh of stored energy behind very low internal resistance drove several non
 2. **Catastrophic Fusing:** A Class T fuse (or high-interrupt ANL fuse) was installed immediately at the main positive terminal. Standard automotive fuses cannot safely interrupt the thousands of amps these cells can deliver in a short circuit; the arc would simply jump the gap.
 3. **Thermal Management:** The JK BMS temperature probes were affixed directly to the cell bodies. The BMS was programmed to enforce a strict low-temperature charging cutoff (0°C). Charging LFP cells below freezing causes permanent lithium plating and immediate cell degradation.
 
-{% include image-gallery.html images="placeholder.png" height="600" %}
-<span style="font-size: 14px">JK BMS wired into the pack, showing active balancing leads and flexible copper braid interconnects.</span>
+{% include image-gallery.html images="batt.png" height="600" %}
+<span style="font-size: 14px">Assembled pack: Kapton-insulated flexible copper busbars linking the cells, balance leads routed for the JK BMS, and the main positive terminal under its red protective cover.</span>
 
 ## Phase 2: Future Expansion (Custom MPPT & Load Distribution)
 
@@ -58,5 +58,6 @@ With the energy storage foundation complete, Phase 2 involves designing a custom
 * **MPPT Solar Controller:** The system will be fed by a 200W, 12V nominal solar panel. While it is "12V nominal", its actual Open Circuit Voltage (Voc) is approximately 44V, with a Voltage at Maximum Power (Vmp) of ~36V. The PCB will utilize a synchronous buck converter topology to efficiently step the 36V+ input down to the precise 14.4V bulk/absorption voltage required by the LFP pack. 
 * **Load Switching Header:** To eliminate standard relays and bulky fuse blocks, the design will incorporate high-side smart FETs (e.g., Infineon PROFETs). This will allow for solid-state, microcontroller-driven load switching of the fridge, lighting, and fans, complete with programmable current-limiting and short-circuit protection on every channel.
 
-{% include image-gallery.html images="placeholder.png" height="600" %}
-<span style="font-size: 14px">Early concept schematic in KiCad for the synchronous buck MPPT logic and smart-FET load switching.</span>
+<!-- TODO image pending — uncomment when the MPPT concept schematic is exported:
+{% include image-gallery.html images="mppt_schematic_draft.png" height="600" %}
+<span style="font-size: 14px">Early concept schematic in KiCad for the synchronous buck MPPT logic and smart-FET load switching.</span> -->
