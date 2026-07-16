@@ -12,33 +12,33 @@ skills:
   - State Machine (FSM) Implementation
 
 main-image: /mainpicture2.png
+image: /_projects/01_tap-mania/mainpicture2.png
 ---
 
----
-# tpmania - Miniaturised Music Based Rhythm Game
+# tap-mania - Miniaturised Music-Based Rhythm Game
 
 ## Project Overview & Scope
 
 ***tap-mania*** is a miniaturised arcade rhythm and dance game played with the fingers, drawing heavy inspiration from full-sized arcade cabinets like *Dance Dance Revolution* and *StepmaniaX*. The core objective is for players to follow rhythm cues displayed on a screen by hitting the correct arcade pushbuttons. The cues are perfectly synchronised to music, and the player's timing accuracy determines their score.
 
-The scope of this project required building a fully functional embedded system from the ground up, compliant with strict technical standards. This involved designing a custom Printed Circuit Board (PCB), managing complex power constraints (3.7V LiPo battery, USB charging, 5V/3.3V rails), generating high-fidelity audio, parsing sequence files from a microSD card, outputting gameplay data to a 1.3" OLED screen, and driving an LED matrix alongside individual arcade button LEDs while monitoring for millisecond precise presses.
+The project required building a fully functional embedded system from the ground up: a custom Printed Circuit Board (PCB), a constrained power architecture (3.7V LiPo battery, USB charging, 5V/3.3V rails), high-fidelity audio generation, sequence files parsed from a microSD card, gameplay output to a 1.3" OLED screen, and an LED matrix driven alongside individual arcade button LEDs while monitoring for millisecond-precise presses.
 
 ## Hardware Architecture & Component Selection
 
-Developing a robust hardware baseline was crucial for the seamless integration of all sub-systems. I chose the **STM32L433CCT6** microcontroller as the system's brain due to its expansive peripheral support, including a Serial Audio Interface (SAI) for audio control, I2C for the OLED, SPI for the microSD card, and hardware timers/PWM for LED matrix control.
+The **STM32L433CCT6** anchors the design, chosen for a peripheral set that covers every subsystem without glue logic: a Serial Audio Interface (SAI) for audio, I2C for the OLED, SPI for the microSD card, and hardware timers/PWM for LED matrix control.
 
 | Subsystem | Selected Component | Justification |
 | --- | --- | --- |
 | **Microcontroller** | STM32L433CCT6 | Familiar architecture, highly capable peripheral set, and sufficient GPIOs for complex I/O mapping and interrupt scheduling. |
 | **Audio Generation** | MAX98357A (DAC + Amp) | Fully integrated DAC (up to 32-bit) and amplifier. Greatly reduces hardware complexity by eliminating output filters. |
-| **Power Pathing & Charging** | MP2637GR-Z | Handles battery charging and boosts the 3.7V LiPo to a robust 5V output (at 2.2A), exceeding specification requirements. |
+| **Power Pathing & Charging** | MP2637GR-Z | Handles battery charging and boosts the 3.7V LiPo to a robust 5V output at 2.2A - comfortable headroom over the LED matrix and audio peak load. |
 | **Logic Power (3.3V Rail)** | AP2112K-3.3 (LDO) | Provides a clean, low-noise 3.3V supply stepped down from the 5V boost, crucial for the MCU and audio DAC. |
 
 > The "boost-then-LDO" topology was a simple, cost-effective design choice that provided a highly reliable, low-noise 3.3V supply for critical logic components while simultaneously satisfying the 5V requirement for the LED matrix.
 
 ## Iterative Prototyping Stages
 
-Given the strict design guidelines and dense integration requirements, the hardware was developed iteratively across four distinct PCB versions, moving from initial concept verification to a fully polished product.
+The hardware was developed across four PCB versions, each spin fixing what testing of the previous one exposed - from initial concept verification to the final product.
 
 ---
 
@@ -49,7 +49,7 @@ Given the strict design guidelines and dense integration requirements, the hardw
 <span style="font-size: 14px">PCBv1 Altium copper artwork</span>
 {% include image-gallery.html images="PCBV1_built.jpg" height="600" %}
 <span style="font-size: 14px">PCBv1 fully constructed, tested and functional prototype</span>
-2. **PCB Version 2 (PCBv2):** Introduced a direct USB-C connector with a TPD8S300 protection IC (for ESD/overvoltage protection) and terminal lugs for direct arcade button interfacing. A backup SEEEDUINO socket was added for redundancy.
+**PCB Version 2 (PCBv2):** Introduced a direct USB-C connector with a TPD8S300 protection IC (for ESD/overvoltage protection) and terminal lugs for direct arcade button interfacing. A backup SEEEDUINO socket was added for redundancy.
 {% include image-gallery.html images="PCBV2_render.png" height="600" %}
 <span style="font-size: 14px">PCBv2 Altium render</span>
 {% include image-gallery.html images="PCBV2_copper.png" height="600" %}
@@ -63,22 +63,21 @@ Given the strict design guidelines and dense integration requirements, the hardw
 
 ---
 
-**PCB Version 3 (PCBv3):** Major compliance and functional overhauls. Audio pins were re-routed to SAI1 (LCLOCK, BCLOCK) for proper I2S function. Arcade button LEDs were shifted to the 5V rail and controlled via BSS138 N-Channel 
-MOSFETs to comply with standards. Spade terminals were replaced with keyed JST-PH 2.0mm connectors.
+**PCB Version 3 (PCBv3):** Major functional and robustness overhauls. Audio pins were re-routed to SAI1 (LCLOCK, BCLOCK) for proper I2S function. Arcade button LEDs were shifted to the 5V rail and switched via BSS138 N-channel MOSFETs, so the 3.3V GPIOs never source LED current directly. Spade terminals were replaced with keyed JST-PH 2.0mm connectors to make mis-wiring physically impossible.
 {% include image-gallery.html images="PCBV3_render.png" height="600" %}
 <span style="font-size: 14px">PCBv3 Altium render showing removal of USB input/protection and inclusion of keyed connectors</span>
 {% include image-gallery.html images="PCBV3_copper.png" height="600" %}
 <span style="font-size: 14px">PCBv3 Altium copper artwork showing longer USB UART Connections and revised battery charging wiring. 3.3V rail is in aqua, 5V input is in pale yellow, Arcade button signals/power in bright yellow.</span>
 {% include image-gallery.html images="PCBV3_built.jpg" height="600" %}
-<span style="font-size: 14px">PCBv3 fully constructed, tested and functional prototype. Full functionality was achieved at this point, though some compliance issues were yet to be rectified. This version could achieve the specification but wasn't quite robust enough.</span>
+<span style="font-size: 14px">PCBv3 fully constructed, tested and functional prototype. Full functionality was achieved at this point; the remaining work was robustness rather than features.</span>
 {% include image-gallery.html images="PCBV3_test.png" height="600" %}
 <span style="font-size: 14px">PCBv3 showing informative debug output via USART to PC, while playing the game on LED matrix.</span>
 
 ---
 
-**PCB Version 4 (PCBv4 - Final):** Focused on final polish, mounting clearance, and standard compliance. Added a 5V rail power indicator LED, nylon spacers for OLED clearance, solder bridges to isolate the 5V system rail for safer fault finding, and a unified ground plane strategy for the arcade switches.
+**PCB Version 4 (PCBv4 - Final):** Focused on final polish, mounting clearance and robustness. Added a 5V rail power indicator LED, nylon spacers for OLED clearance, solder bridges to isolate the 5V system rail for safer fault finding, and a unified ground plane strategy for the arcade switches.
 {% include image-gallery.html images="PCBV4_render.png" height="600" %}
-<span style="font-size: 14px">PCBv4 Altium render showing final layout and fully compliant inclusions</span>
+<span style="font-size: 14px">PCBv4 Altium render showing the final layout</span>
 {% include image-gallery.html images="PCBV4_copper.png" height="600" %}
 <span style="font-size: 14px">PCBv4 Altium copper artwork showing minor changes to V3. Some trace widening and minor debug and ESD inclusions.</span>
 {% include image-gallery.html images="PCBV4_test.jpg" height="600" %}
@@ -127,11 +126,11 @@ void Process_System_State() {
 
 ```
 
-## Challenges
+## Defensive Engineering
 
-A major operational challenge during this project was a severe imbalance in team workload. Due to a mix of member unavailability, illness, and a lack of experience among peers, the intended division of labor dissolved.
+The build was structured so that no single subsystem failure could stall the rest. Every board revision carried solder bridges and isolation headers, so each rail and IC could be powered, probed and tested independently, and verbose UART debug logging ran on every prototype — which is what made faults like the audio pins that had to move to SAI1 cheap to find and fix in the next spin.
 
-To ensure the project's success, I took on the vast majority of technical responsibilities. I was solely responsible for designing all four iterations of the PCB, implementing the power management/hot-swapping systems, selecting the components, wiring the harnesses, writing the core state machine, interfacing the SD card, parsing sequence data, and managing the integration between the GUI and the device. This experience underscored the importance of *defensive engineering*-using solder bridges, isolation headers, and verbose UART debug logging-to guarantee that if one sub-system failed, it wouldn't stall the development of the rest of the board.
+The scope spanned the full stack: all four PCB iterations, the power management and charging path, component selection, wiring harnesses, the core state machine, SD card interfacing and sequence parsing, and the integration between the device and the PC GUI (GUI by collaborator Nanfeng Ding).
 
 ---
 
