@@ -59,7 +59,7 @@ Over 4kWh of stored energy behind very low internal resistance drove several non
 With the energy storage foundation complete, Phase 2 involves designing a custom Maximum Power Point Tracking (MPPT) solar charge controller and a load-distribution header board using KiCad. 
 
 * **MPPT Solar Controller:** The system will be fed by a 200W, 12V nominal solar panel. While it is "12V nominal", its actual Open Circuit Voltage (Voc) is approximately 44V, with a Voltage at Maximum Power (Vmp) of ~36V. The PCB will utilize a synchronous buck converter topology to efficiently step the 36V+ input down to the precise 14.4V bulk/absorption voltage required by the LFP pack. 
-* **Load Switching Header:** To eliminate standard relays and bulky fuse blocks, the design will incorporate high-side smart FETs (e.g., Infineon PROFETs). This will allow for solid-state, microcontroller-driven load switching of the fridge, lighting, and fans, complete with programmable current-limiting and short-circuit protection on every channel.
+
 
 <!-- TODO image pending — uncomment when the MPPT concept schematic is exported:
 {% include image-gallery.html images="mppt_schematic_draft.png" height="600" %}
