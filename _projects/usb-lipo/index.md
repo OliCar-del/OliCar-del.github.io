@@ -3,6 +3,7 @@ layout: post
 title: Uninterruptible 3.3V Power Management & Charging PCB
 description: A miniaturised, highly robust power supply board featuring USB-C input, single-cell LiPo charging, and seamless power-path hot-swapping to a regulated 3.3V logic supply.
 skills:
+
  - PCB Design & Routing (Altium)
  - Power Path Management (Hot-Swapping)
  - Circuit Simulation (LTspice)
@@ -10,7 +11,6 @@ skills:
 
 main-image: /constructed.jpeg
 ---
-
 # Uninterruptible 3.3V Power Management PCB
 
 ## Project Overview
@@ -29,12 +29,10 @@ The architecture was engineered for simplicity and component availability, relyi
 | **Voltage Regulation** | AP2112K-3.3TRG1 | A high-speed, low-dropout (LDO) regulator providing a clean 600mA 3.3V supply, ideal for noise-sensitive microcontrollers. |
 
 {% include image-gallery.html images="Schematic.png" height="600" %}
-<span style="font-size: 14px">Overall Schematic: Detailing the USB-C configuration, MCP73831 battery charger, load-sharing power path, and LDO isolation circuits.</span> 
-
+Figure 1: Overall Schematic: Detailing the USB-C configuration, MCP73831 battery charger, load-sharing power path, and LDO isolation circuits.
 
 {% include image-gallery.html images="bom.png" height="400" %}
-<span style="font-size: 14px">Bill of Materials (BOM) excerpt highlighting the critical power management components.</span> 
-
+Figure 2: Bill of Materials (BOM) excerpt highlighting the critical power management components.
 
 ## Hot-Swap Power Path Design & Simulation
 
@@ -43,27 +41,25 @@ To ensure the 3.3V rail would not drop during power hand-offs, the load-sharing 
 The circuit utilizes a P-Channel MOSFET and a Schottky diode. When USB 5V is present, the diode conducts power to the LDO, while the MOSFET gate is pulled high, isolating the LiPo battery. The MCP73831 is then free to charge the battery independently. When USB power is removed, the gate is pulled low, swiftly turning on the MOSFET and allowing the battery to take over the load instantaneously.
 
 {% include image-gallery.html images="hotswap.png" height="500" %}
-<span style="font-size: 14px">LTspice transient analysis circuit verifying the hand-off timing and voltage stability between the USB and Battery sources.</span> 
-
+Figure 3: LTspice transient analysis circuit verifying the hand-off timing and voltage stability between the USB and Battery sources.
 
 ## Bring-up Process
 
 Breadboard was followed by PCB design and layout then manufacture. Abundant testpoints and bridges were included for ease of testing and troubleshooting.
 
 {% include image-gallery.html images="copper_art.png" height="500" %}
-<span style="font-size: 14px">2-Layer PCB Copper Artwork</span> 
-
+Figure 4: 2-Layer PCB Copper Artwork
 
 {% include image-gallery.html images="render.png" height="600" %}
-<span style="font-size: 14px">Final 3D Render of the populated board, demonstrating the physical layout, robust USB-C mounting, and strategically placed test points.</span> 
+Figure 5: Final 3D Render of the populated board, demonstrating the physical layout, robust USB-C mounting, and strategically placed test points.
 
 {% include image-gallery.html images="constructed.jpeg" height="600" %}
-<span style="font-size: 14px">Constructed and tested final PCB. Some testpoints unpopulated. Easy access to different nets and molex terminals for off-board connections.</span> 
-
+Figure 6: Constructed and tested final PCB. Some testpoints unpopulated. Easy access to different nets and molex terminals for off-board connections.
 
 ## Necessary improvements
- - Ground planes on both layers
- - Thicker traces for power (not an issue at 2A but wouldn't hurt)
- - Too many testpoints constructed, could have left as probe-able vias.
- - Silkscreen alignment and orientation
- - More indicator LEDs
+
+* Ground planes on both layers
+* Thicker traces for power (not an issue at 2A but wouldn't hurt)
+* Too many testpoints constructed, could have left as probe-able vias.
+* Silkscreen alignment and orientation
+* More indicator LEDs
