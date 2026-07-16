@@ -29,10 +29,12 @@ The architecture was engineered for simplicity and component availability, relyi
 | **Voltage Regulation** | AP2112K-3.3TRG1 | A high-speed, low-dropout (LDO) regulator providing a clean 600mA 3.3V supply, ideal for noise-sensitive microcontrollers. |
 
 {% include image-gallery.html images="Schematic.png" height="600" %}
-Overall Schematic: Detailing the USB-C configuration, MCP73831 battery charger, load-sharing power path, and LDO isolation circuits.
+<span style="font-size: 14px">Overall Schematic: Detailing the USB-C configuration, MCP73831 battery charger, load-sharing power path, and LDO isolation circuits.</span> 
+
 
 {% include image-gallery.html images="bom.png" height="400" %}
-Bill of Materials (BOM) excerpt highlighting the critical power management components.
+<span style="font-size: 14px">Bill of Materials (BOM) excerpt highlighting the critical power management components.</span> 
+
 
 ## Hot-Swap Power Path Design & Simulation
 
@@ -41,7 +43,8 @@ To ensure the 3.3V rail would not drop during power hand-offs, the load-sharing 
 The circuit utilizes a P-Channel MOSFET and a Schottky diode. When USB 5V is present, the diode conducts power to the LDO, while the MOSFET gate is pulled high, isolating the LiPo battery. The MCP73831 is then free to charge the battery independently. When USB power is removed, the gate is pulled low, swiftly turning on the MOSFET and allowing the battery to take over the load instantaneously.
 
 {% include image-gallery.html images="hotswap.png" height="500" %}
-LTspice transient analysis circuit verifying the hand-off timing and voltage stability between the USB and Battery sources.
+<span style="font-size: 14px">LTspice transient analysis circuit verifying the hand-off timing and voltage stability between the USB and Battery sources.</span> 
+
 
 ## Bring-up Process
 
