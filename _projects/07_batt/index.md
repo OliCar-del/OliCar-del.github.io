@@ -7,8 +7,8 @@ skills:
   - Power Distribution & Fusing
   - BMS Integration (JK Active Balancing)
   - Automotive 12V Systems
-main-image: /placeholder.png
-image: /_projects/07_batt/placeholder.png
+main-image: /batt.png
+image: /_projects/07_batt/batt.png
 ---
 # 12V 314Ah Automotive LiFePO4 Auxiliary System
 
@@ -37,7 +37,7 @@ Raw-cell pack longevity is set by mechanics as much as electronics: EVE specifie
 * **Mechanical Compression:** The EVE MB31 cells require consistent, even pressure to maintain their rated lifespan. I constructed a compression rig using heavy-duty timber end-plates secured by threaded rods at all four corners. The nuts were tightened using a torque wrench to meet the manufacturer's specified compression force (typically around 300 kgf). 
 * **Vibration Resistance:** To adapt the timber and threaded rod design for a mobile environment, all fasteners were upgraded to Nyloc nuts with LocTite (blue). This prevents the compression rig from slowly backing off under the constant high-frequency vibration of driving.
 
-{% include image-gallery.html images="placeholder.png" height="600" %}
+{% include image-gallery.html images="testfit.png" height="600" %}
 <span style="font-size: 14px">Initial cell layout and timber compression plate test-fit.</span>
 
 ## Safety Integrations & Electrical Protection
