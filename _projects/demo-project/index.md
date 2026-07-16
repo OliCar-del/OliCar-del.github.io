@@ -131,7 +131,7 @@ void Process_System_State() {
 
 A major operational challenge during this project was a severe imbalance in team workload. Due to a mix of member unavailability, illness, and a lack of experience among peers, the intended division of labor dissolved.
 
-To ensure the project's success, I took on the vast majority of technical responsibilities. I was solely responsible for designing all four iterations of the PCB, implementing the power management/hot-swapping systems, selecting the components, wiring the harnesses, writing the core state machine, interfacing the SD card, parsing sequence data, and managing the integration between the GUI and the device. This experience underscored the importance of *defensive engineering*—using solder bridges, isolation headers, and verbose UART debug logging—to guarantee that if one sub-system failed, it wouldn't stall the development of the rest of the board.
+To ensure the project's success, I took on the vast majority of technical responsibilities. I was solely responsible for designing all four iterations of the PCB, implementing the power management/hot-swapping systems, selecting the components, wiring the harnesses, writing the core state machine, interfacing the SD card, parsing sequence data, and managing the integration between the GUI and the device. This experience underscored the importance of *defensive engineering*-using solder bridges, isolation headers, and verbose UART debug logging-to guarantee that if one sub-system failed, it wouldn't stall the development of the rest of the board.
 
 ---
 

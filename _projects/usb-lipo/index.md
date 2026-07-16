@@ -15,7 +15,7 @@ main-image: /render.png
 
 ## Project Overview
 
-This project outlines the design and verification of a dedicated power management sub-system. The core objective was to design a highly reliable circuit capable of arbitrating between a 5V USB-C power source and a 3.7V single-cell LiPo battery, stepping the active source down to a clean, continuous 3.3V output. Crucially, the system required "hot-swapping" capabilities—allowing the user to plug or unplug the USB-C cable without browning out the downstream 3.3V logic.
+This project outlines the design and verification of a dedicated power management sub-system. The core objective was to design a highly reliable circuit capable of arbitrating between a 5V USB-C power source and a 3.7V single-cell LiPo battery, stepping the active source down to a clean, continuous 3.3V output. Crucially, the system required "hot-swapping" capabilities-allowing the user to plug or unplug the USB-C cable without browning out the downstream 3.3V logic.
 
 ## Hardware Architecture & Component Selection
 
