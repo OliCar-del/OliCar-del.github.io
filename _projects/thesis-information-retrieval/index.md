@@ -18,7 +18,7 @@ main-image: /fighead.png
 
 # Evaluating Robust Retrieval Pipelines
 
-> "Modern search engines seem practically omniscient—until you ask them the exact same question in a slightly different way. Then, state-of-the-art models can silently fail."
+> "Modern search engines seem practically omniscient-until you ask them the exact same question in a slightly different way. Then, state-of-the-art models can silently fail."
 
 ## Project Overview & Scope
 
@@ -54,7 +54,7 @@ Modern search engines and IR pipelines increasingly rely on Pretrained Language 
 > 
 > 
 
-This project aimed to rigorously evaluate robustness by generating novel and established query variations—while strictly maintaining core semantic meaning—and quantifying the resulting performance degradation across multiple search architectures.
+This project aimed to rigorously evaluate robustness by generating novel and established query variations-while strictly maintaining core semantic meaning-and quantifying the resulting performance degradation across multiple search architectures.
 
 ---
 
@@ -137,7 +137,7 @@ Queries were tested against a historical spectrum of IR models to establish a co
 > 
 > 
 
-This finding underscores a massive gap between controlled benchmark performance and real-world robustness. To manage the analytical phase and prove this drop, **data provenance** was crucial. I rigorously tracked the state of generated queries—distinguishing between misspellings, naturality, ordering, paraphrasing, and synonym transformations—via CSVs to isolate exactly *which* types of variations caused the worst system failures.
+This finding underscores a massive gap between controlled benchmark performance and real-world robustness. To manage the analytical phase and prove this drop, **data provenance** was crucial. I rigorously tracked the state of generated queries-distinguishing between misspellings, naturality, ordering, paraphrasing, and synonym transformations-via CSVs to isolate exactly *which* types of variations caused the worst system failures.
 
 > **Insert Image**: Figure 12 or 13; Increase in query variation length as a function of original query length 
 > 
