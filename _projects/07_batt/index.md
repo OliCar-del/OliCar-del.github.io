@@ -1,13 +1,13 @@
 ---
 layout: post
-title: 314A Auxillary Vehicle Battery
-description: Large capacity 4S EVE MB31 314AH LIFEPO4 construction battery with protection, 200A JK BMS and case construction/compression for automotive and off-grid camping applications. Acts as the foundation for a future custom  MPPT solar controller and integration with 200W solar panel.
+title: 314Ah Auxiliary Vehicle Battery
+description: Large capacity 4S EVE MB31 314Ah LiFePO4 construction battery with protection, 200A JK BMS and case construction/compression for automotive and off-grid camping applications. Acts as the foundation for a future custom MPPT solar controller and integration with a 200W solar panel.
 skills:
   - Battery Pack Assembly & Compression
   - Power Distribution & Fusing
   - BMS Integration (JK Active Balancing)
   - Automotive 12V Systems
-main-image: /constructed.jpeg
+main-image: /placeholder.png
 ---
 # 12V 314Ah Automotive LiFePO4 Auxiliary System
 
@@ -36,7 +36,7 @@ Constructing a raw cell battery pack requires strict adherence to the manufactur
 * **Mechanical Compression:** The EVE MB31 cells require consistent, even pressure to maintain their rated lifespan. I constructed a compression rig using heavy-duty timber end-plates secured by threaded rods at all four corners. The nuts were tightened using a torque wrench to meet the manufacturer's specified compression force (typically around 300 kgf). 
 * **Vibration Resistance:** To adapt the timber and threaded rod design for a mobile environment, all fasteners were upgraded to Nyloc nuts with LocTite (blue). This prevents the compression rig from slowly backing off under the constant high-frequency vibration of driving.
 
-{% include image-gallery.html images="batt-rig.png" height="600" %}
+{% include image-gallery.html images="placeholder.png" height="600" %}
 <span style="font-size: 14px">Initial cell layout and timber compression plate test-fit.</span>
 
 ## Safety Integrations & Electrical Protection
@@ -47,15 +47,15 @@ Working with over 4kWh of stored energy with incredibly low internal resistance 
 2. **Catastrophic Fusing:** A Class T fuse (or high-interrupt ANL fuse) was installed immediately at the main positive terminal. Standard automotive fuses cannot safely interrupt the thousands of amps these cells can deliver in a short circuit; the arc would simply jump the gap.
 3. **Thermal Management:** The JK BMS temperature probes were affixed directly to the cell bodies. The BMS was programmed to enforce a strict low-temperature charging cutoff (0°C). Charging LFP cells below freezing causes permanent lithium plating and immediate cell degradation.
 
-{% include image-gallery.html images="wiring_bms.jpg" height="600" %}
+{% include image-gallery.html images="placeholder.png" height="600" %}
 <span style="font-size: 14px">JK BMS wired into the pack, showing active balancing leads and flexible copper braid interconnects.</span>
 
 ## Phase 2: Future Expansion (Custom MPPT & Load Distribution)
 
-With the energy storage foundation complete, Phase 2 involves designing a custom Maximum Power Point Tracking (MPPT) solar charge controller and a load-distribution header board using KiCAD. 
+With the energy storage foundation complete, Phase 2 involves designing a custom Maximum Power Point Tracking (MPPT) solar charge controller and a load-distribution header board using KiCad. 
 
-* **MPPT Solar Controller:** The system will be fed by two 100W, 12V nominal solar panels wired in series. While they are "12V nominal", their actual Open Circuit Voltage (Voc) combined is approximately 44V, with a Voltage at Maximum Power (Vmp) of ~36V. The PCB will utilize a synchronous buck converter topology to efficiently step the 36V+ input down to the precise 14.4V bulk/absorption voltage required by the LFP pack. 
+* **MPPT Solar Controller:** The system will be fed by a 200W, 12V nominal solar panel. While it is "12V nominal", its actual Open Circuit Voltage (Voc) is approximately 44V, with a Voltage at Maximum Power (Vmp) of ~36V. The PCB will utilize a synchronous buck converter topology to efficiently step the 36V+ input down to the precise 14.4V bulk/absorption voltage required by the LFP pack. 
 * **Load Switching Header:** To eliminate standard relays and bulky fuse blocks, the design will incorporate high-side smart FETs (e.g., Infineon PROFETs). This will allow for solid-state, microcontroller-driven load switching of the fridge, lighting, and fans, complete with programmable current-limiting and short-circuit protection on every channel.
 
-{% include image-gallery.html images="mppt_schematic_draft.png" height="600" %}
-<span style="font-size: 14px">Early concept schematic in KiCAD for the synchronous buck MPPT logic and smart-FET load switching.</span>
+{% include image-gallery.html images="placeholder.png" height="600" %}
+<span style="font-size: 14px">Early concept schematic in KiCad for the synchronous buck MPPT logic and smart-FET load switching.</span>

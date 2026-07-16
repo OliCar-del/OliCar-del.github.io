@@ -34,13 +34,6 @@ Modern search engines and IR pipelines increasingly rely on Pretrained Language 
 {% include image-gallery.html images="Fig1.png" height="600" %}
 <span style="font-size: 14px">Figure 1; Multistage architecture of modern information retrieval system. Image Source *J Guo et al.,  2022*.</span>
 
->  
-> 
-> 
-
-{% include image-gallery.html images="Fig1.png" height="600" %}
-<span style="font-size: 14px">Figure 1; Multistage architecture of modern information retrieval system. Image Source *J Guo et al.,  2022*.</span> 
-
 
 {% include image-gallery.html images="TRECefficacy.png" height="600" %}
 {% include image-gallery.html images="ANTIQUEefficacy.png" height="600" %}
@@ -50,9 +43,6 @@ Modern search engines and IR pipelines increasingly rely on Pretrained Language 
 
 
 
->
-> 
-> 
 
 This project aimed to rigorously evaluate robustness by generating novel and established query variations-while strictly maintaining core semantic meaning-and quantifying the resulting performance degradation across multiple search architectures.
 
@@ -66,9 +56,7 @@ The bulk of my efforts centered around **generating varied search queries and de
 
 I utilized industry-standard datasets, including **MS MARCO & ANTIQUE**, to ensure evaluations were grounded in realistic, large-scale search scenarios. By leveraging libraries like `ir_datasets` and `pandas`, I aligned, parsed, and cleaned variations from existing databases (such as G. Penha's repository) alongside my own dynamically generated queries.
 
-> **Insert Image**: Figure 10; Demonstration of random character deletion on an original query OR Figure 11; Demonstration of lemmatisation on an original query 
-> 
-> 
+<!-- TODO image pending: Figure 10; Demonstration of random character deletion on an original query OR Figure 11; Demonstration of lemmatisation on an original query -->
 
 The following script excerpts highlight the data-wrangling routine and LLM prompt-generation logic used to dynamically generate semantic variations:
 
@@ -139,9 +127,7 @@ Queries were tested against a historical spectrum of IR models to establish a co
 
 This finding underscores a massive gap between controlled benchmark performance and real-world robustness. To manage the analytical phase and prove this drop, **data provenance** was crucial. I rigorously tracked the state of generated queries-distinguishing between misspellings, naturality, ordering, paraphrasing, and synonym transformations-via CSVs to isolate exactly *which* types of variations caused the worst system failures.
 
-> **Insert Image**: Figure 12 or 13; Increase in query variation length as a function of original query length 
-> 
-> 
+<!-- TODO image pending: Figure 12 or 13; Increase in query variation length as a function of original query length -->
 
 ---
 
@@ -149,9 +135,7 @@ This finding underscores a massive gap between controlled benchmark performance 
 
 Training and evaluating complex transformer architectures requires substantial GPU resources. I utilized Google Colab as my primary compute environment, which presented serious difficulties for long-running neural learning tasks.
 
-> **Insert Image**: Figure 8; Process flow for generating a query variation using OpenAI GPT API 
-> 
-> 
+<!-- TODO image pending: Figure 8; Process flow for generating a query variation using OpenAI GPT API -->
 
 ### Overcoming Colab Limitations
 

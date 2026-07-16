@@ -124,8 +124,9 @@ Four live analysis plots share a panel:
 * **Phase portrait** - the error/velocity trajectory spiralling into the origin (or orbiting it, or diverging), a direct visualisation of damping.
 * **Predicted step response** - a linear closed-loop simulation for the *current* slider gains, redrawn live, with predicted overshoot and settling time printed next to the *measured* values from the last real step the craft flew. Theory and reality, side by side, updating as you drag sliders.
 
+<!-- TODO screenshot pending — uncomment when bode_locus.png is added:
 {% include image-gallery.html images="bode_locus.png" height="500" %}
-<span style="font-size: 14px">Root locus and Bode views. The Bode panel prints an exact STABLE/UNSTABLE verdict alongside the advisory margins - see below for why the margins alone were not enough.</span>
+<span style="font-size: 14px">Root locus and Bode views. The Bode panel prints an exact STABLE/UNSTABLE verdict alongside the advisory margins - see below for why the margins alone were not enough.</span> -->
 
 ### When Phase Margin Lies: Conditional Stability
 
@@ -157,8 +158,9 @@ Control performance is subjective until it is scored. The mission system makes i
 * **Tracking scores** - every playback records the standard control performance indices: **IAE** (∫|e|dt), **ITAE** (time-weighted, punishing persistent error), maximum error, and **control effort** (Σ|Δu|, total actuator movement). The last four runs stack in a table with the gains that flew them, which makes the classic trade-off tangible: effort can always buy error, and a good tune scores well on both.
 * **Landing grading** - every touchdown is graded at the point of impact ("LANDED - 2.3 m/s impact", colour-coded soft/firm), and exceeding the crash-speed threshold destroys the craft in a debris shower. Impact is reported as touchdown *speed* rather than a fictional force figure, because impact force is undefined for a rigid contact - and speed compares directly against the crash threshold.
 
+<!-- TODO screenshot pending — uncomment when sequence_scores.png is added:
 {% include image-gallery.html images="sequence_scores.png" height="500" %}
-<span style="font-size: 14px">A mission profile being flown: the gold staircase is the commanded profile, the white trace the flight, and each completed run drops IAE/ITAE/effort scores onto the board for the tune that flew it.</span>
+<span style="font-size: 14px">A mission profile being flown: the gold staircase is the commanded profile, the white trace the flight, and each completed run drops IAE/ITAE/effort scores onto the board for the tune that flew it.</span> -->
 
 ## Challenges & Bugs
 
