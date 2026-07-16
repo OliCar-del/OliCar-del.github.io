@@ -3,7 +3,7 @@ layout: post
 title: Uninterruptible 3.3V Power Management & Charging PCB
 description: A miniaturised, highly robust power supply board featuring USB-C input, single-cell LiPo charging, and seamless power-path hot-swapping to a regulated 3.3V logic supply.
 skills:
- - PCB Design & Routing
+ - PCB Design & Routing (Altium)
  - Power Path Management (Hot-Swapping)
  - Circuit Simulation (LTspice)
  - Schematic Capture & BOM Management
@@ -48,7 +48,7 @@ LTspice transient analysis circuit verifying the hand-off timing and voltage sta
 Breadboard was followed by PCB design and layout then manufacture. Abundant testpoints and bridges were included for ease of testing and troubleshooting.
 
 {% include image-gallery.html images="copper_art.png" height="500" %}
-<span style="font-size: 14px">PCB Copper Artwork</span> 
+<span style="font-size: 14px">2-Layer PCB Copper Artwork</span> 
 
 
 {% include image-gallery.html images="render.png" height="600" %}
@@ -56,3 +56,11 @@ Breadboard was followed by PCB design and layout then manufacture. Abundant test
 
 {% include image-gallery.html images="constructed.jpeg" height="600" %}
 <span style="font-size: 14px">Constructed and tested final PCB. Some testpoints unpopulated. Easy access to different nets and molex terminals for off-board connections.</span> 
+
+
+## Necessary improvements
+ - Ground planes on both layers
+ - Thicker traces for power (not an issue at 2A but wouldn't hurt)
+ - Too many testpoints constructed, could have left as probe-able vias.
+ - Silkscreen alignment and orientation
+ - More indicator LEDs
