@@ -162,7 +162,7 @@ The ADA4177's integrated overvoltage protection was redundant alongside the TVS 
 
 ## Design Artifacts
 
-* [Sensor board schematic set (PDF)](SENSOR_BOARD_SCHEMATICS_EX_COPPER.pdf) — hierarchical, one sheet per subsystem (conditioning, ADC, TOSLINK, current sources, alarm control, power, mechanicals)
+* [Sensor board schematic set (PDF)](../../SENSOR_BOARD_SCHEMATICS_EX_COPPER.pdf) — hierarchical, one sheet per subsystem (conditioning, ADC, TOSLINK, current sources, alarm control, power, mechanicals)
 * [Control board schematic set (PDF)](CONTROL_BOARD_EX_COPPER.pdf)
 
 Both schematic sets were brought to TP-STD drafting compliance as part of the final documentation pass, alongside the compiled BOM.
