@@ -1,0 +1,10 @@
+{% assign video_height = include.height | default: "600" %}
+{% assign page_url_without_index = page.url | remove: 'index' | remove: '.html' %}
+
+<div class="image-gallery" style="--gallery-height: {{ video_height }}px;">
+  <video autoplay loop muted playsinline preload="metadata"
+         style="max-width: 100%; height: auto; max-height: {{ video_height }}px;">
+    <source src="{{ page_url_without_index }}{{ include.file | strip }}" type="video/mp4">
+    Your browser does not support embedded video.
+  </video>
+</div>

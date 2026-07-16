@@ -10,12 +10,13 @@ skills:
  - Schematic Capture & BOM Management
 
 main-image: /constructed.jpeg
+image: /_projects/05_usb-lipo/constructed.jpeg
 ---
 # Uninterruptible 3.3V Power Management PCB
 
 ## Project Overview
 
-This project outlines the design and verification of a dedicated power management sub-system. The core objective was to design a highly reliable circuit capable of arbitrating between a 5V USB-C power source and a 3.7V single-cell LiPo battery, stepping the active source down to a clean, continuous 3.3V output. Crucially, the system required "hot-swapping" capabilities-allowing the user to plug or unplug the USB-C cable without browning out the downstream 3.3V logic.
+A dedicated power-management sub-system: arbitrate between a 5V USB-C source and a 3.7V single-cell LiPo battery, and step whichever is active down to a clean, continuous 3.3V output. The defining requirement was hot-swapping - plugging or unplugging the USB-C cable must not brown out the downstream 3.3V logic.
 
 ## Hardware Architecture & Component Selection
 
@@ -48,7 +49,7 @@ The circuit utilizes a P-Channel MOSFET and a Schottky diode. When USB 5V is pre
 
 ## Bring-up Process
 
-Breadboard was followed by PCB design and layout then manufacture. Abundant testpoints and bridges were included for ease of testing and troubleshooting.
+The circuit was breadboarded and simulated before layout, then manufactured and brought up stage by stage. Abundant test points and solder bridges meant every net could be probed and each stage isolated while fault-finding.
 
 {% include image-gallery.html images="copper_art.png" height="500" %}
 <span style="font-size: 14px">Figure 4: 2-Layer PCB Copper Artwork</span>

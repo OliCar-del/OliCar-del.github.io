@@ -8,6 +8,7 @@ skills:
   - BMS Integration (JK Active Balancing)
   - Automotive 12V Systems
 main-image: /placeholder.png
+image: /_projects/07_batt/placeholder.png
 ---
 # 12V 314Ah Automotive LiFePO4 Auxiliary System
 
@@ -31,7 +32,7 @@ To achieve this, I engineered a 4S (4-series) Lithium Iron Phosphate (LiFePO4) b
 
 ## Hardware Construction & Mechanical Design
 
-Constructing a raw cell battery pack requires strict adherence to the manufacturer's mechanical specifications to ensure cell longevity and prevent swelling (delamination of the internal electrodes).
+Raw-cell pack longevity is set by mechanics as much as electronics: EVE specifies consistent, even compression to prevent swelling (delamination of the internal electrodes), and the build was designed around that constraint.
 
 * **Mechanical Compression:** The EVE MB31 cells require consistent, even pressure to maintain their rated lifespan. I constructed a compression rig using heavy-duty timber end-plates secured by threaded rods at all four corners. The nuts were tightened using a torque wrench to meet the manufacturer's specified compression force (typically around 300 kgf). 
 * **Vibration Resistance:** To adapt the timber and threaded rod design for a mobile environment, all fasteners were upgraded to Nyloc nuts with LocTite (blue). This prevents the compression rig from slowly backing off under the constant high-frequency vibration of driving.
@@ -41,7 +42,7 @@ Constructing a raw cell battery pack requires strict adherence to the manufactur
 
 ## Safety Integrations & Electrical Protection
 
-Working with over 4kWh of stored energy with incredibly low internal resistance necessitated aggressive safety inclusions:
+Over 4kWh of stored energy behind very low internal resistance drove several non-negotiable safety inclusions:
 
 1. **Cell Case Isolation:** The aluminium bodies of LFP cells are electrically conductive, separated only by a thin blue PVC heat shrink. Because the compression rig forces these cells together, any friction from vehicle movement could wear through the plastic, causing a catastrophic dead short. To prevent this, 1mm FR4/G10 epoxy fiberglass sheets were installed between each cell.
 2. **Catastrophic Fusing:** A Class T fuse (or high-interrupt ANL fuse) was installed immediately at the main positive terminal. Standard automotive fuses cannot safely interrupt the thousands of amps these cells can deliver in a short circuit; the arc would simply jump the gap.

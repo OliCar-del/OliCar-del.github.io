@@ -1,2 +1,7 @@
 /example-project/*
 /sonos-teardown/*
+
+# Jekyll build output and caches - generated on deploy, never commit
+_site/
+.jekyll-cache/
+.sass-cache/

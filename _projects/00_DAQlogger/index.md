@@ -13,6 +13,7 @@ skills:
  - BOM Management & Cost Engineering
 
 main-image: /AltiumRender.png
+image: /_projects/00_DAQlogger/AltiumRender.png
 ---
 
 <!-- TODO: constructed-board photos pending. Replace the placeholder filenames
