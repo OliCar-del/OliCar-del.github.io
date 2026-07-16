@@ -1,6 +1,6 @@
 ---
 layout: post
-title: USB-C and LiPo Power Management and Charging 3.3V Supply
+title: Uninterruptible 3.3V Supply - USB-C/LiPo Power Management and Charging
 description: A miniaturised, highly robust power supply board featuring USB-C input, single-cell LiPo charging, and seamless power-path hot-swapping to a regulated 3.3V logic supply.
 skills:
 
