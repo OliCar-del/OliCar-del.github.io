@@ -30,7 +30,7 @@ description: >- # dont remove this line. this will ignore all new lines until th
   Hands-on electrical engineering graduate (University of Queensland, 2025) who designs, builds and tests real hardware -
   power electronics and battery systems, instrumentation and data acquisition, embedded firmware and control systems.
   Projects are taken from concept to verified result: schematic capture, PCB layout, firmware, bench bring-up and
-  fault-finding, with measured performance reported honestly.
+  fault-finding.
 
 # Place your profile image in /assets/images/profile-image/folder and edit the file name
 profile_image: ./assets/images/profile-image/cropped_headshot.png
