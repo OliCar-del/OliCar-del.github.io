@@ -9,6 +9,7 @@ skills:
  - Circuit Simulation & Verification (LTspice)
  - Optical Transceiver Design (TOSLINK)
  - Embedded C (STM32)
+ - Hardware Bring-up & Bench Test
  - BOM Management & Cost Engineering
 
 main-image: /AltiumRender.png
@@ -24,14 +25,14 @@ main-image: /AltiumRender.png
 
 ***loggy*** is an industrial data logger (DAQ) built as a four-person university team project. The instrument is split into two custom PCBs: a USB-powered control unit (display, controls, SD logging, PC link) and a battery-powered sensor unit that performs all measurement. The only connection between them is a single TOSLINK fibre optic cable, so the measurement side is totally electrically isolated — a multi-kilovolt fault at the input terminals can never reach the operator or the PC.
 
-Headline requirements on the sensor unit:
+Design targets for the sensor unit:
 
 * Four voltage channels (CH1-4): 16-bit resolution over user-selectable ±1V or ±10V ranges, switched per channel in analog circuitry, with >1MΩ input impedance and ±11V input withstand
 * 3-axis acceleration (CH5-7) and ambient temperature (CH8); all eight channels sampled at ≥2Hz
 * 10µA and 200µA constant current sources (±5%) supporting resistive temperature measurement (thermistor / Pt1000)
 * 16 red alarm LEDs (two per channel) implementing disabled/live/latching alarm modes
-* A custom optical transceiver built from a bare 3mm LED and a BPW34 photodiode — no off-the-shelf TOSLINK modules
-* Whole-product BOM under $125 AUD
+* An optical transceiver built at component level — a bare 3mm LED and a BPW34 photodiode, not an integrated module
+* A hard cost ceiling: whole-product BOM under $125 AUD
 
 Work split four ways: sensor unit hardware, sensor unit firmware, control unit hardware and firmware, and PC GUI. This entry covers my scope — the sensor unit hardware end-to-end (circuit design, simulation, schematic capture, PCB layout, construction), testing of the sensor board and TOSLINK transceiver, integration testing against the control board, firmware for the alarm indicators, and the project BOM.
 
@@ -47,10 +48,10 @@ The signal chain runs: terminal blocks → protection → buffering → channel 
 | **MCU** | STM32L433CCT6 (48-LQFP) | Same part as the control unit — one toolchain and HAL across the team, and stocked locally. Two I2C buses, SPI and USARTs cover every peripheral, though the pin map ends up fully committed. |
 | **ADC** | ADS1119 (16-bit, I2C) | Internal input mux doubles as the range selector — both conditioned range outputs land on separate ADC inputs, so range switching costs no extra analog switch. Rail-referenced FSR (GND-3.3V) eliminates a separate precision reference IC. |
 | **Channel MUX** | ADG1404 (4:1, 3Ω on) | One shared conditioning chain instead of four — fewer precision op-amps, less board area, lower cost. On-resistance is irrelevant inside a buffered chain. |
-| **Input protection** | SMBJ11CA TVS + buffered follower | Follower as the first active stage satisfies the >1MΩ input impedance requirement; 11V TVS clamps at the terminals meet the ±11V withstand spec and keep faults away from the op-amps. |
+| **Input protection** | SMBJ11CA TVS + buffered follower | A follower as the first active stage presents >1MΩ to whatever is wired in, so high-impedance sources aren't loaded; 11V TVS clamps absorb miswiring and transients at the terminals before they reach the op-amps. |
 | **Conditioning** | OPA4192 (quad, RRIO) | Precision gain/offset stages for both ranges; quad package keeps the count down. |
 | **Alarm drive** | TLC5927IDWR | 16-channel constant-current LED sink driver — all 16 alarm LEDs from a 4-wire serial interface, one external resistor sets every LED current. |
-| **Accelerometer** | LIS3DH (I2C) | Three axes at 12-bit comfortably exceeds the 8-bit/axis requirement. |
+| **Accelerometer** | LIS3DH (I2C) | Three logging axes from a single two-wire device, with 12-bit resolution and rate headroom well beyond the 2Hz sampling target. |
 | **±12V analog rails** | MC34063AP boost/inverter | Op-amp headroom rails from the 6×AAA (9V nominal) pack; immediately available and breadboard-verified before committing to layout. |
 
 ## Analog Front End
@@ -64,13 +65,19 @@ Each range is conditioned in parallel rather than switched: the ±10V path atten
 
 The 10µA and 200µA sources use an improved Howland current pump built on the INA592, following TI's reference topology: the INA592's internally matched precision resistor network sets the pump's accuracy, a REF5050 provides the 5V reference, and buffered output feedback raises the output impedance so the current stays flat across the required 3V compliance range. Each source is set by a single precision resistor, which keeps the ±5% accuracy budget in one component rather than spread across a discrete resistor network. Both sources were simulated, breadboarded, and verified against a 10kΩ load before layout.
 
+{% include image-gallery.html images="Integrated_Improved_Howland_Current_Pump_With_INA592_and_Buffer_from_TI.png" height="350" %}
+<span style="font-size: 14px">Figure 3: The integrated improved Howland current pump topology used for both sources — INA592 with buffered output feedback, current set by the single resistor Rs. Image source: TI application note SBOA437A.</span>
+
 ## Optical Link
 
-The transceiver is built at component level, as the specification demands.
+The transceiver is built at component level — a bare LED and photodiode rather than an integrated receiver module — which makes the receive side the real design problem:
 
-* **Transmit:** the MCU's UART TX drives a BC847 NPN switch; an 82Ω series resistor sets 16mA through the 3mm high-brightness LED.
+* **Transmit:** the MCU's UART TX drives an NPN switch (BC847); an 82Ω series resistor sets 16mA through the 3mm high-brightness LED.
 * **Receive:** the BPW34 photodiode yields only ~6µA of photocurrent, far too little to threshold directly. A TLV6001 transimpedance amplifier converts it to a voltage against a resistor-divided reference, and an LM393LV comparator with a settable threshold squares the result into clean UART logic.
 * Trimmers on both transmit intensity and receive threshold provide tuning margin on the bench rather than committing to fixed values on a first spin.
+
+{% include image-gallery.html images="TOSLINK_transmit_ltspice.png, TOSLINK_receive_ltspice.png" height="350" %}
+<span style="font-size: 14px">Figure 4: LTspice simulation of the optical link. Left — transmitter: UART-shaped pulse driving the LED through the NPN switch. Right — receiver: the photodiode modelled as a 5nA-6µA pulsed current source into the transimpedance stage, with the comparator thresholding TIA_OUT against a potentiometer-set reference to recover the logic-level RX signal.</span>
 
 The transceiver was validated standalone in loopback, then end-to-end against the control unit: the final sensor board communicated with the control unit over the fibre, with the transimpedance receiver recovering UART framing reliably once the comparator threshold was tuned.
 
@@ -82,7 +89,7 @@ The transceiver was validated standalone in loopback, then end-to-end against th
 
 The 48-pin package is fully allocated — SWD, debug USART, TOSLINK USART, two I2C buses (accelerometer, ADC), three MUX select lines, SPI2 plus latch/output-enable for the LED driver, and the sampling LED account for every usable pin. Driving 16 alarm LEDs from discrete GPIOs was never an option; the TLC5927 reduces them to a 16-bit mask shifted out over SPI2, with a single 2kΩ R-EXT setting ~9.4mA per LED. The LEDs are powered from the battery rail directly, keeping their current out of the 3.3V regulator. The same squeeze applied to timers: with the 16-bit timers already committed, the sampling scheduler runs from a 12-bit timer instead, with the prescaler making up the range.
 
-The alarm firmware implements the three per-channel modes from the specification. Each sample rebuilds the LED mask — for any configured channel exactly one LED of its pair is lit, indicating alarm or no-alarm — and latched alarms hold until an unlatch command arrives from the control unit over the fibre:
+The alarm firmware implements three per-channel modes — disabled, live and latching. Each sample rebuilds the LED mask — for any configured channel exactly one LED of its pair is lit, indicating alarm or no-alarm — and latched alarms hold until an unlatch command arrives from the control unit over the fibre:
 
 ```c
 /* Rebuild alarm LED mask after each sample set. Latched
@@ -124,13 +131,13 @@ V1 proved the concept where it mattered: the digital domain was fully functional
 | Power rail shielding | Keep switching noise off the analog chain |
 | Jumper headers isolating rails and subsystems | The V1 lesson: every subsystem can be powered, probed and tested independently |
 | Smaller board outline (within 100mm) | ~$10 cheaper — drops a PCB price tier and buys BOM headroom |
-| Silkscreen, fiducials and test point overhaul | Drafting-standard (TP-STD) compliance |
+| Silkscreen, fiducial and test point overhaul | Self-documenting on the bench — every rail, terminal and connector labelled; fiducials for assembly alignment |
 
 {% include image-gallery.html images="AltiumRender.png" height="550" %}
-<span style="font-size: 14px">Figure 3: V2 Altium render. Input terminal blocks and current source outputs on the left edge, labelled alarm LED banks per channel on the right, ±12V switching supplies bottom, TOSLINK socket and receive tuning top.</span>
+<span style="font-size: 14px">Figure 5: V2 Altium render. Input terminal blocks and current source outputs on the left edge, labelled alarm LED banks per channel on the right, ±12V switching supplies bottom, TOSLINK socket and receive tuning top.</span>
 
 {% include image-gallery.html images="CopperArt.png" height="500" %}
-<span style="font-size: 14px">Figure 4: V2 copper artwork. Analog signal chain kept clear of the switching supplies; power, communication and signal nets labelled on silkscreen.</span>
+<span style="font-size: 14px">Figure 6: V2 copper artwork. Analog signal chain kept clear of the switching supplies; power, communication and signal nets labelled on silkscreen.</span>
 
 The V2 board was fully functional: all eight channels, alarm indication, and TOSLINK communication with the control unit.
 
@@ -155,7 +162,7 @@ The ADA4177's integrated overvoltage protection was redundant alongside the TVS 
 ## Shortcomings and Future Work
 
 * **Pin and timer exhaustion.** The 48-pin package left zero spare GPIO and forced the 12-bit timer fallback. A 64-pin variant costs marginally more and would buy debug headroom, spare timers, and room for features like per-channel sampling LEDs.
-* **Rail-referenced ADC.** Referencing the ADS1119 to the 3.3V regulator ties absolute accuracy to rail quality. It sits comfortably inside the ±2.5% full-scale budget here, but any tighter-spec revision should reinstate a dedicated precision reference.
+* **Rail-referenced ADC.** Referencing the ADS1119 to the 3.3V regulator ties absolute accuracy to rail quality. It sits comfortably inside this design's ±2.5% full-scale accuracy budget, but a revision chasing tighter accuracy should reinstate a dedicated precision reference.
 * **Debuggability must be designed in from V1.** The analog rail fault could only be chased by desoldering. The isolation jumpers added in V2 should have been on the first spin — breadboard success does not guarantee PCB success.
 * **Switching converters beside a 16-bit front end.** V2 relied on shielding and layout separation; a quieter revision would post-regulate the analog rails and split the ground pours.
 * **Supply chain.** Several parts (the MC34063AP among them) were selected for same-day availability — correct for a prototype, a liability at volume. A production revision would qualify pin-compatible second sources for every critical IC, prefer long-lifecycle parts, and move to SMT-first assembly with through-hole reserved for connectors and mechanically loaded components.
@@ -165,4 +172,4 @@ The ADA4177's integrated overvoltage protection was redundant alongside the TVS 
 * [Sensor board schematic set (PDF)](../../SENSOR_BOARD_SCHEMATICS_EX_COPPER.pdf) — hierarchical, one sheet per subsystem (conditioning, ADC, TOSLINK, current sources, alarm control, power, mechanicals)
 * [Control board schematic set (PDF)](CONTROL_BOARD_EX_COPPER.pdf)
 
-Both schematic sets were brought to TP-STD drafting compliance as part of the final documentation pass, alongside the compiled BOM.
+Both schematic sets were standardised — consistent drafting conventions, sheet notes and net labelling throughout — as part of the final documentation pass, alongside the compiled BOM.
