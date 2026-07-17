@@ -170,7 +170,7 @@ The ADA4177's integrated overvoltage protection was redundant alongside the TVS 
 
 ## Design Artifacts
 
-* [Sensor board schematic set (PDF)](OliCar-del.github.io\_projects\00_DAQlogger\SENSOR_BOARD_SCHEMATICS_EX_COPPER.pdf) — hierarchical, one sheet per subsystem (conditioning, ADC, TOSLINK, current sources, alarm control, power, mechanicals)
-* [Control board schematic set (PDF)](OliCar-del.github.io\_projects\00_DAQlogger\CONTROL_BOARD_EX_COPPER.pdf)
+* [Sensor board schematic set (PDF)](/../SENSOR_BOARD_SCHEMATICS_EX_COPPER.pdf) — hierarchical, one sheet per subsystem (conditioning, ADC, TOSLINK, current sources, alarm control, power, mechanicals)
+* [Control board schematic set (PDF)](/../CONTROL_BOARD_EX_COPPER.pdf)
 
 Both schematic sets were standardised — consistent drafting conventions, sheet notes and net labelling throughout — as part of the final documentation pass, alongside the compiled BOM.
