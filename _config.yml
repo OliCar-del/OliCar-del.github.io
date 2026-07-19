@@ -110,7 +110,7 @@ formspree-key:   mykpoaok
 # Analytics - free, privacy-friendly visit counts via GoatCounter (no cookie banner needed).
 # Sign up free at goatcounter.com, pick a site code, and enter it below to enable.
 # e.g. a code of "olicar" gives you a dashboard at https://olicar.goatcounter.com
-goatcounter:
+goatcounter: portfold
 
 
 # Active theme (Updatethis to switch themes). Make sure to keep the indentation the samne.
