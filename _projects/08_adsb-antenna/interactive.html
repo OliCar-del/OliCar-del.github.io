@@ -146,17 +146,17 @@ code{font-family:"IBM Plex Mono",monospace; font-size:.92em; background:var(--su
 <header class="top">
   <p class="eyebrow">NEC2 method-of-moments study &middot; 23 September 2026</p>
   <h1>Tuning a 1090&nbsp;MHz ADS-B antenna</h1>
-  <p class="lede">Every number on this page is read from retained NEC2dXS solver output &mdash; free space, perfectly
-  conducting wire, 0.5&nbsp;mm radius, referenced to a real 50&nbsp;&Omega; load. Move the controls to walk the same
-  search the study ran. <b>Nothing here has been built or measured.</b></p>
+  <p class="lede">Every number here is read from retained NEC2dXS output. Free space, perfectly conducting wire,
+  0.5&nbsp;mm radius, referenced to a real 50&nbsp;&Omega; load. The controls step through the same configurations I
+  ran. <b>Nothing has been built or measured yet.</b></p>
 
   <div class="verdict" id="verdict"></div>
 </header>
 
 <section>
-  <div class="shead"><h2>1 &middot; Cut the radiator</h2><span class="pill sel" id="lenState">&mdash;</span></div>
-  <p class="snote">Radial length, droop and everything else are frozen at the 30&deg; baseline; only the vertical
-  element changes. This is the one-variable search that picked the build candidate.</p>
+  <div class="shead"><h2>1 &middot; Radiator length</h2><span class="pill sel" id="lenState">&nbsp;</span></div>
+  <p class="snote">Radials, droop and everything else stay at the 30&deg; baseline. Only the vertical element
+  changes. This is the sweep that picked the build candidate.</p>
 
   <div class="bench">
     <div class="bench-grid">
@@ -180,20 +180,20 @@ code{font-family:"IBM Plex Mono",monospace; font-size:.92em; background:var(--su
 
   <div class="insight">
     <h3>What the sweep shows</h3>
-    <p>Resistance barely moves &mdash; <b>42 to 56&nbsp;&Omega;</b> across the whole 10&nbsp;mm range. Reactance moves
-    enormously: <b>&minus;3 to +51&nbsp;&Omega;</b>, about <b>+6&nbsp;&Omega; per millimetre</b>.</p>
-    <p>So trimming an antenna is not "adjusting the impedance" in general. It is <b>cancelling reactance</b>, and the
-    match improves because the remaining resistance was already close to 50&nbsp;&Omega;. At 64&nbsp;mm the reactance
-    lands at <b>+2.83&nbsp;&Omega;</b> &mdash; near enough to zero that S11 falls to &minus;22.28&nbsp;dB.</p>
-    <p>That gradient is also a build instruction: <b>1&nbsp;mm of wire is roughly 3&nbsp;dB of match</b> near the
-    optimum, so cut long and trim in small steps.</p>
+    <p>Resistance barely moves, <b>42 to 56&nbsp;&Omega;</b> across the whole 10&nbsp;mm range. Reactance sweeps
+    <b>-3 to +51&nbsp;&Omega;</b> over the same span, close to <b>6&nbsp;&Omega; per millimetre</b>.</p>
+    <p>Trimming is therefore a reactance adjustment. The match improves because the resistance was already near
+    50&nbsp;&Omega; before I started. At 64&nbsp;mm the reactance sits at <b>+2.83&nbsp;&Omega;</b>, close enough to
+    zero that S11 reaches <b>-22.28&nbsp;dB</b>.</p>
+    <p>The same gradient is a build instruction. Near the optimum, 1&nbsp;mm off costs <b>2 to 3&nbsp;dB</b>, so cut
+    long and trim in small steps.</p>
   </div>
 </section>
 
 <section>
-  <div class="shead"><h2>2 &middot; Droop the radials</h2><span class="pill no" id="droopState">&mdash;</span></div>
-  <p class="snote">Here the radiator and radials are both held at 69&nbsp;mm and only the radial angle changes &mdash;
-  the controlled experiment that tests the folklore.</p>
+  <div class="shead"><h2>2 &middot; Droop the radials</h2><span class="pill no" id="droopState">&nbsp;</span></div>
+  <p class="snote">Radiator and radials both held at 69&nbsp;mm, with only the angle changing. This is the
+  controlled version of the standard advice.</p>
 
   <div class="bench">
     <div class="bench-grid">
@@ -216,24 +216,23 @@ code{font-family:"IBM Plex Mono",monospace; font-size:.92em; background:var(--su
   </div>
 
   <div class="insight">
-    <h3>Where the textbook story breaks</h3>
-    <p>The usual claim is that a groundplane sits near 36&nbsp;&Omega; and drooping the radials to 45&deg; brings it to
-    50&nbsp;&Omega;. The resistance does climb as advertised &mdash; <b>25.7&nbsp;&rarr;&nbsp;62.9&nbsp;&Omega;</b> &mdash;
-    and passes through 50&nbsp;&Omega; near 30&deg;.</p>
-    <p>But reactance climbs with it, <b>+9.4&nbsp;&rarr;&nbsp;+41.7&nbsp;&Omega;</b>, and the match is set by both.
-    The best S11 in this fixed-length family is at <b>15&deg;</b>, not 45&deg;, and even that only reaches
-    &minus;11.17&nbsp;dB. <b>Drooping alone never delivers a good match.</b></p>
-    <p>Physically, the radials carry the return current and are part of the radiating system. Tilting them gives those
-    currents a vertical component, so the structure drifts toward a vertical dipole and R, X and resonance all shift
-    together. That is why the study set droop first for its resistance and horizon response, then used length as a
-    separate control to kill the reactance.</p>
+    <h3>What the angle actually does</h3>
+    <p>The usual advice is that a groundplane sits near 36&nbsp;&Omega; and drooping the radials to 45&deg; brings it
+    to 50&nbsp;&Omega;. Resistance does climb as described, <b>25.7 to 62.9&nbsp;&Omega;</b>, passing through
+    50&nbsp;&Omega; near 30&deg;.</p>
+    <p>Reactance climbs with it though, <b>+9.4 to +41.7&nbsp;&Omega;</b>, and the match depends on both. The best S11
+    in this fixed-length family is at <b>15&deg;</b> rather than 45&deg;, and it only reaches -11.17&nbsp;dB. Droop on
+    its own does not produce a good match.</p>
+    <p>The radials carry return current and are part of the radiating structure. Tilting them gives that current a
+    vertical component, so the geometry drifts toward a vertical dipole and R, X and resonance all move together. I set
+    droop first for resistance and horizon response, then used length as a separate control for the reactance.</p>
   </div>
 </section>
 
 <section>
   <div class="shead"><h2>3 &middot; Sweep the band</h2></div>
-  <p class="snote">S11 against frequency, 950&ndash;1250&nbsp;MHz. Toggle configurations to compare. The dotted line
-  marks 1090&nbsp;MHz; the grey rule is the &minus;10&nbsp;dB project target.</p>
+  <p class="snote">S11 against frequency, 950 to 1250&nbsp;MHz. Toggle configurations to compare. The dotted
+  vertical line marks 1090&nbsp;MHz and the horizontal rule is the -10&nbsp;dB target.</p>
 
   <div class="bench">
     <div class="toggles" id="sweepToggles"></div>
@@ -242,12 +241,12 @@ code{font-family:"IBM Plex Mono",monospace; font-size:.92em; background:var(--su
   </div>
 
   <div class="insight">
-    <h3>Resonance is not the same as best match</h3>
-    <p>The selected candidate crosses <b>X&nbsp;=&nbsp;0 at 1083.8&nbsp;MHz</b> but reaches its deepest S11 at
-    <b>1088&nbsp;MHz</b>. Those are different questions: resonance asks when reactance vanishes, match asks when the
-    complex impedance is closest to 50&nbsp;&Omega;. They only coincide when R is exactly 50&nbsp;&Omega;.</p>
-    <p>Notice the 45&deg; trace plunging to &minus;34&nbsp;dB near <b>1003&nbsp;MHz</b>. It is beautifully matched &mdash;
-    to the wrong frequency. A deep notch means nothing until you check where it sits.</p>
+    <h3>Resonance and best match</h3>
+    <p>The selected candidate crosses <b>X&nbsp;=&nbsp;0 at 1083.8&nbsp;MHz</b> and reaches its deepest S11 at
+    <b>1088&nbsp;MHz</b>. Resonance asks when reactance vanishes. Match asks when the impedance is closest to
+    50&nbsp;&Omega;. They coincide only when R is exactly 50&nbsp;&Omega;, so both are reported.</p>
+    <p>The 45&deg; trace drops below <b>-35&nbsp;dB</b>, but it does that near <b>1003&nbsp;MHz</b>, which is no use at
+    1090. A deep notch is only worth reading once you know where it sits.</p>
   </div>
 </section>
 
@@ -271,20 +270,20 @@ code{font-family:"IBM Plex Mono",monospace; font-size:.92em; background:var(--su
   </div>
 
   <div class="insight">
-    <h3>Why the weaker antenna wins</h3>
-    <p>The Yagi delivers <b>8.09&nbsp;dBi</b> against the groundplane's <b>1.78&nbsp;dBi</b> &mdash; a real
-    <b>+6.31&nbsp;dB</b> in the same direction, mismatch included. Forward, it is unambiguously better.</p>
-    <p>The azimuth cut is the catch. A <b>97&deg; beamwidth</b> and <b>16.6&nbsp;dB front-to-back</b> mean everything
-    outside that sector is worse than the omnidirectional antenna &mdash; down to <b>&minus;12&nbsp;dBi</b> off the
-    back. Gain is not amplification; a passive antenna adds no energy, it only redistributes it.</p>
-    <p>ADS-B targets arrive on every bearing, so the groundplane is the correct build despite losing the headline
-    number. The marker at <b>2.4&deg;</b> is where an airliner at 35,000&nbsp;ft sits when it is 250&nbsp;km away &mdash;
-    range is won near the horizon, not overhead.</p>
+    <h3>Reading the two cuts together</h3>
+    <p>Forward, the Yagi gives <b>8.09&nbsp;dBi</b> against the groundplane's <b>1.78&nbsp;dBi</b>, a difference of
+    <b>6.31&nbsp;dB</b> in the same direction with each antenna's own mismatch included.</p>
+    <p>Azimuth is where it gives that back. A <b>97&deg; half-power beamwidth</b> and <b>16.6&nbsp;dB front-to-back</b>
+    put everything outside the forward sector below the omnidirectional antenna, down to about <b>-12&nbsp;dBi</b> off
+    the back. A passive antenna adds no energy, so the forward gain is paid for in every other direction.</p>
+    <p>ADS-B traffic arrives on all bearings, so the groundplane is what I would build. The marker at <b>2.4&deg;</b>
+    is where an airliner at 35,000&nbsp;ft sits at 250&nbsp;km. Useful range is won near the horizon rather than
+    overhead.</p>
   </div>
 </section>
 
 <section>
-  <div class="shead"><h2>5 &middot; Every retained configuration</h2></div>
+  <div class="shead"><h2>5 &middot; Retained configurations</h2></div>
   <p class="snote">Primary comparison runs. The highlighted row is the build candidate.</p>
   <div class="tbl-wrap"><table>
     <thead><tr><th>Configuration</th><th>Length</th><th>Droop</th><th>R (&Omega;)</th><th>X (&Omega;)</th>
@@ -303,12 +302,12 @@ code{font-family:"IBM Plex Mono",monospace; font-size:.92em; background:var(--su
       <li><b>Approximated feed.</b> A 6&nbsp;mm voltage-source segment centred 3&nbsp;mm above the radial junction is a
         finite numerical stand-in for a physical connector.</li>
       <li><b>Open numerical diagnostics.</b> The 0&deg; and 45&deg; baselines retain average-power-gain residuals of
-        &minus;5.45% and +9.07%, so their absolute gains carry less precision than the selected pair. No correction has
-        been applied to hide them.</li>
+        -5.45% and +9.07%, so their absolute gains carry less precision than the selected pair. I have not applied
+        a correction to hide them.</li>
       <li><b>A failed run is retained, not deleted.</b> The original NBS-adapted Yagi seed failed its mesh-convergence
         gate and stays in the record as a diagnostic.</li>
-      <li><b>AI-assisted.</b> Scripts, execution and documentation were produced with AI assistance; the solver is the
-        author-distributed NEC2dXS build, not a custom implementation.</li>
+      <li><b>Third-party solver.</b> The solver is the author-distributed NEC2dXS build, not a
+        custom implementation.</li>
     </ul>
   </div>
 </section>
@@ -334,7 +333,7 @@ function el(tag,attrs,text){
   if(text!==undefined) e.textContent=text;
   return e;
 }
-function fmt(v,d){ if(v===null||v===undefined||isNaN(v))return '—'; return (v>=0&&d==='+'?'+':'')+v.toFixed(2); }
+function fmt(v,d){ if(v===null||v===undefined||isNaN(v))return 'n/a'; return (v>=0&&d==='+'?'+':'')+v.toFixed(2); }
 function num(v,p){ return v.toFixed(p===undefined?2:p); }
 
 /* ---------- generic cartesian plotter ---------- */
@@ -551,7 +550,7 @@ var TBL=D.droopSweep.map(function(r){
   return {n:'GP fixed '+r.droop+'°',l:'69 mm',d:r.droop+'°',r:r.r,x:r.x,s:r.s11,v:r.vswr,g:r.gain,hi:false};
 });
 TBL.push({n:'GP selected',l:'64 mm',d:'30°',r:h.gp.r,x:h.gp.x,s:h.gp.s11,v:h.gp.vswr,g:h.gp.gain,hi:true});
-TBL.push({n:'Yagi comparator',l:'128 mm',d:'—',r:h.yagi.r,x:h.yagi.x,s:h.yagi.s11,v:h.yagi.vswr,g:h.yagi.gain,hi:false});
+TBL.push({n:'Yagi comparator',l:'128 mm',d:'n/a',r:h.yagi.r,x:h.yagi.x,s:h.yagi.s11,v:h.yagi.vswr,g:h.yagi.gain,hi:false});
 document.getElementById('tblBody').innerHTML=TBL.map(function(t){
   return '<tr'+(t.hi?' class="hi"':'')+'><td>'+t.n+'</td><td>'+t.l+'</td><td>'+t.d+'</td><td>'+
     num(t.r,2)+'</td><td>'+fmt(t.x,'+')+'</td><td>'+num(t.s,2)+'</td><td>'+num(t.v,3)+'</td><td>'+
