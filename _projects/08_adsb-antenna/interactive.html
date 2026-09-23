@@ -1,0 +1,570 @@
+<title>1090 MHz Antenna Bench</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#EFF1F3; --surface:#FFFFFF; --surface-2:#F7F8F9; --sunken:#E7EAED;
+  --ink:#131A22; --ink-2:#48535F; --ink-3:#77838F;
+  --line:#D6DCE2; --line-2:#C2CAD2;
+  --navy:#1F3A5F; --navy-soft:#3D6294;
+  --copper:#A9561F; --copper-soft:#C77B42;
+  --good:#1C6B45; --warn:#8A5A12;
+  --grid:#E3E7EB;
+  --shadow:0 1px 2px rgba(19,26,34,.06),0 4px 14px rgba(19,26,34,.05);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#10151B; --surface:#171E26; --surface-2:#1C242E; --sunken:#0C1116;
+    --ink:#E8EDF2; --ink-2:#A6B2BF; --ink-3:#7C8794;
+    --line:#2A343F; --line-2:#3A4653;
+    --navy:#7FA9DE; --navy-soft:#5B84B8;
+    --copper:#E0954F; --copper-soft:#B87437;
+    --good:#4FB183; --warn:#D3A24E;
+    --grid:#232C36;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#10151B; --surface:#171E26; --surface-2:#1C242E; --sunken:#0C1116;
+  --ink:#E8EDF2; --ink-2:#A6B2BF; --ink-3:#7C8794;
+  --line:#2A343F; --line-2:#3A4653;
+  --navy:#7FA9DE; --navy-soft:#5B84B8;
+  --copper:#E0954F; --copper-soft:#B87437;
+  --good:#4FB183; --warn:#D3A24E;
+  --grid:#232C36;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1040px; margin:0 auto; padding-inline:20px; padding-block:40px 64px}
+h1,h2,h3{text-wrap:balance; margin:0}
+h1{font-size:clamp(28px,4.4vw,40px); font-weight:700; letter-spacing:-.02em; line-height:1.12}
+h2{font-size:20px; font-weight:600; letter-spacing:-.01em}
+h3{font-size:14px; font-weight:600}
+p{margin:0}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px; font-weight:500;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3);
+}
+.lede{color:var(--ink-2); max-width:64ch; margin-top:14px; font-size:16px}
+header.top{border-bottom:1px solid var(--line); padding-bottom:28px; margin-bottom:34px}
+
+/* verdict strip */
+.verdict{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
+  background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-top:26px}
+.vcell{background:var(--surface); padding:13px 15px}
+.vcell .k{font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); font-weight:500}
+.vcell .v{font-family:"IBM Plex Mono",monospace; font-size:20px; font-weight:600; margin-top:3px;
+  font-variant-numeric:tabular-nums; letter-spacing:-.02em}
+.vcell .u{font-size:12px; color:var(--ink-3); font-weight:400}
+
+section{margin-top:44px}
+.shead{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:6px}
+.snote{color:var(--ink-2); max-width:70ch; margin-bottom:20px; font-size:14.5px}
+
+.bench{background:var(--surface); border:1px solid var(--line); border-radius:12px;
+  box-shadow:var(--shadow); overflow:hidden}
+.bench-grid{display:grid; grid-template-columns:minmax(0,1fr) 270px}
+@media (max-width:760px){.bench-grid{grid-template-columns:1fr}}
+.plot{padding:16px 14px 10px; min-width:0}
+.plot svg{display:block; width:100%; height:auto}
+.panel{background:var(--surface-2); border-left:1px solid var(--line); padding:18px 18px 20px; min-width:0}
+@media (max-width:760px){.panel{border-left:0; border-top:1px solid var(--line)}}
+
+.ctl{margin-bottom:16px}
+.ctl label{display:flex; justify-content:space-between; align-items:baseline; gap:10px;
+  font-size:12px; font-weight:500; color:var(--ink-2); letter-spacing:.02em; margin-bottom:7px}
+.ctl label b{font-family:"IBM Plex Mono",monospace; font-size:15px; color:var(--ink); font-weight:600;
+  font-variant-numeric:tabular-nums}
+input[type=range]{width:100%; accent-color:var(--navy); margin:0; height:22px}
+input[type=range]:focus-visible{outline:2px solid var(--navy); outline-offset:3px; border-radius:4px}
+
+.readout{border-top:1px solid var(--line); padding-top:13px; margin-top:4px}
+.row{display:flex; justify-content:space-between; align-items:baseline; gap:10px; padding:5px 0}
+.row .k{font-size:12.5px; color:var(--ink-2)}
+.row .v{font-family:"IBM Plex Mono",monospace; font-size:14px; font-weight:500;
+  font-variant-numeric:tabular-nums}
+.pill{display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600;
+  padding:2px 7px; border-radius:999px; letter-spacing:.03em}
+.pill.ok{background:color-mix(in srgb,var(--good) 15%,transparent); color:var(--good)}
+.pill.no{background:color-mix(in srgb,var(--warn) 18%,transparent); color:var(--warn)}
+.pill.sel{background:color-mix(in srgb,var(--navy) 15%,transparent); color:var(--navy)}
+
+.legend{display:flex; gap:16px; flex-wrap:wrap; padding:0 16px 14px; font-size:12.5px; color:var(--ink-2)}
+.legend span{display:inline-flex; align-items:center; gap:7px}
+.swatch{width:15px; height:3px; border-radius:2px; flex:none}
+.swatch.dash{background:repeating-linear-gradient(90deg,currentColor 0 5px,transparent 5px 9px)}
+
+.toggles{display:flex; gap:7px; flex-wrap:wrap; padding:14px 16px 0}
+.tg{font-family:"IBM Plex Mono",monospace; font-size:11.5px; font-weight:500; cursor:pointer;
+  border:1px solid var(--line-2); background:var(--surface); color:var(--ink-2);
+  padding:5px 10px; border-radius:6px; transition:all .13s}
+.tg:hover{border-color:var(--ink-3)}
+.tg[aria-pressed="true"]{background:var(--navy); border-color:var(--navy); color:var(--surface)}
+.tg:focus-visible{outline:2px solid var(--navy); outline-offset:2px}
+
+.insight{border-left:3px solid var(--copper); background:var(--surface);
+  border-top:1px solid var(--line); border-right:1px solid var(--line); border-bottom:1px solid var(--line);
+  border-radius:0 10px 10px 0; padding:16px 18px; margin-top:18px}
+.insight h3{color:var(--copper); font-family:"IBM Plex Mono",monospace; font-size:11px;
+  letter-spacing:.12em; text-transform:uppercase; margin-bottom:7px}
+.insight p{font-size:14.5px; color:var(--ink-2)}
+.insight p+p{margin-top:9px}
+.insight b{color:var(--ink); font-weight:600}
+
+.tbl-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:560px}
+th,td{padding:9px 13px; text-align:right; border-bottom:1px solid var(--line); white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3);
+  font-weight:600; background:var(--surface-2)}
+tbody td{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums}
+tbody td:first-child{font-family:"IBM Plex Sans",sans-serif}
+tbody tr:last-child td{border-bottom:0}
+tr.hi td{background:color-mix(in srgb,var(--navy) 8%,transparent); font-weight:600}
+
+.limits{background:var(--sunken); border:1px solid var(--line); border-radius:12px; padding:22px 24px}
+.limits ul{margin:12px 0 0; padding-left:18px; color:var(--ink-2); font-size:14px}
+.limits li{margin-bottom:7px}
+.limits li b{color:var(--ink); font-weight:600}
+footer{margin-top:44px; padding-top:20px; border-top:1px solid var(--line);
+  font-size:12.5px; color:var(--ink-3); display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap}
+code{font-family:"IBM Plex Mono",monospace; font-size:.92em; background:var(--sunken);
+  padding:1px 5px; border-radius:4px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="eyebrow">NEC2 method-of-moments study &middot; 23 September 2026</p>
+  <h1>Tuning a 1090&nbsp;MHz ADS-B antenna</h1>
+  <p class="lede">Every number on this page is read from retained NEC2dXS solver output &mdash; free space, perfectly
+  conducting wire, 0.5&nbsp;mm radius, referenced to a real 50&nbsp;&Omega; load. Move the controls to walk the same
+  search the study ran. <b>Nothing here has been built or measured.</b></p>
+
+  <div class="verdict" id="verdict"></div>
+</header>
+
+<section>
+  <div class="shead"><h2>1 &middot; Cut the radiator</h2><span class="pill sel" id="lenState">&mdash;</span></div>
+  <p class="snote">Radial length, droop and everything else are frozen at the 30&deg; baseline; only the vertical
+  element changes. This is the one-variable search that picked the build candidate.</p>
+
+  <div class="bench">
+    <div class="bench-grid">
+      <div class="plot"><svg id="lenChart" viewBox="0 0 620 300" role="img"
+        aria-label="Simulated S11 against radiator length"></svg></div>
+      <div class="panel">
+        <div class="ctl">
+          <label for="lenSlider">Radiator length <b><span id="lenVal">64</span> mm</b></label>
+          <input type="range" id="lenSlider" min="63" max="72" step="1" value="64">
+        </div>
+        <div class="readout">
+          <div class="row"><span class="k">Resistance R</span><span class="v" id="lenR"></span></div>
+          <div class="row"><span class="k">Reactance X</span><span class="v" id="lenX"></span></div>
+          <div class="row"><span class="k">S11 at 1090 MHz</span><span class="v" id="lenS11"></span></div>
+          <div class="row"><span class="k">VSWR</span><span class="v" id="lenVswr"></span></div>
+          <div class="row"><span class="k">Power reflected</span><span class="v" id="lenRefl"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <h3>What the sweep shows</h3>
+    <p>Resistance barely moves &mdash; <b>42 to 56&nbsp;&Omega;</b> across the whole 10&nbsp;mm range. Reactance moves
+    enormously: <b>&minus;3 to +51&nbsp;&Omega;</b>, about <b>+6&nbsp;&Omega; per millimetre</b>.</p>
+    <p>So trimming an antenna is not "adjusting the impedance" in general. It is <b>cancelling reactance</b>, and the
+    match improves because the remaining resistance was already close to 50&nbsp;&Omega;. At 64&nbsp;mm the reactance
+    lands at <b>+2.83&nbsp;&Omega;</b> &mdash; near enough to zero that S11 falls to &minus;22.28&nbsp;dB.</p>
+    <p>That gradient is also a build instruction: <b>1&nbsp;mm of wire is roughly 3&nbsp;dB of match</b> near the
+    optimum, so cut long and trim in small steps.</p>
+  </div>
+</section>
+
+<section>
+  <div class="shead"><h2>2 &middot; Droop the radials</h2><span class="pill no" id="droopState">&mdash;</span></div>
+  <p class="snote">Here the radiator and radials are both held at 69&nbsp;mm and only the radial angle changes &mdash;
+  the controlled experiment that tests the folklore.</p>
+
+  <div class="bench">
+    <div class="bench-grid">
+      <div class="plot"><svg id="droopChart" viewBox="0 0 620 300" role="img"
+        aria-label="Resistance and reactance against radial droop angle"></svg></div>
+      <div class="panel">
+        <div class="ctl">
+          <label for="droopSlider">Radial droop <b><span id="droopVal">30</span>&deg;</b></label>
+          <input type="range" id="droopSlider" min="0" max="3" step="1" value="2">
+        </div>
+        <div class="readout">
+          <div class="row"><span class="k">Resistance R</span><span class="v" id="drR"></span></div>
+          <div class="row"><span class="k">Reactance X</span><span class="v" id="drX"></span></div>
+          <div class="row"><span class="k">S11 at 1090 MHz</span><span class="v" id="drS11"></span></div>
+          <div class="row"><span class="k">VSWR</span><span class="v" id="drVswr"></span></div>
+          <div class="row"><span class="k">Realised gain, horizon</span><span class="v" id="drGain"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <h3>Where the textbook story breaks</h3>
+    <p>The usual claim is that a groundplane sits near 36&nbsp;&Omega; and drooping the radials to 45&deg; brings it to
+    50&nbsp;&Omega;. The resistance does climb as advertised &mdash; <b>25.7&nbsp;&rarr;&nbsp;62.9&nbsp;&Omega;</b> &mdash;
+    and passes through 50&nbsp;&Omega; near 30&deg;.</p>
+    <p>But reactance climbs with it, <b>+9.4&nbsp;&rarr;&nbsp;+41.7&nbsp;&Omega;</b>, and the match is set by both.
+    The best S11 in this fixed-length family is at <b>15&deg;</b>, not 45&deg;, and even that only reaches
+    &minus;11.17&nbsp;dB. <b>Drooping alone never delivers a good match.</b></p>
+    <p>Physically, the radials carry the return current and are part of the radiating system. Tilting them gives those
+    currents a vertical component, so the structure drifts toward a vertical dipole and R, X and resonance all shift
+    together. That is why the study set droop first for its resistance and horizon response, then used length as a
+    separate control to kill the reactance.</p>
+  </div>
+</section>
+
+<section>
+  <div class="shead"><h2>3 &middot; Sweep the band</h2></div>
+  <p class="snote">S11 against frequency, 950&ndash;1250&nbsp;MHz. Toggle configurations to compare. The dotted line
+  marks 1090&nbsp;MHz; the grey rule is the &minus;10&nbsp;dB project target.</p>
+
+  <div class="bench">
+    <div class="toggles" id="sweepToggles"></div>
+    <div class="plot"><svg id="sweepChart" viewBox="0 0 900 380" role="img"
+      aria-label="Simulated S11 against frequency"></svg></div>
+  </div>
+
+  <div class="insight">
+    <h3>Resonance is not the same as best match</h3>
+    <p>The selected candidate crosses <b>X&nbsp;=&nbsp;0 at 1083.8&nbsp;MHz</b> but reaches its deepest S11 at
+    <b>1088&nbsp;MHz</b>. Those are different questions: resonance asks when reactance vanishes, match asks when the
+    complex impedance is closest to 50&nbsp;&Omega;. They only coincide when R is exactly 50&nbsp;&Omega;.</p>
+    <p>Notice the 45&deg; trace plunging to &minus;34&nbsp;dB near <b>1003&nbsp;MHz</b>. It is beautifully matched &mdash;
+    to the wrong frequency. A deep notch means nothing until you check where it sits.</p>
+  </div>
+</section>
+
+<section>
+  <div class="shead"><h2>4 &middot; Gain against coverage</h2></div>
+  <p class="snote">The three-element Yagi comparison, at 1090&nbsp;MHz, in absolute dBi with the 50&nbsp;&Omega;
+  mismatch applied once. Both cuts are vertical co-polar realised gain.</p>
+
+  <div class="bench">
+    <div class="toggles" id="patToggles"></div>
+    <div class="bench-grid" style="grid-template-columns:1fr 1fr">
+      <div class="plot"><svg id="elevChart" viewBox="0 0 460 320" role="img"
+        aria-label="Elevation cut of realised gain"></svg></div>
+      <div class="plot"><svg id="azChart" viewBox="0 0 460 320" role="img"
+        aria-label="Azimuth cut of realised gain"></svg></div>
+    </div>
+    <div class="legend">
+      <span><i class="swatch" style="background:var(--navy)"></i>Groundplane &middot; 64 mm, 30&deg;</span>
+      <span style="color:var(--copper)"><i class="swatch dash"></i>Yagi &middot; 128 mm driven</span>
+    </div>
+  </div>
+
+  <div class="insight">
+    <h3>Why the weaker antenna wins</h3>
+    <p>The Yagi delivers <b>8.09&nbsp;dBi</b> against the groundplane's <b>1.78&nbsp;dBi</b> &mdash; a real
+    <b>+6.31&nbsp;dB</b> in the same direction, mismatch included. Forward, it is unambiguously better.</p>
+    <p>The azimuth cut is the catch. A <b>97&deg; beamwidth</b> and <b>16.6&nbsp;dB front-to-back</b> mean everything
+    outside that sector is worse than the omnidirectional antenna &mdash; down to <b>&minus;12&nbsp;dBi</b> off the
+    back. Gain is not amplification; a passive antenna adds no energy, it only redistributes it.</p>
+    <p>ADS-B targets arrive on every bearing, so the groundplane is the correct build despite losing the headline
+    number. The marker at <b>2.4&deg;</b> is where an airliner at 35,000&nbsp;ft sits when it is 250&nbsp;km away &mdash;
+    range is won near the horizon, not overhead.</p>
+  </div>
+</section>
+
+<section>
+  <div class="shead"><h2>5 &middot; Every retained configuration</h2></div>
+  <p class="snote">Primary comparison runs. The highlighted row is the build candidate.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Configuration</th><th>Length</th><th>Droop</th><th>R (&Omega;)</th><th>X (&Omega;)</th>
+      <th>S11 (dB)</th><th>VSWR</th><th>Gain (dBi)</th></tr></thead>
+    <tbody id="tblBody"></tbody>
+  </table></div>
+</section>
+
+<section>
+  <div class="limits">
+    <h2>What this does not establish</h2>
+    <ul>
+      <li><b>No hardware.</b> No antenna has been built, and no VNA or SDR measurement exists. Every figure is simulated.</li>
+      <li><b>Idealised model.</b> Perfectly conducting wire in free space. No connector, no coax, no common-mode
+        current on the feedline, no mast, no roof, no surrounding buildings.</li>
+      <li><b>Approximated feed.</b> A 6&nbsp;mm voltage-source segment centred 3&nbsp;mm above the radial junction is a
+        finite numerical stand-in for a physical connector.</li>
+      <li><b>Open numerical diagnostics.</b> The 0&deg; and 45&deg; baselines retain average-power-gain residuals of
+        &minus;5.45% and +9.07%, so their absolute gains carry less precision than the selected pair. No correction has
+        been applied to hide them.</li>
+      <li><b>A failed run is retained, not deleted.</b> The original NBS-adapted Yagi seed failed its mesh-convergence
+        gate and stays in the record as a diagnostic.</li>
+      <li><b>AI-assisted.</b> Scripts, execution and documentation were produced with AI assistance; the solver is the
+        author-distributed NEC2dXS build, not a custom implementation.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <span>Solver: NEC2dXS Build 2.7 &middot; 4nec2 5.9.3 distribution &middot; 500-segment engine</span>
+  <span>Oliver Carnew &middot; olicar-del.github.io</span>
+</footer>
+
+</div>
+
+<script id="study-data" type="application/json">{"lengthSweep":[{"len":63.0,"r":42.0691,"x":-3.1375,"s11":-20.6694,"vswr":1.2041},{"len":64.0,"r":43.3916,"x":2.8283,"s11":-22.2777,"vswr":1.1667},{"len":65.0,"r":44.7628,"x":8.7805,"s11":-19.3777,"vswr":1.2407},{"len":66.0,"r":46.1855,"x":14.7249,"s11":-16.1197,"vswr":1.3706},{"len":67.0,"r":47.6626,"x":20.6672,"s11":-13.624,"vswr":1.5264},{"len":68.0,"r":49.1972,"x":26.6129,"s11":-11.726,"vswr":1.6999},{"len":69.0,"r":50.7927,"x":32.5676,"s11":-10.2416,"vswr":1.8883},{"len":70.0,"r":52.4527,"x":38.5368,"s11":-9.0501,"vswr":2.0901},{"len":71.0,"r":54.181,"x":44.5262,"s11":-8.0739,"vswr":2.3043},{"len":72.0,"r":55.9819,"x":50.5412,"s11":-7.2612,"vswr":2.5301}],"yagiSweep":[{"len":118.0,"r":24.513,"x":-56.0435,"s11":-3.6048,"vswr":4.888},{"len":120.0,"r":25.755,"x":-43.9504,"s11":-4.8351,"vswr":3.6851},{"len":122.0,"r":27.0588,"x":-31.8792,"s11":-6.5401,"vswr":2.7805},{"len":124.0,"r":28.428,"x":-19.8171,"s11":-8.823,"vswr":2.1354},{"len":126.0,"r":29.8665,"x":-7.7513,"s11":-11.4094,"vswr":1.7355},{"len":128.0,"r":31.3786,"x":4.3307,"s11":-12.5935,"vswr":1.613},{"len":130.0,"r":32.969,"x":16.4417,"s11":-11.0607,"vswr":1.7773},{"len":132.0,"r":34.6425,"x":28.5944,"s11":-8.7948,"vswr":2.1412},{"len":134.0,"r":36.4046,"x":40.8016,"s11":-6.9342,"vswr":2.6369},{"len":136.0,"r":38.261,"x":53.0763,"s11":-5.5505,"vswr":3.2355}],"droopSweep":[{"droop":0,"r":25.7263,"x":9.4307,"s11":-9.3385,"vswr":2.0361,"gain":0.7723},{"droop":15,"r":37.9746,"x":21.9857,"s11":-11.1708,"vswr":1.7638,"gain":1.185},{"droop":30,"r":50.7927,"x":32.5676,"s11":-10.2416,"vswr":1.8883,"gain":1.4285},{"droop":45,"r":62.8649,"x":41.7152,"s11":-8.8068,"vswr":2.1387,"gain":1.6771}],"freqSweep":{"gpSelected":[{"f":950.0,"s11":-3.675,"r":28.8521,"x":-62.3617},{"f":955.0,"s11":-3.9016,"r":29.2831,"x":-59.9518},{"f":960.0,"s11":-4.1438,"r":29.7198,"x":-57.5499},{"f":965.0,"s11":-4.4025,"r":30.1622,"x":-55.1557},{"f":970.0,"s11":-4.6791,"r":30.6106,"x":-52.769},{"f":975.0,"s11":-4.975,"r":31.0649,"x":-50.3895},{"f":980.0,"s11":-5.2917,"r":31.5253,"x":-48.0171},{"f":985.0,"s11":-5.6309,"r":31.9918,"x":-45.6514},{"f":990.0,"s11":-5.9945,"r":32.4645,"x":-43.2923},{"f":995.0,"s11":-6.3846,"r":32.9436,"x":-40.9395},{"f":1000.0,"s11":-6.8035,"r":33.4292,"x":-38.5929},{"f":1005.0,"s11":-7.2539,"r":33.9213,"x":-36.2522},{"f":1010.0,"s11":-7.7389,"r":34.42,"x":-33.9172},{"f":1015.0,"s11":-8.262,"r":34.9254,"x":-31.5877},{"f":1020.0,"s11":-8.8274,"r":35.4377,"x":-29.2634},{"f":1025.0,"s11":-9.4397,"r":35.957,"x":-26.9443},{"f":1030.0,"s11":-10.1047,"r":36.4832,"x":-24.6301},{"f":1035.0,"s11":-10.829,"r":37.0167,"x":-22.3205},{"f":1040.0,"s11":-11.6207,"r":37.5574,"x":-20.0154},{"f":1045.0,"s11":-12.4893,"r":38.1056,"x":-17.7147},{"f":1050.0,"s11":-13.4459,"r":38.6612,"x":-15.4181},{"f":1055.0,"s11":-14.5029,"r":39.2245,"x":-13.1254},{"f":1060.0,"s11":-15.673,"r":39.7955,"x":-10.8364},{"f":1065.0,"s11":-16.9645,"r":40.3744,"x":-8.5511},{"f":1070.0,"s11":-18.3699,"r":40.9613,"x":-6.2691},{"f":1075.0,"s11":-19.836,"r":41.5564,"x":-3.9903},{"f":1076.0,"s11":-20.1252,"r":41.6764,"x":-3.535},{"f":1077.0,"s11":-20.409,"r":41.7967,"x":-3.0797},{"f":1078.0,"s11":-20.6851,"r":41.9174,"x":-2.6246},{"f":1079.0,"s11":-20.9506,"r":42.0383,"x":-2.1695},{"f":1080.0,"s11":-21.2028,"r":42.1597,"x":-1.7146},{"f":1081.0,"s11":-21.438,"r":42.2813,"x":-1.2598},{"f":1082.0,"s11":-21.6531,"r":42.4033,"x":-0.8052},{"f":1083.0,"s11":-21.8444,"r":42.5257,"x":-0.3506},{"f":1084.0,"s11":-22.0081,"r":42.6483,"x":0.1038},{"f":1085.0,"s11":-22.1415,"r":42.7714,"x":0.5582},{"f":1086.0,"s11":-22.2414,"r":42.8947,"x":1.0124},{"f":1087.0,"s11":-22.3058,"r":43.0184,"x":1.4666},{"f":1088.0,"s11":-22.3335,"r":43.1425,"x":1.9206},{"f":1089.0,"s11":-22.3239,"r":43.2668,"x":2.3745},{"f":1090.0,"s11":-22.2777,"r":43.3916,"x":2.8283},{"f":1091.0,"s11":-22.1964,"r":43.5167,"x":3.282},{"f":1092.0,"s11":-22.0821,"r":43.6421,"x":3.7356},{"f":1093.0,"s11":-21.9379,"r":43.7679,"x":4.1891},{"f":1094.0,"s11":-21.7669,"r":43.894,"x":4.6425},{"f":1095.0,"s11":-21.5728,"r":44.0205,"x":5.0959},{"f":1096.0,"s11":-21.359,"r":44.1473,"x":5.5491},{"f":1097.0,"s11":-21.1291,"r":44.2745,"x":6.0022},{"f":1098.0,"s11":-20.8862,"r":44.402,"x":6.4553},{"f":1099.0,"s11":-20.6334,"r":44.5299,"x":6.9082},{"f":1100.0,"s11":-20.3732,"r":44.6582,"x":7.361},{"f":1105.0,"s11":-19.032,"r":45.3048,"x":9.624},{"f":1110.0,"s11":-17.7333,"r":45.9605,"x":11.8849},{"f":1115.0,"s11":-16.5421,"r":46.6256,"x":14.1439},{"f":1120.0,"s11":-15.4703,"r":47.3,"x":16.4012},{"f":1125.0,"s11":-14.5106,"r":47.9839,"x":18.6568},{"f":1130.0,"s11":-13.6503,"r":48.6776,"x":20.911},{"f":1135.0,"s11":-12.8765,"r":49.3812,"x":23.1639},{"f":1140.0,"s11":-12.1775,"r":50.0948,"x":25.4157},{"f":1145.0,"s11":-11.5433,"r":50.8186,"x":27.6664},{"f":1150.0,"s11":-10.9654,"r":51.5529,"x":29.9163},{"f":1155.0,"s11":-10.4369,"r":52.2976,"x":32.1654},{"f":1160.0,"s11":-9.9516,"r":53.0532,"x":34.414},{"f":1165.0,"s11":-9.5047,"r":53.8196,"x":36.6621},{"f":1170.0,"s11":-9.0919,"r":54.5972,"x":38.9099},{"f":1175.0,"s11":-8.7094,"r":55.3861,"x":41.1574},{"f":1180.0,"s11":-8.3543,"r":56.1864,"x":43.4049},{"f":1185.0,"s11":-8.0237,"r":56.9985,"x":45.6525},{"f":1190.0,"s11":-7.7154,"r":57.8224,"x":47.9003},{"f":1195.0,"s11":-7.4272,"r":58.6585,"x":50.1483},{"f":1200.0,"s11":-7.1574,"r":59.5069,"x":52.3968},{"f":1205.0,"s11":-6.9043,"r":60.3678,"x":54.6459},{"f":1210.0,"s11":-6.6666,"r":61.2414,"x":56.8956},{"f":1215.0,"s11":-6.443,"r":62.128,"x":59.146},{"f":1220.0,"s11":-6.2324,"r":63.0279,"x":61.3974},{"f":1225.0,"s11":-6.0337,"r":63.9411,"x":63.6497},{"f":1230.0,"s11":-5.846,"r":64.868,"x":65.9032},{"f":1235.0,"s11":-5.6686,"r":65.8089,"x":68.1578},{"f":1240.0,"s11":-5.5006,"r":66.7638,"x":70.4138},{"f":1245.0,"s11":-5.3415,"r":67.7332,"x":72.6711},{"f":1250.0,"s11":-5.1905,"r":68.7173,"x":74.93}],"gp30_69":[{"f":950.0,"s11":-7.2036,"r":33.1021,"x":-35.6558},{"f":955.0,"s11":-7.7181,"r":33.6175,"x":-33.168},{"f":960.0,"s11":-8.2754,"r":34.1403,"x":-30.686},{"f":965.0,"s11":-8.8802,"r":34.6706,"x":-28.2095},{"f":970.0,"s11":-9.5379,"r":35.2086,"x":-25.7383},{"f":975.0,"s11":-10.2549,"r":35.7544,"x":-23.2722},{"f":980.0,"s11":-11.0386,"r":36.308,"x":-20.8109},{"f":985.0,"s11":-11.8975,"r":36.8697,"x":-18.3542},{"f":990.0,"s11":-12.841,"r":37.4396,"x":-15.9018},{"f":995.0,"s11":-13.8786,"r":38.0179,"x":-13.4536},{"f":1000.0,"s11":-15.0179,"r":38.6045,"x":-11.0092},{"f":1005.0,"s11":-16.2582,"r":39.1998,"x":-8.5685},{"f":1010.0,"s11":-17.5769,"r":39.8039,"x":-6.1312},{"f":1015.0,"s11":-18.8994,"r":40.4168,"x":-3.6972},{"f":1016.0,"s11":-19.1514,"r":40.5405,"x":-3.2107},{"f":1017.0,"s11":-19.395,"r":40.6645,"x":-2.7244},{"f":1018.0,"s11":-19.6279,"r":40.7889,"x":-2.2382},{"f":1019.0,"s11":-19.8479,"r":40.9137,"x":-1.7521},{"f":1020.0,"s11":-20.0522,"r":41.0388,"x":-1.2661},{"f":1021.0,"s11":-20.2383,"r":41.1643,"x":-0.7803},{"f":1022.0,"s11":-20.4034,"r":41.2902,"x":-0.2945},{"f":1023.0,"s11":-20.545,"r":41.4164,"x":0.1911},{"f":1024.0,"s11":-20.6607,"r":41.543,"x":0.6767},{"f":1025.0,"s11":-20.7486,"r":41.67,"x":1.1621},{"f":1026.0,"s11":-20.8072,"r":41.7974,"x":1.6475},{"f":1027.0,"s11":-20.8354,"r":41.9251,"x":2.1327},{"f":1028.0,"s11":-20.8331,"r":42.0533,"x":2.6178},{"f":1029.0,"s11":-20.8004,"r":42.1818,"x":3.1029},{"f":1030.0,"s11":-20.7383,"r":42.3106,"x":3.5878},{"f":1031.0,"s11":-20.6485,"r":42.4399,"x":4.0726},{"f":1032.0,"s11":-20.5328,"r":42.5695,"x":4.5574},{"f":1033.0,"s11":-20.3937,"r":42.6996,"x":5.042},{"f":1034.0,"s11":-20.2335,"r":42.83,"x":5.5266},{"f":1035.0,"s11":-20.0552,"r":42.9608,"x":6.0111},{"f":1040.0,"s11":-18.9781,"r":43.6206,"x":8.4322},{"f":1045.0,"s11":-17.7754,"r":44.2904,"x":10.8514},{"f":1050.0,"s11":-16.596,"r":44.9701,"x":13.2687},{"f":1055.0,"s11":-15.5,"r":45.6602,"x":15.6846},{"f":1060.0,"s11":-14.5033,"r":46.3606,"x":18.099},{"f":1065.0,"s11":-13.6037,"r":47.0717,"x":20.5123},{"f":1070.0,"s11":-12.7924,"r":47.7935,"x":22.9246},{"f":1075.0,"s11":-12.0597,"r":48.5263,"x":25.3361},{"f":1080.0,"s11":-11.3958,"r":49.2703,"x":27.7469},{"f":1085.0,"s11":-10.7922,"r":50.0257,"x":30.1574},{"f":1090.0,"s11":-10.2416,"r":50.7927,"x":32.5676},{"f":1095.0,"s11":-9.7376,"r":51.5715,"x":34.9777},{"f":1100.0,"s11":-9.2747,"r":52.3624,"x":37.3879},{"f":1105.0,"s11":-8.8485,"r":53.1655,"x":39.7984},{"f":1110.0,"s11":-8.4549,"r":53.981,"x":42.2094},{"f":1115.0,"s11":-8.0905,"r":54.8093,"x":44.621},{"f":1120.0,"s11":-7.7523,"r":55.6505,"x":47.0334},{"f":1125.0,"s11":-7.4378,"r":56.5049,"x":49.4467},{"f":1130.0,"s11":-7.1448,"r":57.3727,"x":51.8612},{"f":1135.0,"s11":-6.8712,"r":58.2543,"x":54.2769},{"f":1140.0,"s11":-6.6154,"r":59.1497,"x":56.6941},{"f":1145.0,"s11":-6.3757,"r":60.0594,"x":59.1129},{"f":1150.0,"s11":-6.1508,"r":60.9835,"x":61.5335},{"f":1155.0,"s11":-5.9396,"r":61.9225,"x":63.9559},{"f":1160.0,"s11":-5.7408,"r":62.8764,"x":66.3804},{"f":1165.0,"s11":-5.5535,"r":63.8457,"x":68.8071},{"f":1170.0,"s11":-5.3769,"r":64.8306,"x":71.2362},{"f":1175.0,"s11":-5.2101,"r":65.8314,"x":73.6677},{"f":1180.0,"s11":-5.0524,"r":66.8484,"x":76.1018},{"f":1185.0,"s11":-4.9031,"r":67.882,"x":78.5387},{"f":1190.0,"s11":-4.7617,"r":68.9325,"x":80.9785},{"f":1195.0,"s11":-4.6276,"r":70.0002,"x":83.4213},{"f":1200.0,"s11":-4.5003,"r":71.0854,"x":85.8672},{"f":1205.0,"s11":-4.3793,"r":72.1886,"x":88.3164},{"f":1210.0,"s11":-4.2643,"r":73.3099,"x":90.769},{"f":1215.0,"s11":-4.1548,"r":74.4499,"x":93.2251},{"f":1220.0,"s11":-4.0505,"r":75.6089,"x":95.6848},{"f":1225.0,"s11":-3.951,"r":76.7872,"x":98.1483},{"f":1230.0,"s11":-3.8561,"r":77.9853,"x":100.616},{"f":1235.0,"s11":-3.7655,"r":79.2035,"x":103.087},{"f":1240.0,"s11":-3.679,"r":80.4423,"x":105.562},{"f":1245.0,"s11":-3.5963,"r":81.702,"x":108.041},{"f":1250.0,"s11":-3.517,"r":82.9831,"x":110.525}],"gp00_69":[{"f":950.0,"s11":-2.3117,"r":16.3218,"x":-59.2487},{"f":955.0,"s11":-2.4664,"r":16.5886,"x":-56.7714},{"f":960.0,"s11":-2.6323,"r":16.8597,"x":-54.2984},{"f":965.0,"s11":-2.8101,"r":17.1351,"x":-51.8296},{"f":970.0,"s11":-3.0006,"r":17.415,"x":-49.3646},{"f":975.0,"s11":-3.2045,"r":17.6993,"x":-46.903},{"f":980.0,"s11":-3.4226,"r":17.9883,"x":-44.4447},{"f":985.0,"s11":-3.6557,"r":18.282,"x":-41.9892},{"f":990.0,"s11":-3.9043,"r":18.5805,"x":-39.5363},{"f":995.0,"s11":-4.169,"r":18.8839,"x":-37.0857},{"f":1000.0,"s11":-4.4503,"r":19.1923,"x":-34.6371},{"f":1005.0,"s11":-4.7483,"r":19.5057,"x":-32.1902},{"f":1010.0,"s11":-5.063,"r":19.8244,"x":-29.7447},{"f":1015.0,"s11":-5.3939,"r":20.1484,"x":-27.3003},{"f":1020.0,"s11":-5.74,"r":20.4777,"x":-24.8567},{"f":1025.0,"s11":-6.0998,"r":20.8127,"x":-22.4137},{"f":1030.0,"s11":-6.4707,"r":21.1532,"x":-19.9709},{"f":1035.0,"s11":-6.8492,"r":21.4995,"x":-17.528},{"f":1040.0,"s11":-7.2306,"r":21.8517,"x":-15.0847},{"f":1045.0,"s11":-7.6085,"r":22.2099,"x":-12.6409},{"f":1050.0,"s11":-7.9751,"r":22.5742,"x":-10.1961},{"f":1055.0,"s11":-8.3211,"r":22.9448,"x":-7.75},{"f":1060.0,"s11":-8.6359,"r":23.3218,"x":-5.3025},{"f":1065.0,"s11":-8.9083,"r":23.7054,"x":-2.8532},{"f":1066.0,"s11":-8.9567,"r":23.7829,"x":-2.3631},{"f":1067.0,"s11":-9.0029,"r":23.8607,"x":-1.8729},{"f":1068.0,"s11":-9.0468,"r":23.9387,"x":-1.3826},{"f":1069.0,"s11":-9.0884,"r":24.017,"x":-0.8922},{"f":1070.0,"s11":-9.1275,"r":24.0956,"x":-0.4017},{"f":1071.0,"s11":-9.1641,"r":24.1745,"x":0.0888},{"f":1072.0,"s11":-9.1981,"r":24.2536,"x":0.5795},{"f":1073.0,"s11":-9.2295,"r":24.333,"x":1.0702},{"f":1074.0,"s11":-9.2582,"r":24.4127,"x":1.5611},{"f":1075.0,"s11":-9.2842,"r":24.4926,"x":2.0521},{"f":1076.0,"s11":-9.3075,"r":24.5729,"x":2.5431},{"f":1077.0,"s11":-9.328,"r":24.6534,"x":3.0343},{"f":1078.0,"s11":-9.3456,"r":24.7342,"x":3.5256},{"f":1079.0,"s11":-9.3605,"r":24.8153,"x":4.017},{"f":1080.0,"s11":-9.3725,"r":24.8967,"x":4.5086},{"f":1081.0,"s11":-9.3816,"r":24.9783,"x":5.0002},{"f":1082.0,"s11":-9.3879,"r":25.0603,"x":5.492},{"f":1083.0,"s11":-9.3914,"r":25.1425,"x":5.9839},{"f":1084.0,"s11":-9.392,"r":25.225,"x":6.4759},{"f":1085.0,"s11":-9.3899,"r":25.3078,"x":6.968},{"f":1086.0,"s11":-9.385,"r":25.3909,"x":7.4603},{"f":1087.0,"s11":-9.3773,"r":25.4743,"x":7.9527},{"f":1088.0,"s11":-9.367,"r":25.558,"x":8.4452},{"f":1089.0,"s11":-9.354,"r":25.642,"x":8.9379},{"f":1090.0,"s11":-9.3385,"r":25.7263,"x":9.4307},{"f":1091.0,"s11":-9.3204,"r":25.8108,"x":9.9237},{"f":1092.0,"s11":-9.2999,"r":25.8957,"x":10.4168},{"f":1093.0,"s11":-9.277,"r":25.9809,"x":10.9101},{"f":1094.0,"s11":-9.2517,"r":26.0664,"x":11.4035},{"f":1095.0,"s11":-9.2242,"r":26.1522,"x":11.897},{"f":1100.0,"s11":-9.0557,"r":26.5857,"x":14.3672},{"f":1105.0,"s11":-8.8434,"r":27.027,"x":16.8414},{"f":1110.0,"s11":-8.5976,"r":27.4762,"x":19.3202},{"f":1115.0,"s11":-8.3286,"r":27.9337,"x":21.8036},{"f":1120.0,"s11":-8.0449,"r":28.3994,"x":24.2922},{"f":1125.0,"s11":-7.7539,"r":28.8737,"x":26.786},{"f":1130.0,"s11":-7.4612,"r":29.3567,"x":29.2856},{"f":1135.0,"s11":-7.1715,"r":29.8487,"x":31.791},{"f":1140.0,"s11":-6.8877,"r":30.3497,"x":34.3028},{"f":1145.0,"s11":-6.6124,"r":30.8602,"x":36.8211},{"f":1150.0,"s11":-6.347,"r":31.3802,"x":39.3463},{"f":1155.0,"s11":-6.0924,"r":31.91,"x":41.8787},{"f":1160.0,"s11":-5.8492,"r":32.4498,"x":44.4187},{"f":1165.0,"s11":-5.6175,"r":32.9999,"x":46.9664},{"f":1170.0,"s11":-5.3973,"r":33.5606,"x":49.5224},{"f":1175.0,"s11":-5.1884,"r":34.132,"x":52.0868},{"f":1180.0,"s11":-4.9904,"r":34.7145,"x":54.66},{"f":1185.0,"s11":-4.8028,"r":35.3083,"x":57.2424},{"f":1190.0,"s11":-4.6254,"r":35.9137,"x":59.8342},{"f":1195.0,"s11":-4.4574,"r":36.531,"x":62.4359},{"f":1200.0,"s11":-4.2985,"r":37.1604,"x":65.0477},{"f":1205.0,"s11":-4.1482,"r":37.8024,"x":67.6699},{"f":1210.0,"s11":-4.0059,"r":38.4571,"x":70.3031},{"f":1215.0,"s11":-3.8713,"r":39.125,"x":72.9474},{"f":1220.0,"s11":-3.7438,"r":39.8063,"x":75.6032},{"f":1225.0,"s11":-3.623,"r":40.5015,"x":78.2709},{"f":1230.0,"s11":-3.5085,"r":41.2108,"x":80.9509},{"f":1235.0,"s11":-3.3999,"r":41.9347,"x":83.6435},{"f":1240.0,"s11":-3.297,"r":42.6735,"x":86.3491},{"f":1245.0,"s11":-3.1992,"r":43.4275,"x":89.0681},{"f":1250.0,"s11":-3.1063,"r":44.1973,"x":91.8007}],"gp45_69":[{"f":950.0,"s11":-10.9923,"r":41.2687,"x":-25.2452},{"f":955.0,"s11":-11.8574,"r":41.9046,"x":-22.7822},{"f":960.0,"s11":-12.8234,"r":42.5493,"x":-20.3262},{"f":965.0,"s11":-13.9133,"r":43.2029,"x":-17.8768},{"f":970.0,"s11":-15.1594,"r":43.8655,"x":-15.4339},{"f":975.0,"s11":-16.6098,"r":44.5372,"x":-12.9974},{"f":980.0,"s11":-18.3396,"r":45.2183,"x":-10.5669},{"f":985.0,"s11":-20.4757,"r":45.9088,"x":-8.1423},{"f":990.0,"s11":-23.2556,"r":46.6088,"x":-5.7234},{"f":995.0,"s11":-27.181,"r":47.3186,"x":-3.3101},{"f":996.0,"s11":-28.1845,"r":47.4618,"x":-2.8281},{"f":997.0,"s11":-29.2845,"r":47.6053,"x":-2.3462},{"f":998.0,"s11":-30.4877,"r":47.7492,"x":-1.8646},{"f":999.0,"s11":-31.7877,"r":47.8935,"x":-1.3833},{"f":1000.0,"s11":-33.1426,"r":48.0383,"x":-0.9021},{"f":1001.0,"s11":-34.4284,"r":48.1834,"x":-0.4211},{"f":1002.0,"s11":-35.388,"r":48.3289,"x":0.0597},{"f":1003.0,"s11":-35.6873,"r":48.4749,"x":0.5403},{"f":1004.0,"s11":-35.1923,"r":48.6212,"x":1.0206},{"f":1005.0,"s11":-34.1294,"r":48.7679,"x":1.5008},{"f":1006.0,"s11":-32.831,"r":48.9151,"x":1.9808},{"f":1007.0,"s11":-31.5117,"r":49.0626,"x":2.4605},{"f":1008.0,"s11":-30.2654,"r":49.2106,"x":2.9401},{"f":1009.0,"s11":-29.1201,"r":49.359,"x":3.4195},{"f":1010.0,"s11":-28.0768,"r":49.5078,"x":3.8987},{"f":1011.0,"s11":-27.1271,"r":49.657,"x":4.3777},{"f":1012.0,"s11":-26.2602,"r":49.8066,"x":4.8564},{"f":1013.0,"s11":-25.4655,"r":49.9566,"x":5.3351},{"f":1014.0,"s11":-24.7337,"r":50.1071,"x":5.8135},{"f":1015.0,"s11":-24.0568,"r":50.258,"x":6.2917},{"f":1020.0,"s11":-21.29,"r":51.0186,"x":8.6801},{"f":1025.0,"s11":-19.2146,"r":51.7899,"x":11.0641},{"f":1030.0,"s11":-17.568,"r":52.5721,"x":13.4437},{"f":1035.0,"s11":-16.2122,"r":53.3652,"x":15.8191},{"f":1040.0,"s11":-15.0659,"r":54.1694,"x":18.1906},{"f":1045.0,"s11":-14.0782,"r":54.985,"x":20.5581},{"f":1050.0,"s11":-13.2142,"r":55.8121,"x":22.922},{"f":1055.0,"s11":-12.4498,"r":56.6508,"x":25.2823},{"f":1060.0,"s11":-11.7671,"r":57.5015,"x":27.6391},{"f":1065.0,"s11":-11.1527,"r":58.3641,"x":29.9926},{"f":1070.0,"s11":-10.5962,"r":59.239,"x":32.343},{"f":1075.0,"s11":-10.0894,"r":60.1264,"x":34.6903},{"f":1080.0,"s11":-9.6257,"r":61.0263,"x":37.0347},{"f":1085.0,"s11":-9.1996,"r":61.9391,"x":39.3763},{"f":1090.0,"s11":-8.8068,"r":62.8649,"x":41.7152},{"f":1095.0,"s11":-8.4435,"r":63.804,"x":44.0515},{"f":1100.0,"s11":-8.1065,"r":64.7564,"x":46.3854},{"f":1105.0,"s11":-7.7931,"r":65.7226,"x":48.7169},{"f":1110.0,"s11":-7.5009,"r":66.7026,"x":51.0461},{"f":1115.0,"s11":-7.228,"r":67.6967,"x":53.3732},{"f":1120.0,"s11":-6.9726,"r":68.7051,"x":55.6983},{"f":1125.0,"s11":-6.7332,"r":69.7281,"x":58.0213},{"f":1130.0,"s11":-6.5083,"r":70.7659,"x":60.3425},{"f":1135.0,"s11":-6.2967,"r":71.8187,"x":62.6619},{"f":1140.0,"s11":-6.0975,"r":72.8867,"x":64.9795},{"f":1145.0,"s11":-5.9095,"r":73.9703,"x":67.2955},{"f":1150.0,"s11":-5.7319,"r":75.0696,"x":69.61},{"f":1155.0,"s11":-5.564,"r":76.1849,"x":71.9229},{"f":1160.0,"s11":-5.405,"r":77.3165,"x":74.2343},{"f":1165.0,"s11":-5.2544,"r":78.4647,"x":76.5444},{"f":1170.0,"s11":-5.1114,"r":79.6296,"x":78.8531},{"f":1175.0,"s11":-4.9756,"r":80.8117,"x":81.1606},{"f":1180.0,"s11":-4.8465,"r":82.011,"x":83.4668},{"f":1185.0,"s11":-4.7237,"r":83.2281,"x":85.7718},{"f":1190.0,"s11":-4.6067,"r":84.463,"x":88.0756},{"f":1195.0,"s11":-4.4952,"r":85.7162,"x":90.3783},{"f":1200.0,"s11":-4.3888,"r":86.9879,"x":92.6799},{"f":1205.0,"s11":-4.2873,"r":88.2785,"x":94.9804},{"f":1210.0,"s11":-4.1902,"r":89.5881,"x":97.2798},{"f":1215.0,"s11":-4.0974,"r":90.9173,"x":99.5782},{"f":1220.0,"s11":-4.0086,"r":92.2661,"x":101.876},{"f":1225.0,"s11":-3.9237,"r":93.6351,"x":104.172},{"f":1230.0,"s11":-3.8422,"r":95.0245,"x":106.467},{"f":1235.0,"s11":-3.7641,"r":96.4347,"x":108.761},{"f":1240.0,"s11":-3.6892,"r":97.866,"x":111.054},{"f":1245.0,"s11":-3.6173,"r":99.3188,"x":113.346},{"f":1250.0,"s11":-3.5482,"r":100.793,"x":115.637}],"yagi":[{"f":950.0,"s11":-1.4412,"r":27.5976,"x":-116.29},{"f":955.0,"s11":-1.5093,"r":27.3371,"x":-112.439},{"f":960.0,"s11":-1.5822,"r":27.0467,"x":-108.539},{"f":965.0,"s11":-1.6605,"r":26.7303,"x":-104.583},{"f":970.0,"s11":-1.7456,"r":26.3935,"x":-100.561},{"f":975.0,"s11":-1.8391,"r":26.0441,"x":-96.465},{"f":980.0,"s11":-1.9429,"r":25.6926,"x":-92.2859},{"f":985.0,"s11":-2.0599,"r":25.3517,"x":-88.0171},{"f":990.0,"s11":-2.1934,"r":25.0372,"x":-83.6539},{"f":995.0,"s11":-2.3477,"r":24.7671,"x":-79.1949},{"f":1000.0,"s11":-2.5283,"r":24.5612,"x":-74.643},{"f":1005.0,"s11":-2.7417,"r":24.4401,"x":-70.0067},{"f":1010.0,"s11":-2.9954,"r":24.4228,"x":-65.3006},{"f":1015.0,"s11":-3.2977,"r":24.5255,"x":-60.5454},{"f":1020.0,"s11":-3.6576,"r":24.7583,"x":-55.7675},{"f":1025.0,"s11":-4.0836,"r":25.1238,"x":-50.9969},{"f":1030.0,"s11":-4.5836,"r":25.6155,"x":-46.2645},{"f":1035.0,"s11":-5.1635,"r":26.2172,"x":-41.5995},{"f":1040.0,"s11":-5.827,"r":26.9043,"x":-37.0256},{"f":1045.0,"s11":-6.5752,"r":27.6456,"x":-32.5585},{"f":1050.0,"s11":-7.4058,"r":28.4067,"x":-28.2045},{"f":1055.0,"s11":-8.3124,"r":29.1525,"x":-23.9604},{"f":1060.0,"s11":-9.2819,"r":29.8509,"x":-19.8138},{"f":1065.0,"s11":-10.2885,"r":30.4741,"x":-15.7454},{"f":1070.0,"s11":-11.2824,"r":31.0002,"x":-11.7303},{"f":1075.0,"s11":-12.1746,"r":31.4139,"x":-7.7407},{"f":1076.0,"s11":-12.3295,"r":31.4821,"x":-6.9432},{"f":1077.0,"s11":-12.4738,"r":31.5455,"x":-6.1454},{"f":1078.0,"s11":-12.6061,"r":31.6039,"x":-5.3469},{"f":1079.0,"s11":-12.725,"r":31.6572,"x":-4.5476},{"f":1080.0,"s11":-12.8293,"r":31.7055,"x":-3.7471},{"f":1081.0,"s11":-12.9178,"r":31.7488,"x":-2.9453},{"f":1082.0,"s11":-12.9894,"r":31.787,"x":-2.142},{"f":1083.0,"s11":-13.0432,"r":31.8202,"x":-1.3368},{"f":1084.0,"s11":-13.0783,"r":31.8483,"x":-0.5295},{"f":1085.0,"s11":-13.0944,"r":31.8714,"x":0.28},{"f":1086.0,"s11":-13.0909,"r":31.8894,"x":1.092},{"f":1087.0,"s11":-13.068,"r":31.9025,"x":1.9068},{"f":1088.0,"s11":-13.0258,"r":31.9107,"x":2.7245},{"f":1089.0,"s11":-12.9646,"r":31.9139,"x":3.5454},{"f":1090.0,"s11":-12.8853,"r":31.9123,"x":4.3698},{"f":1091.0,"s11":-12.7887,"r":31.9059,"x":5.1977},{"f":1092.0,"s11":-12.6757,"r":31.8947,"x":6.0295},{"f":1093.0,"s11":-12.5476,"r":31.8788,"x":6.8653},{"f":1094.0,"s11":-12.4057,"r":31.8583,"x":7.7054},{"f":1095.0,"s11":-12.2512,"r":31.8332,"x":8.55},{"f":1100.0,"s11":-11.3371,"r":31.6426,"x":12.8474},{"f":1105.0,"s11":-10.2928,"r":31.3518,"x":17.2871},{"f":1110.0,"s11":-9.2241,"r":30.9749,"x":21.8931},{"f":1115.0,"s11":-8.1918,"r":30.5286,"x":26.6882},{"f":1120.0,"s11":-7.2268,"r":30.0323,"x":31.6938},{"f":1125.0,"s11":-6.3433,"r":29.5081,"x":36.9303},{"f":1130.0,"s11":-5.5468,"r":28.9813,"x":42.4164},{"f":1135.0,"s11":-4.838,"r":28.4802,"x":48.1691},{"f":1140.0,"s11":-4.2151,"r":28.0367,"x":54.2031},{"f":1145.0,"s11":-3.6745,"r":27.6862,"x":60.5301},{"f":1150.0,"s11":-3.2114,"r":27.4676,"x":67.158},{"f":1155.0,"s11":-2.82,"r":27.4233,"x":74.0903},{"f":1160.0,"s11":-2.4938,"r":27.5989,"x":81.3246},{"f":1165.0,"s11":-2.2259,"r":28.0418,"x":88.8519},{"f":1170.0,"s11":-2.0093,"r":28.8011,"x":96.6554},{"f":1175.0,"s11":-1.837,"r":29.9256,"x":104.71},{"f":1180.0,"s11":-1.7027,"r":31.4625,"x":112.981},{"f":1185.0,"s11":-1.6003,"r":33.4549,"x":121.425},{"f":1190.0,"s11":-1.5243,"r":35.9404,"x":129.99},{"f":1195.0,"s11":-1.4701,"r":38.9481,"x":138.614},{"f":1200.0,"s11":-1.4335,"r":42.4972,"x":147.231},{"f":1205.0,"s11":-1.411,"r":46.595,"x":155.769},{"f":1210.0,"s11":-1.3996,"r":51.2359,"x":164.155},{"f":1215.0,"s11":-1.3968,"r":56.401,"x":172.316},{"f":1220.0,"s11":-1.4006,"r":62.0583,"x":180.184},{"f":1225.0,"s11":-1.4094,"r":68.1639,"x":187.698},{"f":1230.0,"s11":-1.4217,"r":74.6643,"x":194.806},{"f":1235.0,"s11":-1.4364,"r":81.4983,"x":201.468},{"f":1240.0,"s11":-1.4526,"r":88.6002,"x":207.655},{"f":1245.0,"s11":-1.4697,"r":95.9024,"x":213.352},{"f":1250.0,"s11":-1.4871,"r":103.338,"x":218.555}]},"elevCut":{"gp":[{"e":0.0,"g":1.7842},{"e":5.0,"g":1.7642},{"e":10.0,"g":1.6742},{"e":15.0,"g":1.5142},{"e":20.0,"g":1.2842},{"e":25.0,"g":0.9842},{"e":30.0,"g":0.6042},{"e":35.0,"g":0.1342},{"e":40.0,"g":-0.4358},{"e":45.0,"g":-1.1158},{"e":50.0,"g":-1.9358},{"e":55.0,"g":-2.9158},{"e":60.0,"g":-4.0958},{"e":65.0,"g":-5.5558},{"e":70.0,"g":-7.3858},{"e":75.0,"g":-9.7958},{"e":80.0,"g":-13.2658},{"e":85.0,"g":-19.2458},{"e":90.0,"g":-1000.0158}],"yagi":[{"e":0.0,"g":8.0906},{"e":5.0,"g":8.0206},{"e":10.0,"g":7.8006},{"e":15.0,"g":7.4206},{"e":20.0,"g":6.8906},{"e":25.0,"g":6.2006},{"e":30.0,"g":5.3406},{"e":35.0,"g":4.3006},{"e":40.0,"g":3.0606},{"e":45.0,"g":1.6206},{"e":50.0,"g":-0.0594},{"e":55.0,"g":-2.0094},{"e":60.0,"g":-4.2794},{"e":65.0,"g":-6.9394},{"e":70.0,"g":-10.0994},{"e":75.0,"g":-13.9894},{"e":80.0,"g":-19.0494},{"e":85.0,"g":-26.7594},{"e":90.0,"g":-1000.2194}]},"azCut":{"gp":[{"a":0.0,"g":1.7842},{"a":5.0,"g":1.7842},{"a":10.0,"g":1.7842},{"a":15.0,"g":1.7842},{"a":20.0,"g":1.7842},{"a":25.0,"g":1.7842},{"a":30.0,"g":1.7842},{"a":35.0,"g":1.7742},{"a":40.0,"g":1.7742},{"a":45.0,"g":1.7742},{"a":50.0,"g":1.7742},{"a":55.0,"g":1.7742},{"a":60.0,"g":1.7842},{"a":65.0,"g":1.7842},{"a":70.0,"g":1.7842},{"a":75.0,"g":1.7842},{"a":80.0,"g":1.7842},{"a":85.0,"g":1.7842},{"a":90.0,"g":1.7842},{"a":95.0,"g":1.7842},{"a":100.0,"g":1.7842},{"a":105.0,"g":1.7842},{"a":110.0,"g":1.7842},{"a":115.0,"g":1.7842},{"a":120.0,"g":1.7842},{"a":125.0,"g":1.7742},{"a":130.0,"g":1.7742},{"a":135.0,"g":1.7742},{"a":140.0,"g":1.7742},{"a":145.0,"g":1.7742},{"a":150.0,"g":1.7842},{"a":155.0,"g":1.7842},{"a":160.0,"g":1.7842},{"a":165.0,"g":1.7842},{"a":170.0,"g":1.7842},{"a":175.0,"g":1.7842},{"a":180.0,"g":1.7842},{"a":185.0,"g":1.7842},{"a":190.0,"g":1.7842},{"a":195.0,"g":1.7842},{"a":200.0,"g":1.7842},{"a":205.0,"g":1.7842},{"a":210.0,"g":1.7842},{"a":215.0,"g":1.7742},{"a":220.0,"g":1.7742},{"a":225.0,"g":1.7742},{"a":230.0,"g":1.7742},{"a":235.0,"g":1.7742},{"a":240.0,"g":1.7842},{"a":245.0,"g":1.7842},{"a":250.0,"g":1.7842},{"a":255.0,"g":1.7842},{"a":260.0,"g":1.7842},{"a":265.0,"g":1.7842},{"a":270.0,"g":1.7842},{"a":275.0,"g":1.7842},{"a":280.0,"g":1.7842},{"a":285.0,"g":1.7842},{"a":290.0,"g":1.7842},{"a":295.0,"g":1.7842},{"a":300.0,"g":1.7842},{"a":305.0,"g":1.7742},{"a":310.0,"g":1.7742},{"a":315.0,"g":1.7742},{"a":320.0,"g":1.7742},{"a":325.0,"g":1.7742},{"a":330.0,"g":1.7842},{"a":335.0,"g":1.7842},{"a":340.0,"g":1.7842},{"a":345.0,"g":1.7842},{"a":350.0,"g":1.7842},{"a":355.0,"g":1.7842},{"a":360.0,"g":1.7842}],"yagi":[{"a":0.0,"g":8.0906},{"a":5.0,"g":8.0706},{"a":10.0,"g":7.9806},{"a":15.0,"g":7.8506},{"a":20.0,"g":7.6506},{"a":25.0,"g":7.3906},{"a":30.0,"g":7.0606},{"a":35.0,"g":6.6506},{"a":40.0,"g":6.1606},{"a":45.0,"g":5.5806},{"a":50.0,"g":4.9006},{"a":55.0,"g":4.1006},{"a":60.0,"g":3.1906},{"a":65.0,"g":2.1306},{"a":70.0,"g":0.9406},{"a":75.0,"g":-0.4194},{"a":80.0,"g":-1.9294},{"a":85.0,"g":-3.5894},{"a":90.0,"g":-5.3794},{"a":95.0,"g":-7.1994},{"a":100.0,"g":-8.8994},{"a":105.0,"g":-10.2994},{"a":110.0,"g":-11.2494},{"a":115.0,"g":-11.7794},{"a":120.0,"g":-12.0594},{"a":125.0,"g":-12.1994},{"a":130.0,"g":-12.2594},{"a":135.0,"g":-12.1894},{"a":140.0,"g":-11.9494},{"a":145.0,"g":-11.5294},{"a":150.0,"g":-10.9594},{"a":155.0,"g":-10.3394},{"a":160.0,"g":-9.7294},{"a":165.0,"g":-9.2194},{"a":170.0,"g":-8.8294},{"a":175.0,"g":-8.5894},{"a":180.0,"g":-8.5094},{"a":185.0,"g":-8.5894},{"a":190.0,"g":-8.8294},{"a":195.0,"g":-9.2194},{"a":200.0,"g":-9.7294},{"a":205.0,"g":-10.3394},{"a":210.0,"g":-10.9594},{"a":215.0,"g":-11.5294},{"a":220.0,"g":-11.9494},{"a":225.0,"g":-12.1894},{"a":230.0,"g":-12.2594},{"a":235.0,"g":-12.1994},{"a":240.0,"g":-12.0594},{"a":245.0,"g":-11.7794},{"a":250.0,"g":-11.2494},{"a":255.0,"g":-10.2994},{"a":260.0,"g":-8.8994},{"a":265.0,"g":-7.1994},{"a":270.0,"g":-5.3794},{"a":275.0,"g":-3.5894},{"a":280.0,"g":-1.9294},{"a":285.0,"g":-0.4194},{"a":290.0,"g":0.9406},{"a":295.0,"g":2.1306},{"a":300.0,"g":3.1906},{"a":305.0,"g":4.1006},{"a":310.0,"g":4.9006},{"a":315.0,"g":5.5806},{"a":320.0,"g":6.1606},{"a":325.0,"g":6.6506},{"a":330.0,"g":7.0606},{"a":335.0,"g":7.3906},{"a":340.0,"g":7.6506},{"a":345.0,"g":7.8506},{"a":350.0,"g":7.9806},{"a":355.0,"g":8.0706},{"a":360.0,"g":8.0906}]},"headline":{"gp":{"radiator":64,"radial":69,"droop":30,"r":43.3916,"x":2.8283,"s11":-22.2777,"vswr":1.1667,"gain":1.7842,"resonance":1083.7715,"bestMatch":1088.0},"yagi":{"driven":128,"reflector":132.569,"director":116.617,"spacing":55.008,"r":31.9123,"x":4.3698,"s11":-12.8853,"vswr":1.5868,"gain":8.0906,"fb":16.6,"hpbw":97.2857}}}</script>
+<script>
+(function(){
+"use strict";
+var D = JSON.parse(document.getElementById('study-data').textContent);
+var NS = 'http://www.w3.org/2000/svg';
+
+function css(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+function el(tag,attrs,text){
+  var e=document.createElementNS(NS,tag);
+  for(var k in attrs){ if(attrs[k]!==null&&attrs[k]!==undefined) e.setAttribute(k,attrs[k]); }
+  if(text!==undefined) e.textContent=text;
+  return e;
+}
+function fmt(v,d){ if(v===null||v===undefined||isNaN(v))return '—'; return (v>=0&&d==='+'?'+':'')+v.toFixed(2); }
+function num(v,p){ return v.toFixed(p===undefined?2:p); }
+
+/* ---------- generic cartesian plotter ---------- */
+function plot(svg, cfg){
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
+  var vb = svg.getAttribute('viewBox').split(' ').map(Number);
+  var W=vb[2], H=vb[3];
+  var m = cfg.margin || {t:16,r:16,b:42,l:56};
+  var iw = W-m.l-m.r, ih = H-m.t-m.b;
+  var xd = cfg.xDomain, yd = cfg.yDomain;
+  var X = function(v){ return m.l + (v-xd[0])/(xd[1]-xd[0])*iw; };
+  var Y = function(v){ return m.t + (yd[1]-v)/(yd[1]-yd[0])*ih; };
+  var cGrid=css('--grid'), cLine=css('--line-2'), cInk3=css('--ink-3'), cInk2=css('--ink-2');
+
+  (cfg.yTicks||[]).forEach(function(t){
+    svg.appendChild(el('line',{x1:m.l,x2:m.l+iw,y1:Y(t),y2:Y(t),stroke:cGrid,'stroke-width':1}));
+    svg.appendChild(el('text',{x:m.l-9,y:Y(t)+4,fill:cInk3,'font-size':11,'text-anchor':'end',
+      'font-family':'IBM Plex Mono, monospace'}, cfg.yFmt?cfg.yFmt(t):String(t)));
+  });
+  (cfg.xTicks||[]).forEach(function(t){
+    svg.appendChild(el('text',{x:X(t),y:m.t+ih+20,fill:cInk3,'font-size':11,'text-anchor':'middle',
+      'font-family':'IBM Plex Mono, monospace'}, cfg.xFmt?cfg.xFmt(t):String(t)));
+  });
+  svg.appendChild(el('line',{x1:m.l,x2:m.l+iw,y1:m.t+ih,y2:m.t+ih,stroke:cLine,'stroke-width':1.5}));
+  svg.appendChild(el('line',{x1:m.l,x2:m.l,y1:m.t,y2:m.t+ih,stroke:cLine,'stroke-width':1.5}));
+
+  (cfg.rules||[]).forEach(function(r){
+    var o={stroke:r.color||cInk3,'stroke-width':1,'stroke-dasharray':'3 3'};
+    if(r.y!==undefined){o.x1=m.l;o.x2=m.l+iw;o.y1=Y(r.y);o.y2=Y(r.y);}
+    else {o.x1=X(r.x);o.x2=X(r.x);o.y1=m.t;o.y2=m.t+ih;}
+    svg.appendChild(el('line',o));
+    if(r.label) svg.appendChild(el('text',{
+      x:(r.y!==undefined? m.l+6 : X(r.x)+5), y:(r.y!==undefined? Y(r.y)-5 : m.t+12),
+      fill:r.color||cInk3,'font-size':10.5,'font-family':'IBM Plex Mono, monospace'}, r.label));
+  });
+
+  (cfg.series||[]).forEach(function(s){
+    if(!s.points||!s.points.length) return;
+    var d = s.points.map(function(p,i){
+      return (i?'L':'M')+X(p[0]).toFixed(2)+' '+Y(Math.max(yd[0],Math.min(yd[1],p[1]))).toFixed(2);
+    }).join(' ');
+    svg.appendChild(el('path',{d:d,fill:'none',stroke:s.color,'stroke-width':s.width||2.2,
+      'stroke-dasharray':s.dash||null,'stroke-linejoin':'round','stroke-linecap':'round',
+      opacity:s.opacity||1}));
+    if(s.dots) s.points.forEach(function(p){
+      svg.appendChild(el('circle',{cx:X(p[0]),cy:Y(p[1]),r:2.6,fill:s.color,opacity:.55}));
+    });
+  });
+
+  (cfg.markers||[]).forEach(function(k){
+    svg.appendChild(el('circle',{cx:X(k.x),cy:Y(k.y),r:6.5,fill:'none',stroke:k.color,'stroke-width':2}));
+    svg.appendChild(el('circle',{cx:X(k.x),cy:Y(k.y),r:2.6,fill:k.color}));
+    if(k.label){
+      var up = k.below? 20 : -13;
+      svg.appendChild(el('text',{x:X(k.x),y:Y(k.y)+up,fill:k.color,'font-size':11.5,'font-weight':600,
+        'text-anchor':'middle','font-family':'IBM Plex Mono, monospace'}, k.label));
+    }
+  });
+
+  if(cfg.xLabel) svg.appendChild(el('text',{x:m.l+iw/2,y:H-7,fill:cInk2,'font-size':11.5,
+    'text-anchor':'middle'}, cfg.xLabel));
+  if(cfg.yLabel) svg.appendChild(el('text',{x:13,y:m.t+ih/2,fill:cInk2,'font-size':11.5,
+    'text-anchor':'middle',transform:'rotate(-90 13 '+(m.t+ih/2)+')'}, cfg.yLabel));
+}
+
+/* ---------- verdict strip ---------- */
+var h = D.headline;
+document.getElementById('verdict').innerHTML = [
+  ['Build candidate','64 / 69','mm @ 30&deg;'],
+  ['Impedance', num(h.gp.r,1)+' + j'+num(h.gp.x,1),'&Omega;'],
+  ['S11', num(h.gp.s11,2),'dB'],
+  ['VSWR', num(h.gp.vswr,3),''],
+  ['Gain at horizon', num(h.gp.gain,2),'dBi'],
+  ['Yagi advantage','+6.31','dB forward']
+].map(function(c){
+  return '<div class="vcell"><div class="k">'+c[0]+'</div><div class="v">'+c[1]+
+         ' <span class="u">'+c[2]+'</span></div></div>';
+}).join('');
+
+/* ---------- 1. radiator length ---------- */
+var lenS=document.getElementById('lenSlider');
+function drawLen(){
+  var L=+lenS.value;
+  var row=D.lengthSweep.filter(function(r){return r.len===L;})[0];
+  document.getElementById('lenVal').textContent=L;
+  document.getElementById('lenR').textContent=num(row.r,2)+' Ω';
+  document.getElementById('lenX').textContent=fmt(row.x,'+')+' Ω';
+  document.getElementById('lenS11').textContent=num(row.s11,2)+' dB';
+  document.getElementById('lenVswr').textContent=num(row.vswr,3);
+  var refl=Math.pow(10,row.s11/10)*100;
+  document.getElementById('lenRefl').textContent=refl.toFixed(1)+' %';
+  var st=document.getElementById('lenState');
+  if(L===64){st.textContent='build candidate'; st.className='pill sel';}
+  else if(row.s11<=-10){st.textContent='meets −10 dB'; st.className='pill ok';}
+  else {st.textContent='misses −10 dB'; st.className='pill no';}
+
+  plot(document.getElementById('lenChart'),{
+    xDomain:[62.5,72.5], yDomain:[-24,-6],
+    xTicks:[63,65,67,69,71], yTicks:[-24,-20,-16,-12,-8],
+    xLabel:'Radiator length (mm)', yLabel:'S11 at 1090 MHz (dB)',
+    rules:[{y:-10,label:'−10 dB target'}],
+    series:[{points:D.lengthSweep.map(function(r){return [r.len,r.s11];}),
+             color:css('--navy'),dots:true}],
+    markers:[{x:L,y:row.s11,color:css('--copper'),label:num(row.s11,1)+' dB'}]
+  });
+}
+lenS.addEventListener('input',drawLen);
+
+/* ---------- 2. droop ---------- */
+var drS=document.getElementById('droopSlider');
+function drawDroop(){
+  var i=+drS.value, row=D.droopSweep[i];
+  document.getElementById('droopVal').textContent=row.droop;
+  document.getElementById('drR').textContent=num(row.r,2)+' Ω';
+  document.getElementById('drX').textContent=fmt(row.x,'+')+' Ω';
+  document.getElementById('drS11').textContent=num(row.s11,2)+' dB';
+  document.getElementById('drVswr').textContent=num(row.vswr,3);
+  document.getElementById('drGain').textContent=num(row.gain,2)+' dBi';
+  var st=document.getElementById('droopState');
+  var best=D.droopSweep.reduce(function(a,b){return b.s11<a.s11?b:a;});
+  if(row.droop===best.droop){st.textContent='best of the four'; st.className='pill ok';}
+  else {st.textContent='worse than 15°'; st.className='pill no';}
+
+  plot(document.getElementById('droopChart'),{
+    xDomain:[-4,49], yDomain:[0,70],
+    xTicks:[0,15,30,45], yTicks:[0,20,40,60],
+    xFmt:function(t){return t+'°';},
+    xLabel:'Radial droop angle', yLabel:'Ohms at 1090 MHz',
+    rules:[{y:50,label:'50 Ω'}],
+    series:[
+      {points:D.droopSweep.map(function(r){return [r.droop,r.r];}),color:css('--navy'),dots:true},
+      {points:D.droopSweep.map(function(r){return [r.droop,r.x];}),color:css('--copper'),dots:true,dash:'6 4'}
+    ],
+    markers:[
+      {x:row.droop,y:row.r,color:css('--navy'),label:'R '+num(row.r,1)},
+      {x:row.droop,y:row.x,color:css('--copper'),label:'X '+fmt(row.x,'+'),below:true}
+    ]
+  });
+}
+drS.addEventListener('input',drawDroop);
+
+/* ---------- 3. frequency sweep ---------- */
+var SW=[
+  {id:'gpSelected',label:'GP 64 mm · 30°',color:'--navy',on:true,width:2.6},
+  {id:'gp00_69',   label:'GP 69 mm · 0°', color:'--navy-soft',on:false},
+  {id:'gp30_69',   label:'GP 69 mm · 30°',color:'--copper-soft',on:true},
+  {id:'gp45_69',   label:'GP 69 mm · 45°',color:'--copper',on:true},
+  {id:'yagi',      label:'Yagi 128 mm',   color:'--good',on:true,dash:'7 4'}
+];
+var tgWrap=document.getElementById('sweepToggles');
+SW.forEach(function(s,i){
+  var b=document.createElement('button');
+  b.className='tg'; b.type='button'; b.textContent=s.label;
+  b.setAttribute('aria-pressed',String(s.on));
+  b.addEventListener('click',function(){ s.on=!s.on; b.setAttribute('aria-pressed',String(s.on)); drawSweep(); });
+  tgWrap.appendChild(b);
+});
+function drawSweep(){
+  plot(document.getElementById('sweepChart'),{
+    margin:{t:18,r:20,b:44,l:58},
+    xDomain:[950,1250], yDomain:[-36,0],
+    xTicks:[950,1000,1050,1090,1150,1200,1250], yTicks:[0,-10,-20,-30],
+    xLabel:'Frequency (MHz)', yLabel:'Simulated S11 (dB)',
+    rules:[{y:-10,label:'−10 dB target'},{x:1090,label:'1090 MHz'}],
+    series:SW.filter(function(s){return s.on;}).map(function(s){
+      return {points:D.freqSweep[s.id].map(function(p){return [p.f,p.s11];}),
+              color:css(s.color),dash:s.dash,width:s.width||2};
+    })
+  });
+}
+
+/* ---------- 4. patterns ---------- */
+var PAT={gp:true,yagi:true};
+var pWrap=document.getElementById('patToggles');
+[['gp','Groundplane'],['yagi','Yagi']].forEach(function(p){
+  var b=document.createElement('button');
+  b.className='tg'; b.type='button'; b.textContent=p[1];
+  b.setAttribute('aria-pressed','true');
+  b.addEventListener('click',function(){ PAT[p[0]]=!PAT[p[0]];
+    b.setAttribute('aria-pressed',String(PAT[p[0]])); drawPat(); });
+  pWrap.appendChild(b);
+});
+function drawPat(){
+  var eS=[],aS=[];
+  if(PAT.gp){
+    eS.push({points:D.elevCut.gp.map(function(p){return [p.e,p.g];}),color:css('--navy'),width:2.4});
+    aS.push({points:D.azCut.gp.map(function(p){return [p.a,p.g];}),color:css('--navy'),width:2.4});
+  }
+  if(PAT.yagi){
+    eS.push({points:D.elevCut.yagi.map(function(p){return [p.e,p.g];}),color:css('--copper'),dash:'7 4',width:2.4});
+    aS.push({points:D.azCut.yagi.map(function(p){return [p.a,p.g];}),color:css('--copper'),dash:'7 4',width:2.4});
+  }
+  plot(document.getElementById('elevChart'),{
+    margin:{t:26,r:14,b:42,l:50},
+    xDomain:[0,90], yDomain:[-16,10],
+    xTicks:[0,30,60,90], yTicks:[10,5,0,-5,-10,-15],
+    xFmt:function(t){return t+'°';},
+    xLabel:'Elevation above horizon', yLabel:'Realised gain (dBi)',
+    rules:[{x:2.4,label:'2.4° · 250 km',color:css('--ink-3')}],
+    series:eS
+  });
+  plot(document.getElementById('azChart'),{
+    margin:{t:26,r:14,b:42,l:50},
+    xDomain:[0,360], yDomain:[-16,10],
+    xTicks:[0,90,180,270,360], yTicks:[10,5,0,-5,-10,-15],
+    xFmt:function(t){return t+'°';},
+    xLabel:'Azimuth at the horizon', yLabel:'Realised gain (dBi)',
+    series:aS
+  });
+}
+
+/* ---------- 5. table ---------- */
+var TBL=D.droopSweep.map(function(r){
+  return {n:'GP fixed '+r.droop+'°',l:'69 mm',d:r.droop+'°',r:r.r,x:r.x,s:r.s11,v:r.vswr,g:r.gain,hi:false};
+});
+TBL.push({n:'GP selected',l:'64 mm',d:'30°',r:h.gp.r,x:h.gp.x,s:h.gp.s11,v:h.gp.vswr,g:h.gp.gain,hi:true});
+TBL.push({n:'Yagi comparator',l:'128 mm',d:'—',r:h.yagi.r,x:h.yagi.x,s:h.yagi.s11,v:h.yagi.vswr,g:h.yagi.gain,hi:false});
+document.getElementById('tblBody').innerHTML=TBL.map(function(t){
+  return '<tr'+(t.hi?' class="hi"':'')+'><td>'+t.n+'</td><td>'+t.l+'</td><td>'+t.d+'</td><td>'+
+    num(t.r,2)+'</td><td>'+fmt(t.x,'+')+'</td><td>'+num(t.s,2)+'</td><td>'+num(t.v,3)+'</td><td>'+
+    num(t.g,2)+'</td></tr>';
+}).join('');
+
+/* ---------- boot + theme reactivity ---------- */
+function drawAll(){ drawLen(); drawDroop(); drawSweep(); drawPat(); }
+drawAll();
+if(window.matchMedia){
+  var mq=window.matchMedia('(prefers-color-scheme: dark)');
+  if(mq.addEventListener) mq.addEventListener('change',drawAll);
+}
+new MutationObserver(drawAll).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+})();
+</script>
