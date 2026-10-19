@@ -1,0 +1,33 @@
+# Builds the site exactly as GitHub Pages does and fails (with an email to you) if any page
+# links to a missing file or image, or if a file over 10 MB has been added.
+# Deployment is unaffected: GitHub Pages still publishes main as before.
+name: Check site
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Refuse files over 10 MB
+        run: |
+          big=$(find . -path ./.git -prune -o -type f -size +10M -print)
+          if [ -n "$big" ]; then
+            echo "::error::Files over 10 MB (convert GIFs to MP4, shrink images with scripts/optimize_images.py):"
+            ls -lh $big
+            exit 1
+          fi
+
+      - name: Build with the GitHub Pages builder
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - name: Check internal links, images and videos
+        run: python3 scripts/check_site.py _site --max-mb 10
