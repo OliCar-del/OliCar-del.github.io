@@ -124,6 +124,15 @@ colors:
   background: "#ffffff"
   light_background: "#f3f5fb"
 
+# Dark mode colours, used automatically when a visitor's device is set to dark.
+colors_dark:
+  text: "#e6e8ec"
+  border: "#2c313a"
+  link: "#8fb0ff"
+  highlight: "#b9c9ff"
+  background: "#121417"
+  light_background: "#1b1f26"
+
 # Alternative colour sets (text / border / link / highlight / background / light_background):
 #   mint:  "#2c3333" "#e0f2ef" "#40b3a2" "#2a9d8f" "#f7fbfa" "#f0f9f7"
 #   lemon: "#2d2926" "#f7f3e3" "#ffc94d" "#ffb800" "#fffdf5" "#fff9e6"

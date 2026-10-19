@@ -12,10 +12,14 @@ skills:
  - Hardware Bring-up & Bench Test
  - BOM Management & Cost Engineering
 
-image: /projects/00_DAQlogger/AltiumRender.jpg
-thumb: /projects/00_DAQlogger/thumb.webp
-permalink: /projects/00_DAQlogger/
+tags: [Analog front end, PCB (Altium), STM32, Optical link]   # short labels on the project card
+areas: [pcb, embedded]   # filter buttons: power, pcb, embedded, control, rf, software
+order: 1   # position on the site, lowest first
+image: /projects/loggy/AltiumRender.jpg
+thumb: /projects/loggy/thumb.webp
+permalink: /projects/loggy/
 redirect_from:   # older addresses for this page, kept working
+  - /projects/00_DAQlogger/
   - /projects/00_DAQlogger/index/
   - /_projects/00_DAQlogger/
 ---
@@ -23,8 +27,6 @@ redirect_from:   # older addresses for this page, kept working
 <!-- TODO: constructed-board photos pending. Replace the placeholder filenames
      `sensor_board_constructed.jpg` and `toslink_bench.jpg` below with the real
      photo filenames once taken. -->
-
-# loggy - Industrial Data Logger, Sensor Unit
 
 ## Project Overview
 

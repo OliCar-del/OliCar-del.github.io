@@ -24,13 +24,24 @@ wsl bash scripts/check.sh
 
 ## Adding a project
 
-1. Make a folder `_projects/NN_short-name/` (the number sets the order on the site) and copy
-   `Reference/template.md` into it as `index.md`.
-2. Put the project's images, videos and PDFs in the same folder and fill in the template.
-3. Run `python scripts/optimize_images.py NN_short-name`. It shrinks oversized photos, converts heavy
+1. Make a folder `_projects/short-name/` and copy `Reference/template.md` into it as `index.md`.
+   The folder name becomes the page address (`/projects/short-name/`); `order:` sets its position.
+2. Put the project's images, videos and PDFs in the same folder and fill in the template:
+   `tags:` are the 3-4 short labels on the card, `areas:` decides which filter buttons show it.
+3. Run `python scripts/optimize_images.py short-name`. It shrinks oversized photos, converts heavy
    PNGs to WebP (updating `index.md` to match), makes the card thumbnail and adds the `thumb:` line.
    Originals are copied to `../media-originals/` first.
 4. Preview, then commit and push. Add `published: false` to the front matter to keep a draft offline.
+
+If you ever rename a project folder, add its old address under `redirect_from:` so existing links keep
+working (see any project's front matter).
+
+## Home page
+
+- **Highlights** (the four results under the intro): `_data/highlights.yml`.
+- **Project filters**: buttons come from `_data/project_areas.yml`. A filtered view has its own address,
+  e.g. https://olicar-del.github.io/projects/?tag=power, handy to put in an application.
+- **Dark mode** follows the visitor's device setting; its colours are `colors_dark` in `_config.yml`.
 
 ## Images, video and files
 

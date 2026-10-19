@@ -1,6 +1,6 @@
 ---
 layout: post
-title: pid-reflow
+title: pid-reflow - Dead-Time Control of a Thermal Plant in C
 description: A real-time reflow-soldering oven simulator in C99 - a PID temperature controller with feedforward and anti-windup driving a dead-time-dominated two-mass thermal plant, with a toggleable Smith predictor, Bode analysis carrying an exact (non-Pade) delay term, relay autotuning, and solder-profile runs scored against industry pass bands. Second application on the pid-lander architecture, sharing a verified controller/UI kit.
 skills:
   - Dead-Time Compensation (Smith predictor)
@@ -12,20 +12,22 @@ skills:
   - C Programming & Shared-Library Architecture
   - Test Harness Design (headless suites, shadow-verified self-test)
 
-image: /projects/04_pid_reflow/console.png
-thumb: /projects/04_pid_reflow/thumb.webp
-permalink: /projects/04_pid_reflow/
+tags: [Smith predictor, Thermal model, C]   # short labels on the project card
+areas: [control, software]   # filter buttons: power, pcb, embedded, control, rf, software
+order: 5   # position on the site, lowest first
+image: /projects/pid-reflow/console.png
+thumb: /projects/pid-reflow/thumb.webp
+permalink: /projects/pid-reflow/
 redirect_from:   # older addresses for this page, kept working
+  - /projects/04_pid_reflow/
   - /projects/04_pid_reflow/index/
   - /_projects/04_pid_reflow/
 ---
 
 ---
-# pid-reflow - Dead-Time Control of a Thermal Plant in C
-
 ## Project Overview & Scope
 
-***pid-reflow*** is the second application built on the [pid-lander]({% link _projects/03_pid-lander/index.md %}) architecture: a process-control console where a PID temperature controller drives a reflow-soldering oven through a solder profile. I built it to cover the one classical-control problem the lander could not: **dead time**. The oven's temperature sensor reports the past - `T_meas(t) = T_air(t − τ_d)` - and the headline feature is a toggleable **Smith predictor** that compensates for the delay with an internal plant model. The actuator is one-sided again (a heater cannot cool; cooling comes only from ambient losses and an openable door), so the lander's saturation machinery carries over directly.
+***pid-reflow*** is the second application built on the [pid-lander]({% link _projects/pid-lander/index.md %}) architecture: a process-control console where a PID temperature controller drives a reflow-soldering oven through a solder profile. I built it to cover the one classical-control problem the lander could not: **dead time**. The oven's temperature sensor reports the past - `T_meas(t) = T_air(t − τ_d)` - and the headline feature is a toggleable **Smith predictor** that compensates for the delay with an internal plant model. The actuator is one-sided again (a heater cannot cool; cooling comes only from ambient losses and an openable door), so the lander's saturation machinery carries over directly.
 
 I wrote the project to a specification I drafted first (a 400-line `ROADMAP.md` treating the lander as architectural reference and parts donor), and used it to force a second design decision: the plant-agnostic modules - PID, immediate-mode UI, relay autotuner, utilities - were factored into a shared `controlkit/` library consumed by both applications via a documented `config.h` contract. The reflow-specific code is seven modules (~3,400 lines including tests): thermal plant, Smith predictor, process scoring, history chart, profile editor, analysis plots, and the console.
 

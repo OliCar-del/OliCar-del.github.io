@@ -52,6 +52,33 @@ document.addEventListener('DOMContentLoaded', function() {
         loopVideos.forEach(play);
     }
 
+    // Project filters (_includes/projects.html). The address keeps the choice, e.g.
+    // /projects/?tag=power, so a filtered view can be shared or linked from an application.
+    document.querySelectorAll('.project-filters').forEach(function(bar) {
+        const buttons = bar.querySelectorAll('.filter');
+        const cards = bar.parentElement.querySelectorAll('.project-link');
+        function showArea(area, updateAddress) {
+            buttons.forEach(function(button) {
+                button.setAttribute('aria-pressed', button.dataset.area === area ? 'true' : 'false');
+            });
+            cards.forEach(function(card) {
+                card.hidden = area !== '' && card.dataset.areas.split(' ').indexOf(area) === -1;
+            });
+            if (updateAddress) {
+                const url = new URL(window.location.href);
+                if (area) { url.searchParams.set('tag', area); } else { url.searchParams.delete('tag'); }
+                history.replaceState(null, '', url);
+            }
+        }
+        buttons.forEach(function(button) {
+            button.addEventListener('click', function() { showArea(button.dataset.area, true); });
+        });
+        const wanted = new URLSearchParams(window.location.search).get('tag') || '';
+        const known = Array.prototype.some.call(buttons, function(button) { return button.dataset.area === wanted; });
+        showArea(known ? wanted : '', false);
+        bar.hidden = false;
+    });
+
     // Project write-ups: click an image to see it full size; click again or press Escape to close.
     const writeUp = document.querySelector('.post-view .content');
     if (writeUp && typeof HTMLDialogElement === 'function') {

@@ -1,16 +1,29 @@
 <!-- SECTION 3: project -->
+{%- assign projects = site.projects | sort: "order", "last" %}
 <section id="projects" class="project-grid-section">
     <h2>Projects</h2>
 
+    {%- comment -%}
+      Filter buttons (areas from _data/project_areas.yml). Hidden until script.js runs, so visitors
+      without JavaScript simply see every project.
+    {%- endcomment %}
+    <div class="project-filters" role="group" aria-label="Show projects by area" hidden>
+        <button type="button" class="filter" data-area="" aria-pressed="true">All</button>
+        {%- for area in site.data.project_areas %}
+        <button type="button" class="filter" data-area="{{ area.key }}" aria-pressed="false">{{ area.label }}</button>
+        {%- endfor %}
+    </div>
+
     <div class="grid-container">
-        {%- for item in site.projects %}
-        <a href="{{ item.url | relative_url }}" class="project-link">
+        {%- for item in projects %}
+        {%- assign card_tags = item.tags | default: item.skills %}
+        <a href="{{ item.url | relative_url }}" class="project-link" data-areas="{{ item.areas | join: ' ' }}">
             <div class="project-card">
                 <img src="{{ item.thumb | default: item.image | relative_url }}" alt=""{% if forloop.index > 2 %} loading="lazy"{% endif %} decoding="async">
                 <h3 class="project-title">{{ item.title }}</h3>
                 <div class="project-skills">
-                    {%- for skill in item.skills %}
-                    <span class="skill">{{ skill }}</span>
+                    {%- for tag in card_tags %}
+                    <span class="skill">{{ tag }}</span>
                     {%- endfor %}
                 </div>
                 <p class="project-description">{{ item.description }}</p>

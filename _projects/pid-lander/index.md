@@ -1,6 +1,6 @@
 ---
 layout: post
-title: pid-lander
+title: pid-lander - A Control Theory Flight Console in C
 description: A real-time 1-D flight control sandbox written in C, built to demonstrate classical control theory end-to-end - PID design with anti-windup and feedforward, frequency-domain stability analysis (Bode margins, root locus, Routh-Hurwitz), relay autotuning, and quantified tracking performance - wrapped in an interactive lunar-lander game with full flight instrumentation.
 skills:
   - Classical Control Theory (PID, feedforward, loop shaping)
@@ -12,17 +12,19 @@ skills:
   - Numerical Methods (Cardano cubic solver, complex frequency response)
   - Test Harness Design & Memory-Corruption Debugging
 
-image: /projects/03_pid-lander/dashboard.png
-thumb: /projects/03_pid-lander/thumb.webp
-permalink: /projects/03_pid-lander/
+tags: [PID control, Bode / root locus, C]   # short labels on the project card
+areas: [control, software]   # filter buttons: power, pcb, embedded, control, rf, software
+order: 4   # position on the site, lowest first
+image: /projects/pid-lander/dashboard.png
+thumb: /projects/pid-lander/thumb.webp
+permalink: /projects/pid-lander/
 redirect_from:   # older addresses for this page, kept working
+  - /projects/03_pid-lander/
   - /projects/03_pid-lander/index/
   - /_projects/03_pid-lander/
 ---
 
 ---
-# pid-lander - A Control Theory Flight Console in C
-
 ## Project Overview & Scope
 
 ***pid-lander*** is a real-time control engineering sandbox: a 1-D lunar lander whose thrust is governed by a PID controller that the user designs, tunes, breaks, and analyses live. The craft fights gravity, randomised wind gusts, sensor noise, and actuator limitations while the player commands target altitudes - either directly, or by drawing a stepped altitude-vs-time mission profile and playing it back for a quantified tracking score.
