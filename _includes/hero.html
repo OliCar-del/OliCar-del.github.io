@@ -24,7 +24,7 @@
                             {%- when 'instagram' -%}{%- assign url = "https://instagram.com/" | append: handle -%}{%- assign label = "Instagram" -%}
                             {%- when 'youtube' -%}{%- assign url = "https://youtube.com/@" | append: handle -%}{%- assign label = "YouTube" -%}
                             {%- endcase %}
-                    <a href="{{ url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ label }}">{% include icon.html name=icon %}</a>
+                    <a href="{{ url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ label }}" data-goatcounter-click="profile-{{ platform }}">{% include icon.html name=icon %}</a>
                         {%- endif -%}
                     {%- endfor %}
                 </span>
