@@ -1,0 +1,163 @@
+# The CV shown at /cv/ (layout in cv.html, styles under "CV PAGE" in css/styles.css).
+# Its text is copied from assets/resume/Oliver_Carnew_CV.pdf: when you change the PDF, change it here too.
+#
+# Each section has a `title` and any of:
+#   intro:   an italic line under the title
+#   text:    a paragraph
+#   entries: jobs or degrees, each with title, where, dates and dash points
+#   items:   "Label: text" lines; add `project: <folder in _projects/>` to link the label to that project
+# A point, intro or link can be plain text, or `text` with a `project` or `url` to link to.
+# `link` picks the words that become the link (default: all of the text).
+
+name: Oliver Carnew
+headline: Graduate Electrical Engineer
+email: oli.carnew@gmail.com
+location: Tennyson, QLD 4105
+links:
+  - text: linkedin.com/in/oliver-carnew
+    url: https://www.linkedin.com/in/oliver-carnew/
+  - text: "Portfolio: olicar-del.github.io"
+    link: olicar-del.github.io
+    url: /
+
+sections:
+  - title: Profile
+    text: >-
+      Hands-on electrical engineering graduate (University of Queensland, 2025) who builds and tests real
+      hardware - power systems, battery and solar charge-control electronics, instrumentation and data-logging -
+      and is happy on the tools, in the workshop and out on site. Backed by field experience with precision
+      equipment, a strong safety record, and years of running my own practical businesses. I'm keen to make a
+      hands-on start in Australia's fuel and energy-infrastructure sector and to be useful across whatever the
+      work needs - field and site support, electrical, instrumentation, or fuel-management systems. Reliable,
+      quick to learn, and eager to take on practical challenges.
+
+  - title: Education
+    entries:
+      - title: Bachelor of Engineering (Honours) - Electrical & Biomedical Engineering
+        where: The University of Queensland
+        dates: "2025"
+        points:
+          - "Focus areas: electrical power, control systems, embedded systems, instrumentation and signal processing."
+          - text: >-
+              GPA 5.8/7. Honours project designed automated Python test pipelines measuring how search-ranking
+              systems fail on real-world messy queries (~45% average accuracy drop across two large datasets),
+              delivered as documented, reproducible tools.
+            link: Honours project
+            project: thesis-information-retrieval
+
+  - title: Technical Skills
+    items:
+      - label: Electrical & Hardware
+        text: >-
+          Power electronics (battery systems, solar MPPT charge control, DC-DC and USB-PD supplies); schematic
+          capture and PCB design (KiCad, Altium Designer); hardware build, bring-up, bench test and fault-finding
+          (oscilloscope, multimeter, logic analyser); soldering and assembly.
+      - label: Instrumentation & Data
+        text: >-
+          Sensor integration and data acquisition; serial interfaces (UART, SPI, I2C); embedded firmware (C/C++,
+          FreeRTOS); monitoring and logging systems.
+      - label: Software & Analysis
+        text: Python (data processing, automation), MATLAB/Simulink, SQL, JavaScript; version control (Git).
+      - label: Practical & Field
+        text: >-
+          Precision survey/field equipment; PC and network build and repair; clear technical documentation and
+          user guides; workplace and electrical-safety practice.
+
+  - title: Technical Projects
+    intro:
+      text: >-
+        Builds taken from concept through schematic, PCB and bench testing. Full portfolio available at
+        olicar-del.github.io.
+      link: olicar-del.github.io
+      url: /
+    items:
+      - label: Solar Power & Battery System (MPPT)
+        project: lifepo4-battery
+        text: >-
+          314 Ah battery pack with safety and protection hardware, plus a solar MPPT charge controller with
+          switched, protected load output and low-voltage disconnect - designed schematic-to-PCB.
+      - label: Industrial Data Logger (DAQ)
+        project: loggy
+        text: >-
+          Embedded data-acquisition and logging unit in C/C++, reading multiple sensor channels over
+          UART/SPI/I2C - optically isolated (TOSLINK) multi-board design with UI and data passthrough to PC.
+      - label: USB-PD Bench Power Supply
+        text: >-
+          Programmable bench supply designed schematic-to-bring-up, including power-stage design and USB Power
+          Delivery / PPS negotiation.
+      - label: ECG Analogue Front-End
+        text: >-
+          Low-noise instrumentation and signal-conditioning chain, capturing live signals - precision analogue
+          build with strict applied part Floating Body requirements.
+      - label: Embedded Rhythm Game
+        project: tap-mania
+        text: >-
+          Real-time microcontroller firmware handling live user input, file saving, audio-visual output and
+          sub-millisecond precision.
+
+  - title: Experience
+    entries:
+      - title: Undergraduate Engineer (Intern)
+        where: Alluvium Consulting, Brisbane
+        dates: "Jan – March 2025"
+        points:
+          - >-
+            Rebuilt an open-source toolkit into a documented, repeatable in-house workflow, automating data
+            retrieval and processing to produce recurring deliverables
+          - >-
+            Wrote clear documentation and simple tools so engineers and non-programmers could run the system
+            themselves, reducing key-person risk.
+          - >-
+            Quality-checked outputs against standards, presented progress weekly, and worked day-to-day within a
+            multidisciplinary engineering team.
+      - title: Survey Assistant
+        where: AJS Surveys, Brisbane
+        dates: "2021 – 2023"
+        points:
+          - >-
+            Operated and maintained precision survey equipment on residential and commercial sites alongside
+            licensed surveyors.
+          - >-
+            Worked to procedures across varied site and weather conditions, prioritising measurement accuracy and
+            data integrity.
+          - Held responsibility for the safety of contractors and the public around live site operations.
+      - title: Owner / Operator
+        where: OC Computer Solutions
+        dates: "2017-2019"
+        points:
+          - >-
+            Built, tested and repaired custom PC and network systems to customer requirements; handled
+            diagnostics, callouts and repairs.
+          - Ran the full operation end to end - quoting, inventory, invoicing and customer relations.
+
+  - title: Additional Experience
+    items:
+      - label: Owner / Disability Support Worker - OC Support Services (2023–Present)
+        text: >-
+          Built an independent NDIS practice to full-time operation; manage compliance, scheduling, invoicing and
+          a support team, working ethically alongside allied-health professionals.
+      - label: Private Tutor - OC Tutoring (2014–2023)
+        text: Maths, Physics, Engineering and English (Years 7–12) plus piano; managed bookings, clients and invoicing.
+      - label: Crew Supervisor - McDonald's Australia (2014–2023)
+        text: Led teams of 2–6, trained staff and ran shifts to strict safety, quality and food-hygiene standards.
+
+  - title: Safety, Licences & Certifications
+    items:
+      - label: Safety & Site
+        text: >-
+          White Card (WHS Construction); First Aid & CPR; Manual Handling accredited; electrical-safety practice;
+          Blue Card (WWCC); Yellow Card (NDIS).
+      - label: Technical & Professional Development
+        text: >-
+          MCC00072 PLC Course (Tafe QLD); Scrum Fundamentals Certified; Engineers Australia Virtual Work
+          Experience (2023); Cert II Active Volunteering; CS50 Computer Science (Harvard); SQL Developer
+          Certification; IBM Text Analytics 101.
+      - label: Music
+        text: AMusA - Associate Diploma in Piano (AMEB, 2016).
+
+  - title: Memberships & Interests
+    items:
+      - label: Memberships
+        text: Engineers Australia (Member); UQ EUS, Electrically Based Engineering Student Society (EBESS)
+      - label: Interests
+        text: Team climbing, triathlon, 4WD and camping, piano.
