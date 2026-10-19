@@ -5,3 +5,6 @@
 _site/
 .jekyll-cache/
 .sass-cache/
+
+# Local tool settings (Claude Code preview config)
+.claude/

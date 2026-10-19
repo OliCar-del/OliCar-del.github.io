@@ -1,11 +1,16 @@
-
+{%- comment -%}
+  A YouTube video that loads YouTube's player (about 1 MB) only when clicked; until then it is
+  just the thumbnail. Without JavaScript the thumbnail links to the video on YouTube.
+  Usage: {% include youtube-video.html id="VIDEO_ID" title="What the video shows" width="1200px" %}
+{%- endcomment -%}
+{%- assign yt_title = include.title | default: "Video on YouTube" -%}
 <div class="youtube-container" style="--max-width: {{ include.width | default: '560px' }}">
     <div class="youtube-aspect-ratio">
-        <iframe 
-            src="https://www.youtube.com/embed/{{ include.id }}{% if include.autoplay == 'true' %}?autoplay=1&mute=1{% elsif include.autoplay == 'false' %}?mute=1{% endif %}"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-        </iframe>
+        <a class="youtube-facade" href="https://www.youtube.com/watch?v={{ include.id }}"
+           data-youtube-id="{{ include.id }}" data-title="{{ yt_title | escape }}" aria-label="Play: {{ yt_title | escape }}">
+            <img src="https://i.ytimg.com/vi/{{ include.id }}/maxresdefault.jpg" alt="" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/{{ include.id }}/hqdefault.jpg'">
+            <span class="youtube-play" aria-hidden="true"></span>
+        </a>
     </div>
 </div>

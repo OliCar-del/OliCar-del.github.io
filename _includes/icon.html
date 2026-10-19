@@ -1,0 +1,6 @@
+{%- comment -%}
+  Inline SVG icon from _data/icons.yml, sized to the surrounding text and coloured with it.
+  Usage: {% include icon.html name="github" %}
+{%- endcomment -%}
+{%- assign icon = site.data.icons[include.name] -%}
+<svg class="icon" viewBox="{{ icon.viewBox }}" aria-hidden="true" focusable="false"><path fill="currentColor" d="{{ icon.path }}"/></svg>
