@@ -11,7 +11,9 @@
 
 name: Oliver Carnew
 headline: Graduate Electrical Engineer
-# Shown as tap-to-email and tap-to-call links. Delete a line to leave it off the web page.
+# Shown as a tap-to-email link. Delete a line to leave it off the web page.
+# No phone number here on purpose: this page is public and scraped by spam bots.
+# Give your number directly to employers (in the CV you send them) instead.
 email: oli.carnew@gmail.com
 location: Tennyson, QLD 4105
 links:
