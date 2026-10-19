@@ -1,9 +1,12 @@
 {%- comment -%}
   A YouTube video that loads YouTube's player (about 1 MB) only when clicked; until then it is
   just the thumbnail. Without JavaScript the thumbnail links to the video on YouTube.
-  Usage: {% include youtube-video.html id="VIDEO_ID" title="What the video shows" width="1200px" %}
+  Usage: {% include youtube-video.html id="VIDEO_ID" title="What the video shows" width="1200px" caption="..." %}
+    title    read out by screen readers ("Play: <title>")
+    caption  optional, shown underneath; markdown works
 {%- endcomment -%}
 {%- assign yt_title = include.title | default: "Video on YouTube" -%}
+{% if include.caption %}<figure class="figure">{% endif %}
 <div class="youtube-container" style="--max-width: {{ include.width | default: '560px' }}">
     <div class="youtube-aspect-ratio">
         <a class="youtube-facade" href="https://www.youtube.com/watch?v={{ include.id }}"
@@ -14,3 +17,7 @@
         </a>
     </div>
 </div>
+{%- if include.caption %}
+<figcaption>{{ include.caption | markdownify | remove: "<p>" | remove: "</p>" | strip }}</figcaption>
+</figure>
+{%- endif %}
