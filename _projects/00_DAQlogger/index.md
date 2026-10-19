@@ -12,8 +12,11 @@ skills:
  - Hardware Bring-up & Bench Test
  - BOM Management & Cost Engineering
 
-main-image: /AltiumRender.png
-image: /_projects/00_DAQlogger/AltiumRender.png
+image: /projects/00_DAQlogger/AltiumRender.png
+permalink: /projects/00_DAQlogger/
+redirect_from:   # older addresses for this page, kept working
+  - /projects/00_DAQlogger/index/
+  - /_projects/00_DAQlogger/
 ---
 
 <!-- TODO: constructed-board photos pending. Replace the placeholder filenames
@@ -170,7 +173,7 @@ The ADA4177's integrated overvoltage protection was redundant alongside the TVS 
 
 ## Design Artifacts
 
-* [Sensor board schematic set (PDF)](/../SENSOR_BOARD_SCHEMATICS_EX_COPPER.pdf) — hierarchical, one sheet per subsystem (conditioning, ADC, TOSLINK, current sources, alarm control, power, mechanicals)
-* [Control board schematic set (PDF)](/../CONTROL_BOARD_EX_COPPER.pdf)
+* [Sensor board schematic set (PDF)](SENSOR_BOARD_SCHEMATICS_EX_COPPER.pdf) — hierarchical, one sheet per subsystem (conditioning, ADC, TOSLINK, current sources, alarm control, power, mechanicals)
+* [Control board schematic set (PDF)](CONTROL_BOARD_EX_COPPER.pdf)
 
 Both schematic sets were standardised — consistent drafting conventions, sheet notes and net labelling throughout — as part of the final documentation pass, alongside the compiled BOM.
