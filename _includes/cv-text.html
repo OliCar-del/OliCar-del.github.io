@@ -1,0 +1,16 @@
+{%- comment -%}
+  One line of _data/cv.yml: plain text, or `text` linked to its `project` or `url`, where `link` picks
+  the words that become the link (default: all of the text). Usage: {% include cv-text.html line=point %}
+{%- endcomment -%}
+{%- if include.line.text -%}
+  {%- include cv-url.html line=include.line -%}
+  {%- if cv_url -%}
+    {%- assign cv_words = include.line.link | default: include.line.text -%}
+    {%- capture cv_anchor %}<a href="{{ cv_url | relative_url }}">{{ cv_words }}</a>{% endcapture -%}
+    {{- include.line.text | replace_first: cv_words, cv_anchor -}}
+  {%- else -%}
+    {{- include.line.text -}}
+  {%- endif -%}
+{%- else -%}
+  {{- include.line -}}
+{%- endif -%}

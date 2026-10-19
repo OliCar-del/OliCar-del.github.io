@@ -1,0 +1,10 @@
+{%- comment -%}
+  Sets `cv_url` to where a line of _data/cv.yml links: its `project`'s page, or its `url` (blank if neither).
+  Usage: {% include cv-url.html line=item %} then {{ cv_url }}
+{%- endcomment -%}
+{%- assign cv_url = include.line.url -%}
+{%- if include.line.project -%}
+  {%- assign cv_project_path = "_projects/" | append: include.line.project | append: "/index.md" -%}
+  {%- assign cv_project = site.projects | where: "path", cv_project_path | first -%}
+  {%- assign cv_url = cv_project.url | default: cv_project_path -%}
+{%- endif -%}

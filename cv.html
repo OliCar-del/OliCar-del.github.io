@@ -1,0 +1,73 @@
+---
+layout: wrapper
+title: CV
+description: CV of Oliver Carnew, Graduate Electrical Engineer (University of Queensland, 2025) - profile, education, skills, projects and experience.
+permalink: /cv/
+image: /assets/images/profile-image/cropped_headshot.png
+---
+{%- comment -%}
+  The CV as a web page, easier to read on a phone than the PDF. Its text is in _data/cv.yml;
+  styles, including the print layout, are under "CV PAGE" and "PRINT" in css/styles.css.
+{%- endcomment -%}
+{%- assign cv = site.data.cv %}
+<article class="cv">
+    <div class="cv-actions">
+        <a href="{{ site.resume-url | relative_url }}" download data-goatcounter-click="cv-download">
+            {% include icon.html name="file-arrow-down" %}
+            <span>Download PDF</span>
+        </a>
+    </div>
+
+    <header class="cv-header">
+        <h1>{{ cv.name }}</h1>
+        <p class="cv-headline">{{ cv.headline }}</p>
+        <ul class="cv-contact">
+            <li><a href="mailto:{{ cv.email }}">{{ cv.email }}</a></li>
+            <li><a href="tel:{{ cv.phone | remove: ' ' }}">{{ cv.phone }}</a></li>
+            <li>{{ cv.location }}</li>
+        </ul>
+        <ul class="cv-contact">
+            {%- for link in cv.links %}
+            <li>{% include cv-text.html line=link %}</li>
+            {%- endfor %}
+        </ul>
+    </header>
+    {%- for section in cv.sections %}
+
+    <section class="cv-section">
+        <h2>{{ section.title }}</h2>
+        {%- if section.intro %}
+        <p class="cv-intro">{% include cv-text.html line=section.intro %}</p>
+        {%- endif %}
+        {%- if section.text %}
+        <p>{% include cv-text.html line=section.text %}</p>
+        {%- endif %}
+        {%- for entry in section.entries %}
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <h3>{{ entry.title }}</h3>
+                {%- if entry.dates %}
+                <span class="cv-dates">{{ entry.dates }}</span>
+                {%- endif %}
+            </div>
+            {%- if entry.where %}
+            <p class="cv-where">{{ entry.where }}</p>
+            {%- endif %}
+            <ul class="cv-points">
+                {%- for point in entry.points %}
+                <li>{% include cv-text.html line=point %}</li>
+                {%- endfor %}
+            </ul>
+        </div>
+        {%- endfor %}
+        {%- if section.items %}
+        <ul class="cv-items">
+            {%- for item in section.items %}
+            {%- include cv-url.html line=item %}
+            <li><strong>{% if cv_url %}<a href="{{ cv_url | relative_url }}">{{ item.label }}</a>{% else %}{{ item.label }}{% endif %}:</strong> {{ item.text }}</li>
+            {%- endfor %}
+        </ul>
+        {%- endif %}
+    </section>
+    {%- endfor %}
+</article>

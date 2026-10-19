@@ -75,15 +75,16 @@ Publishing isn't blocked by it.
 | Name, headline, intro, skills, links, colours, CV path | `_config.yml` |
 | Projects (one folder each) | `_projects/` |
 | CV | `assets/resume/Oliver_Carnew_CV.pdf`: replace this file to update it (keep the name) |
+| CV web page (/cv/, for phones; prints as a clean 2-page CV) | Text in `_data/cv.yml`: copy any PDF changes into it. Layout in `cv.html` |
 | Page templates, styles, script | `_layouts/`, `_includes/`, `css/styles.css`, `assets/js/script.js` |
 | Icons | `_data/icons.yml` |
 | Favicons | `python scripts/optimize_images.py --favicons` (made from the profile photo) |
 
 ## Analytics
 
-GoatCounter (https://portfold.goatcounter.com) shows visits, where they came from, and CV downloads
-(`cv-download`). Add `?campaign=company-name` to the site link in an application to see whether that
-application led to a visit.
+GoatCounter (https://portfold.goatcounter.com) shows visits, where they came from, CV downloads
+(`cv-download`) and clicks through to the CV web page (`cv-page`). Add `?campaign=company-name` to the
+site link in an application to see whether that application led to a visit.
 
 ---
 
