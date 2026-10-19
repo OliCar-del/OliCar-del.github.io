@@ -190,6 +190,7 @@ exclude:
   - "*.pptx"
   - "*.docx"
   - "_projects/*.txt"
+  - "*/.claude/*"   # tool folders (e.g. Claude Code worktrees) inside a project folder
 
 
 # Exclude from processing.
