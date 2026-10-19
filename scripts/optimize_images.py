@@ -3,7 +3,7 @@
 
 Run from the repo root after adding or replacing images:
     python scripts/optimize_images.py            # all projects
-    python scripts/optimize_images.py 05_usb-lipo  # one project folder
+    python scripts/optimize_images.py usb-lipo   # one project folder
     python scripts/optimize_images.py --dry-run  # show what would change
 
 For every _projects/<folder>/:
@@ -33,7 +33,7 @@ ORIGINALS = REPO.parent / "media-originals"
 MAX_SIDE = 2000          # px, longest side of any content image
 THUMB_WIDTH = 1000       # px, project-card thumbnails
 BIG_PNG = 300_000        # bytes; PNGs above this are converted
-BIG_JPEG = 400_000       # bytes; JPEGs above this are recompressed
+BIG_JPEG = 600_000       # bytes; JPEGs above this are recompressed
 FLAT_COLOURS = 4096      # at or below this many colours an image counts as a flat graphic
 PHOTO_EXTS = {".png", ".jpg", ".jpeg", ".webp"}
 

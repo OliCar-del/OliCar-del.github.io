@@ -34,6 +34,10 @@
             <h3> {{site.headline}} </h3>
             <p> {{site.description}}</p>
             <div class="links">
+                <a href="{{ site.resume-url | relative_url }}" class="primary" download data-goatcounter-click="cv-download">
+                    {% include icon.html name="file-arrow-down" %}
+                    <span>Download CV</span>
+                </a>
                 <a href="#projects">
                     {% include icon.html name="pen" %}
                     <span>Projects</span>

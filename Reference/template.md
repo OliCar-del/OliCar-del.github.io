@@ -1,19 +1,23 @@
 ---
-# New project: copy this file to _projects/<NN_folder-name>/index.md, put the project's images,
-# videos and PDFs in that same folder, then run (from the repo folder):
-#   python scripts/optimize_images.py <NN_folder-name>
+# New project: copy this file to _projects/<folder-name>/index.md (the folder name becomes the
+# page address, e.g. _projects/mppt-controller/ -> /projects/mppt-controller/), put the project's
+# images, videos and PDFs in that same folder, then run (from the repo folder):
+#   python scripts/optimize_images.py <folder-name>
 # which shrinks the images, makes the card thumbnail and adds the `thumb:` line below.
 layout: post
 title: Project name - what it is in a few words
 description: >-
   One or two sentences: what you built, the hard part, and the result. Shown on the project
   card, at the top of the page, and in search results and link previews.
-skills:
-  - Short skill or tool
+skills:                      # full list, shown on the project page
+  - Skill or tool
   - Another skill
-image: /projects/NN_folder-name/main-photo.jpg   # page header and link-preview picture
-permalink: /projects/NN_folder-name/              # the page's address: don't change it once shared
-# published: false                                # uncomment to keep a draft off the live site
+tags: [Short label, Another, Third]   # 3-4 short labels on the project card
+areas: [power, pcb]          # filter buttons: power, pcb, embedded, control, rf, software
+order: 9                     # position on the site, lowest first (decimals like 2.5 slot in between)
+image: /projects/folder-name/main-photo.jpg   # page header and link-preview picture
+permalink: /projects/folder-name/             # the page's address: don't change it once shared
+# published: false                            # uncomment to keep a draft off the live site
 ---
 
 ## Background & My Role

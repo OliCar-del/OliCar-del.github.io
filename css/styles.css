@@ -234,6 +234,23 @@ nav .mobile-nav {
     color: var(--text-color);
 }
 
+/* Filled "Download CV" button */
+.hero-section .text .links a.primary {
+    background-color: var(--link-color);
+}
+
+.hero-section .text .links a.primary,
+.hero-section .text .links a.primary span,
+.hero-section .text .links a.primary:hover,
+.hero-section .text .links a.primary:hover span {
+    color: var(--background-color);
+}
+
+.hero-section .text .links a.primary:hover {
+    background-color: var(--highlight-color);
+    border-color: var(--highlight-color);
+}
+
 .hero-section .headshot {
     flex: 3;
     display: flex;
@@ -247,34 +264,91 @@ nav .mobile-nav {
     border-radius: 50%;
 }
 
-/* NAVIGATION ARROW */
-.arrow{
-    margin-top: 125px;
-    margin-bottom: 300px;
+/* HIGHLIGHTS (_includes/highlights.html, text in _data/highlights.yml) */
+.highlights {
+    margin: 10px 0 40px;
+}
+
+.highlights ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+}
+
+.highlights a {
     display: flex;
-    justify-content: center;  
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    height: 100%;
+    padding: 16px 18px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background-color: var(--light-background-color);
+    transition: border-color 0.2s;
 }
 
-.arrow a   {
-    font-size: 20px;
-    color: var(--link-color);
-    display: inline-block;  /* This makes .hero-section a flex container */
-    align-items: center;
-    border: 2px solid var(--link-color);
-    border-radius: 15px;
-    padding: 10px 20px;
-    text-align: center;
+.highlights a:hover,
+.highlights a:focus-visible {
+    border-color: var(--link-color);
 }
 
-.arrow a > * {
-    display: block; 
-    margin: 0 auto; 
-}
-
-.arrow a:hover   {
+.highlights .result {
+    font-weight: 600;
+    line-height: 1.45;
     color: var(--text-color);
-    border: 2px solid var(--text-color)
+}
 
+.highlights .project {
+    font-size: 14px;
+    color: var(--link-color);
+}
+
+/* Read by screen readers, not shown */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* Project filters (_includes/projects.html, areas in _data/project_areas.yml) */
+.project-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 18px;
+}
+
+.project-filters .filter {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    padding: 4px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    background: var(--background-color);
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.project-filters .filter:hover {
+    border-color: var(--link-color);
+}
+
+.project-filters .filter[aria-pressed="true"] {
+    background: var(--link-color);
+    border-color: var(--link-color);
+    color: var(--background-color);
 }
 
 
@@ -295,7 +369,7 @@ nav .mobile-nav {
 
 .project-grid-section .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr)); /* auto-fill keeps card widths when a filter hides some */
     gap: 25px;
     width: 100%;
     margin: 0 auto;
@@ -498,7 +572,7 @@ nav .mobile-nav {
 .contact-section .group form button {
     font-size: 16px;
     font-family: 'Poppins', sans-serif;
-    color: #fff;
+    color: var(--background-color);
     background-color: var(--link-color);
     border:none;
     height: 50px;
@@ -618,8 +692,10 @@ footer p {
     margin-bottom: 10px;
 }
 
-.post-view .summary .project-description {
-    margin-bottom: 10px;
+.post-view .summary .lead {
+    font-size: max(17px, calc(10px + 0.55vw));
+    line-height: 1.6;
+    margin-bottom: 14px;
 }
 
 .post-view .summary .skills-card {
@@ -975,12 +1051,8 @@ footer p {
         margin: 0
     }
 
-    .arrow {
-        display: none;
-    }
-
     .project-grid-section .grid-container {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     }
   
     /*SECTION 4:Contact */
@@ -1084,3 +1156,50 @@ footer p {
       
 }
 
+
+/* DARK MODE: follows the visitor's system setting. Colours are colors_dark in _config.yml. */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: {{ site.colors_dark.text }};
+        --border-color: {{ site.colors_dark.border }};
+        --link-color: {{ site.colors_dark.link }};
+        --highlight-color: {{ site.colors_dark.highlight }};
+        --background-color: {{ site.colors_dark.background }};
+        --light-background-color: {{ site.colors_dark.light_background }};
+    }
+
+    /* Colours that were fixed for a light page */
+    .post-view .content a {
+        color: var(--link-color);
+    }
+    .post-view .content a:hover {
+        color: var(--highlight-color);
+    }
+    .post-view .content blockquote {
+        border-left-color: var(--link-color);
+    }
+    .post-view .content hr {
+        background: var(--border-color);
+    }
+    .post-view .content th {
+        background-color: var(--light-background-color);
+        color: var(--text-color);
+    }
+    .post-view .content th,
+    .post-view .content td {
+        border-bottom-color: var(--border-color);
+    }
+
+    /* Shadows don't show on a dark page, so cards get a border instead */
+    .project-grid-section .grid-container .project-link .project-card,
+    .skills-section .skill-categories .skills-card,
+    .post-view {
+        border-color: var(--border-color);
+        box-shadow: none;
+    }
+
+    .contact-section .group form input,
+    .contact-section .group form textarea {
+        color: var(--text-color);
+    }
+}

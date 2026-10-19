@@ -7,15 +7,17 @@ skills:
   - Impedance Matching & S-Parameters
   - RF Test Planning (VNA / SDR)
   - Numerical Verification & Configuration Control
-image: /projects/08_adsb-antenna/input_match.png
-thumb: /projects/08_adsb-antenna/thumb.webp
-permalink: /projects/08_adsb-antenna/
+tags: [RF, NEC2 modelling, S-parameters]   # short labels on the project card
+areas: [rf]   # filter buttons: power, pcb, embedded, control, rf, software
+order: 8   # position on the site, lowest first
+image: /projects/adsb-antenna/input_match.png
+thumb: /projects/adsb-antenna/thumb.webp
+permalink: /projects/adsb-antenna/
 redirect_from:   # older addresses for this page, kept working
+  - /projects/08_adsb-antenna/
   - /projects/08_adsb-antenna/index/
   - /_projects/08_adsb-antenna/
 ---
-# Modelling a 1090 MHz ADS-B Antenna
-
 ## Why I did this
 
 Aircraft transponders broadcast position and identity on 1090 MHz. I want to receive them, and before cutting any wire I wanted to know what length to cut and why that length rather than another.

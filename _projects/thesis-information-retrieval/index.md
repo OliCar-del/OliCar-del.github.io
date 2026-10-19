@@ -12,16 +12,18 @@ skills:
   - Neural Network Training
   - Distributed Workloads (Google Colab)
 
-image: /projects/02_thesis-information-retrieval/fighead.png
-thumb: /projects/02_thesis-information-retrieval/thumb.webp
-permalink: /projects/02_thesis-information-retrieval/
+tags: [NLP, Neural ranking, Python]   # short labels on the project card
+areas: [software]   # filter buttons: power, pcb, embedded, control, rf, software
+order: 3   # position on the site, lowest first
+image: /projects/thesis-information-retrieval/fighead.png
+thumb: /projects/thesis-information-retrieval/thumb.webp
+permalink: /projects/thesis-information-retrieval/
 redirect_from:   # older addresses for this page, kept working
+  - /projects/02_thesis-information-retrieval/
   - /projects/02_thesis-information-retrieval/index/
   - /_projects/02_thesis-information-retrieval/
 
 ---
-
-# Evaluating Robust Retrieval Pipelines
 
 > "Modern search engines seem practically omniscient-until you ask them the exact same question in a slightly different way. Then, state-of-the-art models can silently fail."
 

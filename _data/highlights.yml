@@ -1,0 +1,12 @@
+# Results shown under the intro on the home page, each linking to its project.
+# `project` is the project's folder name in _projects/; `label` (optional) is the link text,
+# otherwise the part of the project's title before " - ".
+- text: Isolated 4-channel 16-bit data-logger sensor board; BOM brought under its $125 cap
+  project: loggy
+- text: Four PCB revisions to a playable handheld rhythm game on STM32
+  project: tap-mania
+- text: "PID upgrades: overshoot 15.8% → 5.2%, settling 19.5 s → 13.1 s"
+  project: pid-lander
+- text: 4 kWh 12V LiFePO4 vehicle battery with a 200 A BMS
+  project: lifepo4-battery
+  label: LiFePO4 battery
