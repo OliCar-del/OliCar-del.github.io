@@ -13,6 +13,7 @@ skills:
   - Test Harness Design & Memory-Corruption Debugging
 
 image: /projects/03_pid-lander/dashboard.png
+thumb: /projects/03_pid-lander/thumb.webp
 permalink: /projects/03_pid-lander/
 redirect_from:   # older addresses for this page, kept working
   - /projects/03_pid-lander/index/
@@ -33,7 +34,7 @@ The project is written in C99 against [raylib](https://www.raylib.com/) for rend
 <!-- {% include image-gallery.html images="begin_toggle_pid.gif" height="600" %}
 <span style="font-size: 14px">Figure 1; The full flight console: telemetry and per-term control effort (left), flight view with wind streaks (center), controller design panel (right), 20-second history strips, analysis plot, and mission sequence editor (bottom).</span> -->
 
-{% include image-gallery.html images="begin_toggle_pid.gif" height="600" %}
+{% include video.html file="begin_toggle_pid.mp4" height="600" %}
 <span style="font-size: 14px">Figure 1; Brief sample of gameplay. Game is started with button press and manually controlled by user-presses on spacebar by default. PID control can be started by pressing 'P'. Control gain bars and telemtry are at left, history plot of altitude, wind force, thrust and altitude set at bottom. Toggle panel at right sets controls.</span> 
 
 <!-- {% include image-gallery.html images="plot_toggle.gif" height="600" %}
@@ -41,10 +42,10 @@ The project is written in C99 against [raylib](https://www.raylib.com/) for rend
 
  -->
 
-{% include image-gallery.html images="plot_toggle.gif" height="600" %}
+{% include video.html file="plot_toggle.mp4" height="600" %}
 <span style="font-size: 14px">Figure 2; Changing plots between bode, phase, root locus and step response</span> 
 
-{% include image-gallery.html images="set_sequence.gif" height="600" %}
+{% include video.html file="set_sequence.mp4" height="600" %}
 <span style="font-size: 14px">Figure 3; Adjusting flight sequence, number of altitudes, timespan and altitude setting. Errors and effort are logged for plays on each sequence. Control weights can be adjusted and tested against known sequence.</span> 
 
 <!-- <a href="https://youtu.be/yYE1kUrhGyA" target="_blank">
@@ -52,7 +53,7 @@ The project is written in C99 against [raylib](https://www.raylib.com/) for rend
 </a>
  -->
 
-{% include youtube-video.html id="yYE1kUrhGyA" autoplay = "true" width= "1200px"%}
+{% include youtube-video.html id="yYE1kUrhGyA" title="pid-lander flying a mission sequence" width="1200px" %}
 <span style="font-size: 14px">Figure 5; Youtube video of sample playing the sequence. Craft is landed successfully as displayed with m/s landing speed. Sequence can be rerun with different parameters.</span>
 
 ## The Plant: Physics & Real-Time Architecture

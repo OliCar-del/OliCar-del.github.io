@@ -13,6 +13,7 @@ skills:
   - Test Harness Design (headless suites, shadow-verified self-test)
 
 image: /projects/04_pid_reflow/console.png
+thumb: /projects/04_pid_reflow/thumb.webp
 permalink: /projects/04_pid_reflow/
 redirect_from:   # older addresses for this page, kept working
   - /projects/04_pid_reflow/index/

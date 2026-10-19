@@ -8,6 +8,7 @@ skills:
   - RF Test Planning (VNA / SDR)
   - Numerical Verification & Configuration Control
 image: /projects/08_adsb-antenna/input_match.png
+thumb: /projects/08_adsb-antenna/thumb.webp
 permalink: /projects/08_adsb-antenna/
 redirect_from:   # older addresses for this page, kept working
   - /projects/08_adsb-antenna/index/
@@ -85,7 +86,7 @@ The 45 degree fixed-length trace shows the same thing from the other direction. 
 
 The three-element Yagi is adapted from NBS Technical Note 688. Reflector 132.569 mm, driven 128 mm, director 116.617 mm, element centres at &plusmn;55.008 mm. The smaller wire diameter and a straight driven element replace the reference's folded feed, so the reference geometry is a starting point rather than a specification I met.
 
-{% include image-gallery.html images="radiation_coverage.png" height="480" %}
+{% include image-gallery.html images="radiation_coverage.webp" height="480" %}
 <span style="font-size: 14px">Figure 4: Elevation and azimuth cuts at 1090 MHz in absolute dBi, with the 50 Ω mismatch applied once.</span>
 
 Forward, it is clearly better: 8.09 dBi against 1.78 dBi, a difference of 6.31 dB in the same direction with each antenna's own mismatch included. The advantage holds through the elevations that matter, at 6.31, 6.26, 6.13 and 5.61 dB for 0, 5, 10 and 20 degrees.

@@ -7,7 +7,8 @@ skills:
   - Power Distribution & Fusing
   - BMS Integration (JK Active Balancing)
   - Automotive 12V Systems
-image: /projects/07_batt/batt.png
+image: /projects/07_batt/batt.jpg
+thumb: /projects/07_batt/thumb.webp
 permalink: /projects/07_batt/
 redirect_from:   # older addresses for this page, kept working
   - /projects/07_batt/index/
@@ -40,7 +41,7 @@ Raw-cell pack longevity is set by mechanics as much as electronics: EVE specifie
 * **Mechanical Compression:** The EVE MB31 cells require consistent, even pressure across their faces to maintain their rated lifespan. The rig clamps the four cells between 3/4" plywood end plates banded with steel tension straps. Plywood was chosen over solid timber because its cross-laminated plies are dimensionally stable and cannot split along a grain line under sustained clamping load, and the straps spread that load across the whole plate face rather than concentrating it at corner fixings.
 * **Vibration Resistance:** The strap-and-plate arrangement suits a vehicle: with no threaded fasteners in the compression path there is nothing to back off under the constant high-frequency vibration of driving — the crimped strap ends permanently lock in the preload.
 
-{% include image-gallery.html images="testfit.png" height="600" %}
+{% include image-gallery.html images="testfit.webp" height="600" %}
 <span style="font-size: 14px">Cell test-fit under compression: four MB31 cells between 3/4" plywood end plates, banded with crimped tension straps. The FR4 sheet under the straps isolates the cell cases on the outer face.</span>
 
 ## Safety Integrations & Electrical Protection
@@ -51,7 +52,7 @@ Over 4kWh of stored energy behind very low internal resistance drove several non
 2. **Catastrophic Fusing:** A Class T fuse (or high-interrupt ANL fuse) was installed immediately at the main positive terminal. Standard automotive fuses cannot safely interrupt the thousands of amps these cells can deliver in a short circuit; the arc would simply jump the gap.
 3. **Thermal Management:** The JK BMS temperature probes were affixed directly to the cell bodies. The BMS was programmed to enforce a strict low-temperature charging cutoff (0°C). Charging LFP cells below freezing causes permanent lithium plating and immediate cell degradation.
 
-{% include image-gallery.html images="batt.png" height="600" %}
+{% include image-gallery.html images="batt.jpg" height="600" %}
 <span style="font-size: 14px">Assembled pack: Kapton-insulated flexible copper busbars linking the cells, balance leads routed for the JK BMS, and the main positive terminal under its red protective cover.</span>
 
 {% include image-gallery.html images="bms.jpg" height="150" %}
