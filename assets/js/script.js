@@ -52,6 +52,24 @@ document.addEventListener('DOMContentLoaded', function() {
         loopVideos.forEach(play);
     }
 
+    // Project write-ups: click an image to see it full size; click again or press Escape to close.
+    const writeUp = document.querySelector('.post-view .content');
+    if (writeUp && typeof HTMLDialogElement === 'function') {
+        const lightbox = document.createElement('dialog');
+        lightbox.className = 'lightbox';
+        lightbox.innerHTML = '<button type="button" class="lightbox-close" aria-label="Close">&times;</button><img alt="">';
+        document.body.appendChild(lightbox);
+        const fullImage = lightbox.querySelector('img');
+        writeUp.addEventListener('click', function(event) {
+            const img = event.target.closest('.image-gallery img');
+            if (!img) return;
+            fullImage.src = img.currentSrc || img.src;
+            fullImage.alt = img.alt;
+            lightbox.showModal();
+        });
+        lightbox.addEventListener('click', function() { lightbox.close(); });
+    }
+
     // YouTube (_includes/youtube-video.html): swap the thumbnail for the player on click.
     document.querySelectorAll('.youtube-facade').forEach(function(link) {
         link.addEventListener('click', function(event) {

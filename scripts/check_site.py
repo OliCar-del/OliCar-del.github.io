@@ -35,8 +35,22 @@ class RefCollector(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.refs = []  # (tag, attr, value)
+        self.code_depth = 0
+        self.tags_as_text = []  # e.g. an <img> printed as text because its attributes were malformed
+
+    def handle_endtag(self, tag):
+        if tag in ("pre", "code") and self.code_depth:
+            self.code_depth -= 1
+
+    def handle_data(self, data):
+        if not self.code_depth:
+            for marker in ("<img ", "<video", "<iframe", "<figure", "<source "):
+                if marker in data:
+                    self.tags_as_text.append(data.strip()[:80])
 
     def handle_starttag(self, tag, attrs):
+        if tag in ("pre", "code"):
+            self.code_depth += 1
         attrs = dict(attrs)
         if tag == "meta":
             prop = attrs.get("property") or attrs.get("name") or ""
@@ -100,6 +114,8 @@ def main():
                 collector = RefCollector()
                 collector.feed(fh.read())
             base = page_url(site_dir, file_path)
+            for text in collector.tags_as_text:
+                broken.append((base, "text", "", text, "HTML tag shown as text - check quotes in captions/alt"))
             for tag, attr, value in collector.refs:
                 if not value or value.startswith("#") or value.lower().startswith(SKIP_SCHEMES):
                     continue

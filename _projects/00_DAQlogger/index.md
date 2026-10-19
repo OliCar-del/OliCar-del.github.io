@@ -45,8 +45,7 @@ Work split four ways: sensor unit hardware, sensor unit firmware, control unit h
 
 The signal chain runs: terminal blocks → protection → buffering → channel MUX → range selection → conditioning → ADC → MCU → optical link. Every analog block followed the same pipeline before touching copper: design, LTspice simulation, breadboard prototype, then schematic capture.
 
-{% include image-gallery.html images="Preliminary_design_flow.png" height="450" %}
-<span style="font-size: 14px">Figure 1: Preliminary sensor unit block diagram, from input terminal blocks through conditioning and digitisation to the optical link, including MCU pin allocations per peripheral.</span>
+{% include image-gallery.html images="Preliminary_design_flow.png" height="450" caption="Figure 1: Preliminary sensor unit block diagram, from input terminal blocks through conditioning and digitisation to the optical link, including MCU pin allocations per peripheral." %}
 
 | Subsystem | Selected Component | Justification |
 | --- | --- | --- |
@@ -63,15 +62,13 @@ The signal chain runs: terminal blocks → protection → buffering → channel 
 
 Each range is conditioned in parallel rather than switched: the ±10V path attenuates (gain 0.2) and the ±1V path amplifies (gain 2), and both are offset to centre the signal within the ADC's unipolar input span — keeping op-amp outputs away from the rails where linearity degrades. Diode clamps bound each stage, and ~800Hz RC filtering rolls off noise ahead of the ADC. The ADC's internal mux then picks whichever range the user has selected, under MCU control.
 
-{% include image-gallery.html images="signal_condition.png" height="400" %}
-<span style="font-size: 14px">Figure 2: LTspice simulation of the complete conditioning chain from terminal input to ADC pin — input buffer, conditioning buffer, diode clamping, and the parallel gain/offset stages for the ±1V and ±10V ranges.</span>
+{% include image-gallery.html images="signal_condition.png" height="400" caption="Figure 2: LTspice simulation of the complete conditioning chain from terminal input to ADC pin — input buffer, conditioning buffer, diode clamping, and the parallel gain/offset stages for the ±1V and ±10V ranges." %}
 
 ## Current Sources
 
 The 10µA and 200µA sources use an improved Howland current pump built on the INA592, following TI's reference topology: the INA592's internally matched precision resistor network sets the pump's accuracy, a REF5050 provides the 5V reference, and buffered output feedback raises the output impedance so the current stays flat across the required 3V compliance range. Each source is set by a single precision resistor, which keeps the ±5% accuracy budget in one component rather than spread across a discrete resistor network. Both sources were simulated, breadboarded, and verified against a 10kΩ load before layout.
 
-{% include image-gallery.html images="Integrated_Improved_Howland_Current_Pump_With_INA592_and_Buffer_from_TI.png" height="350" %}
-<span style="font-size: 14px">Figure 3: The integrated improved Howland current pump topology used for both sources — INA592 with buffered output feedback, current set by the single resistor Rs. Image source: TI application note SBOA437A.</span>
+{% include image-gallery.html images="Integrated_Improved_Howland_Current_Pump_With_INA592_and_Buffer_from_TI.png" height="350" caption="Figure 3: The integrated improved Howland current pump topology used for both sources — INA592 with buffered output feedback, current set by the single resistor Rs. Image source: TI application note SBOA437A." %}
 
 ## Optical Link
 
@@ -81,14 +78,13 @@ The transceiver is built at component level — a bare LED and photodiode rather
 * **Receive:** the BPW34 photodiode yields only ~6µA of photocurrent, far too little to threshold directly. A TLV6001 transimpedance amplifier converts it to a voltage against a resistor-divided reference, and an LM393LV comparator with a settable threshold squares the result into clean UART logic.
 * Trimmers on both transmit intensity and receive threshold provide tuning margin on the bench rather than committing to fixed values on a first spin.
 
-{% include image-gallery.html images="TOSLINK_transmit_ltspice.png, TOSLINK_receive_ltspice.png" height="350" %}
-<span style="font-size: 14px">Figure 4: LTspice simulation of the optical link. Left — transmitter: UART-shaped pulse driving the LED through the NPN switch. Right — receiver: the photodiode modelled as a 5nA-6µA pulsed current source into the transimpedance stage, with the comparator thresholding TIA_OUT against a potentiometer-set reference to recover the logic-level RX signal.</span>
+{% include image-gallery.html images="TOSLINK_transmit_ltspice.png, TOSLINK_receive_ltspice.png" height="350" caption="Figure 4: LTspice simulation of the optical link. Left — transmitter: UART-shaped pulse driving the LED through the NPN switch. Right — receiver: the photodiode modelled as a 5nA-6µA pulsed current source into the transimpedance stage, with the comparator thresholding TIA_OUT against a potentiometer-set reference to recover the logic-level RX signal." %}
 
 The transceiver was validated standalone in loopback, then end-to-end against the control unit: the final sensor board communicated with the control unit over the fibre, with the transimpedance receiver recovering UART framing reliably once the comparator threshold was tuned.
 
 <!-- TODO photo pending — uncomment and renumber figures when added:
-{% include image-gallery.html images="toslink_bench.jpg" height="500" %}
-<span style="font-size: 14px">Figure X: TOSLINK transceiver bench validation against the control unit.</span> -->
+{% include image-gallery.html images="toslink_bench.jpg" height="500" caption="Figure X: TOSLINK transceiver bench validation against the control unit." %}
+-->
 
 ## Alarms and the GPIO Budget
 
@@ -138,17 +134,15 @@ V1 proved the concept where it mattered: the digital domain was fully functional
 | Smaller board outline (within 100mm) | ~$10 cheaper — drops a PCB price tier and buys BOM headroom |
 | Silkscreen, fiducial and test point overhaul | Self-documenting on the bench — every rail, terminal and connector labelled; fiducials for assembly alignment |
 
-{% include image-gallery.html images="AltiumRender.jpg" height="550" %}
-<span style="font-size: 14px">Figure 5: V2 Altium render. Input terminal blocks and current source outputs on the left edge, labelled alarm LED banks per channel on the right, ±12V switching supplies bottom, TOSLINK socket and receive tuning top.</span>
+{% include image-gallery.html images="AltiumRender.jpg" height="550" caption="Figure 5: V2 Altium render. Input terminal blocks and current source outputs on the left edge, labelled alarm LED banks per channel on the right, ±12V switching supplies bottom, TOSLINK socket and receive tuning top." %}
 
-{% include image-gallery.html images="CopperArt.png" height="500" %}
-<span style="font-size: 14px">Figure 6: V2 copper artwork. Analog signal chain kept clear of the switching supplies; power, communication and signal nets labelled on silkscreen.</span>
+{% include image-gallery.html images="CopperArt.png" height="500" caption="Figure 6: V2 copper artwork. Analog signal chain kept clear of the switching supplies; power, communication and signal nets labelled on silkscreen." %}
 
 The V2 board was fully functional: all eight channels, alarm indication, and TOSLINK communication with the control unit.
 
 <!-- TODO photo pending — uncomment and renumber figures when added:
-{% include image-gallery.html images="sensor_board_constructed.jpg" height="550" %}
-<span style="font-size: 14px">Figure X: Constructed and tested V2 sensor board.</span> -->
+{% include image-gallery.html images="sensor_board_constructed.jpg" height="550" caption="Figure X: Constructed and tested V2 sensor board." %}
+-->
 
 ## BOM Engineering
 
