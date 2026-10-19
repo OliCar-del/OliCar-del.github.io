@@ -11,7 +11,7 @@ tags: [JavaScript, WebSockets, Game development]
 areas: [software]
 order: 9
 image: /projects/pathword/pathword-gameplay.png
-image_alt: Pathword multiplayer match with a letter board, player scores and word-claim history.
+image_alt: Pathword multiplayer match with a glowing eight-letter word chain, ranked player scores and word-claim history.
 thumb: /projects/pathword/pathword-gameplay.png
 permalink: /projects/pathword/
 published: true
@@ -26,6 +26,8 @@ I recovered an unfinished HTML/JavaScript prototype and completed its room lifec
 Difficulty controls word abundance. Easy favours boards with more valid words, Standard selects a middle range, and Hard favours fewer options. The shared generator rejects boards below a minimum based on their dimensions and neighbouring tile connections, with a bounded search to keep generation manageable.
 
 The host can change dimensions, difficulty, time or word-list visibility during a round and restart for everyone without losing the room or player connections. Solo practice has the same restart controls. Drag selection follows the inner area of each tile to tolerate small diagonal slips, interpolates fast pointer movement and shows the selected path; keyboard and individual-tile selection are also supported. Softer tile colours and reduced gap contrast make dense boards easier to view.
+
+I added restrained visual feedback to make longer finds and close races easier to follow. The selected path and tiles glow, and the current chain previews its possible points while making clear that the word still needs to be valid and available. Confirmed finds trigger brief score feedback and round-best cues for longer words. Ranked player standings show the lead and score gap, with short notices when the lead changes. A quiet timer cue highlights the closing 30 seconds and warms in the final ten. Reduced-motion preferences disable decorative animation.
 
 The multiplayer server validates tile paths and calculates scores rather than trusting client-supplied totals. It sends every player an authoritative snapshot of the puzzle, claims, scores and deadline. A private session token restores a player's position after a brief disconnect. Restart requests are restricted to the host and the current round; if generation fails, the existing puzzle and scores remain available.
 
