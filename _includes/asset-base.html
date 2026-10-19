@@ -1,0 +1,11 @@
+{%- comment -%}
+  Sets `asset_base` to the public folder of the current project, e.g. /projects/00_DAQlogger/,
+  so includes can point at files sitting next to a project's index.md whatever its permalink is.
+  Usage (inside another include): {% include asset-base.html %} then {{ asset_base }}file.png
+{%- endcomment -%}
+{%- if page.collection == "projects" -%}
+  {%- assign asset_base_parts = page.path | split: "/" -%}
+  {%- assign asset_base = "/projects/" | append: asset_base_parts[1] | append: "/" -%}
+{%- else -%}
+  {%- assign asset_base = page.url -%}
+{%- endif -%}

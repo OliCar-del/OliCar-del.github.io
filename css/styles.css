@@ -477,6 +477,10 @@ nav .mobile-nav {
     
 }
 
+.contact-section .honeypot {
+    display: none;
+}
+
 .contact-section .group form button {
     font-size: 16px;
     font-family: 'Poppins', sans-serif;

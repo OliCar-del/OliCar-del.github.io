@@ -12,8 +12,11 @@ skills:
   - Neural Network Training
   - Distributed Workloads (Google Colab)
 
-main-image: /fighead.png
-image: /_projects/02_thesis-information-retrieval/fighead.png
+image: /projects/02_thesis-information-retrieval/fighead.png
+permalink: /projects/02_thesis-information-retrieval/
+redirect_from:   # older addresses for this page, kept working
+  - /projects/02_thesis-information-retrieval/index/
+  - /_projects/02_thesis-information-retrieval/
 
 ---
 

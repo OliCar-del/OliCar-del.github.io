@@ -1,23 +1,19 @@
-{% assign image_paths = include.images | split: ", " %}
-{% assign gallery_height = include.height | default: "300" %}
+{%- comment -%}
+  One or more images from the project's own folder (or full https:// URLs), side by side.
+  Usage: {% include image-gallery.html images="a.png, b.png" height="400" alt="What the images show" %}
+{%- endcomment -%}
+{%- include asset-base.html -%}
+{%- assign image_paths = include.images | split: "," -%}
+{%- assign gallery_height = include.height | default: "300" -%}
 
 <div class="image-gallery" style="--gallery-height: {{ gallery_height }}px;">
-  {% for image_path in image_paths %}
-      {% assign image_name = image_path | strip %}
-      {% if image_name contains 'https://' %}
-          <img
-              src="{{ image_name }}"
-              alt="{{ include.alt | default: 'Web image' }}"
-              loading="lazy"
-          />
-      {% else %}
-          {% assign page_url_without_index = page.url | remove: 'index' | remove: '.html' %}
-          <img
-              src="{{ page_url_without_index }}{{ image_name }}"
-              alt="{{ include.alt | default: image_name }}"
-              loading="lazy"
-              onerror="this.onerror=null;this.src=this.src.replace('.webp','.png').replace('.png','.webp');"
-          />
-      {% endif %}
-  {% endfor %}
+  {%- for image_path in image_paths -%}
+    {%- assign image_name = image_path | strip -%}
+    {%- if image_name contains '://' -%}
+      {%- assign image_src = image_name -%}
+    {%- else -%}
+      {%- assign image_src = asset_base | append: image_name | relative_url -%}
+    {%- endif %}
+  <img src="{{ image_src }}" alt="{{ include.alt | default: image_name }}" loading="lazy" decoding="async">
+  {%- endfor %}
 </div>

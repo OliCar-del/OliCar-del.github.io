@@ -12,8 +12,11 @@ skills:
   - Numerical Methods (Cardano cubic solver, complex frequency response)
   - Test Harness Design & Memory-Corruption Debugging
 
-main-image: /dashboard.png
-image: /_projects/03_pid-lander/dashboard.png
+image: /projects/03_pid-lander/dashboard.png
+permalink: /projects/03_pid-lander/
+redirect_from:   # older addresses for this page, kept working
+  - /projects/03_pid-lander/index/
+  - /_projects/03_pid-lander/
 ---
 
 ---

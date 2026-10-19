@@ -9,8 +9,11 @@ skills:
  - Circuit Simulation (LTspice)
  - Schematic Capture & BOM Management
 
-main-image: /constructed.jpeg
-image: /_projects/05_usb-lipo/constructed.jpeg
+image: /projects/05_usb-lipo/constructed.jpeg
+permalink: /projects/05_usb-lipo/
+redirect_from:   # older addresses for this page, kept working
+  - /projects/05_usb-lipo/index/
+  - /_projects/05_usb-lipo/
 ---
 # Uninterruptible 3.3V Power Management PCB
 
