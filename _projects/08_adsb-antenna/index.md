@@ -7,8 +7,11 @@ skills:
   - Impedance Matching & S-Parameters
   - RF Test Planning (VNA / SDR)
   - Numerical Verification & Configuration Control
-main-image: /input_match.png
-image: /_projects/08_adsb-antenna/input_match.png
+image: /projects/08_adsb-antenna/input_match.png
+permalink: /projects/08_adsb-antenna/
+redirect_from:   # older addresses for this page, kept working
+  - /projects/08_adsb-antenna/index/
+  - /_projects/08_adsb-antenna/
 ---
 # Modelling a 1090 MHz ADS-B Antenna
 

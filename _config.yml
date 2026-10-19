@@ -33,7 +33,7 @@ description: >- # dont remove this line. this will ignore all new lines until th
   fault-finding.
 
 # Place your profile image in /assets/images/profile-image/folder and edit the file name
-profile_image: ./assets/images/profile-image/cropped_headshot.png
+profile_image: /assets/images/profile-image/cropped_headshot.png
 
 
 # Link your resume
@@ -163,9 +163,14 @@ lemon theme:
 #########################################################################################################
 # Build settings for the site. Editing the below may cause the site to malfunction.
 
+# The site has its own layouts; this stops GitHub Pages adding its default theme's unused stylesheet.
+theme: null
+
 collections:
   projects:
     output: true
+    # Files inside a project folder are published at /projects/<folder>/<file>.
+    # Each project's page URL comes from `permalink:` in its own index.md.
     permalink: /projects/:path/
 
 
@@ -186,12 +191,22 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
+  - jekyll-redirect-from
 
-include:
-  - _projects
-
+# Kept out of the published site. Jekyll 3 replaces its default list when this is set,
+# so the Gemfiles are listed explicitly. Patterns match anywhere in the repo.
 exclude:
   - Reference
+  - README.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - scripts
+  - vendor
+  - node_modules
+  - "*.pptx"
+  - "*.docx"
+  - "_projects/*.txt"
 
 
 # Exclude from processing.

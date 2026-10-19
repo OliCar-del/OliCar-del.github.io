@@ -7,8 +7,11 @@ skills:
   - Power Distribution & Fusing
   - BMS Integration (JK Active Balancing)
   - Automotive 12V Systems
-main-image: /batt.png
-image: /_projects/07_batt/batt.png
+image: /projects/07_batt/batt.png
+permalink: /projects/07_batt/
+redirect_from:   # older addresses for this page, kept working
+  - /projects/07_batt/index/
+  - /_projects/07_batt/
 ---
 # 12V 314Ah Automotive LiFePO4 Auxiliary System
 

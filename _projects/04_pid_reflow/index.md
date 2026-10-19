@@ -12,8 +12,11 @@ skills:
   - C Programming & Shared-Library Architecture
   - Test Harness Design (headless suites, shadow-verified self-test)
 
-main-image: /console.png
-image: /_projects/04_pid_reflow/console.png
+image: /projects/04_pid_reflow/console.png
+permalink: /projects/04_pid_reflow/
+redirect_from:   # older addresses for this page, kept working
+  - /projects/04_pid_reflow/index/
+  - /_projects/04_pid_reflow/
 ---
 
 ---
@@ -21,7 +24,7 @@ image: /_projects/04_pid_reflow/console.png
 
 ## Project Overview & Scope
 
-***pid-reflow*** is the second application built on the [pid-lander](../03_pid-lander) architecture: a process-control console where a PID temperature controller drives a reflow-soldering oven through a solder profile. I built it to cover the one classical-control problem the lander could not: **dead time**. The oven's temperature sensor reports the past - `T_meas(t) = T_air(t − τ_d)` - and the headline feature is a toggleable **Smith predictor** that compensates for the delay with an internal plant model. The actuator is one-sided again (a heater cannot cool; cooling comes only from ambient losses and an openable door), so the lander's saturation machinery carries over directly.
+***pid-reflow*** is the second application built on the [pid-lander]({% link _projects/03_pid-lander/index.md %}) architecture: a process-control console where a PID temperature controller drives a reflow-soldering oven through a solder profile. I built it to cover the one classical-control problem the lander could not: **dead time**. The oven's temperature sensor reports the past - `T_meas(t) = T_air(t − τ_d)` - and the headline feature is a toggleable **Smith predictor** that compensates for the delay with an internal plant model. The actuator is one-sided again (a heater cannot cool; cooling comes only from ambient losses and an openable door), so the lander's saturation machinery carries over directly.
 
 I wrote the project to a specification I drafted first (a 400-line `ROADMAP.md` treating the lander as architectural reference and parts donor), and used it to force a second design decision: the plant-agnostic modules - PID, immediate-mode UI, relay autotuner, utilities - were factored into a shared `controlkit/` library consumed by both applications via a documented `config.h` contract. The reflow-specific code is seven modules (~3,400 lines including tests): thermal plant, Smith predictor, process scoring, history chart, profile editor, analysis plots, and the console.
 

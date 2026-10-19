@@ -11,8 +11,11 @@ skills:
   - Hardware Debugging & Validation
   - State Machine (FSM) Implementation
 
-main-image: /mainpicture2.png
-image: /_projects/01_tap-mania/mainpicture2.png
+image: /projects/01_tap-mania/mainpicture2.png
+permalink: /projects/01_tap-mania/
+redirect_from:   # older addresses for this page, kept working
+  - /projects/01_tap-mania/index/
+  - /_projects/01_tap-mania/
 ---
 
 # tap-mania - Miniaturised Music-Based Rhythm Game
