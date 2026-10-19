@@ -31,30 +31,25 @@ The deliberate constraint that makes the problem interesting is that **the actua
 
 The project is written in C99 against [raylib](https://www.raylib.com/) for rendering, structured as ten small modules (plant, controller, instruments, analysis plots, autotuner, UI widgets) with a headless test suite and an autonomous self-test mode that regression-checks the instrumentation itself.
 
-<!-- {% include image-gallery.html images="begin_toggle_pid.gif" height="600" %}
-<span style="font-size: 14px">Figure 1; The full flight console: telemetry and per-term control effort (left), flight view with wind streaks (center), controller design panel (right), 20-second history strips, analysis plot, and mission sequence editor (bottom).</span> -->
+<!-- {% include image-gallery.html images="begin_toggle_pid.gif" height="600" caption="Figure 1; The full flight console: telemetry and per-term control effort (left), flight view with wind streaks (center), controller design panel (right), 20-second history strips, analysis plot, and mission sequence editor (bottom)." %}
+-->
 
-{% include video.html file="begin_toggle_pid.mp4" height="600" %}
-<span style="font-size: 14px">Figure 1; Brief sample of gameplay. Game is started with button press and manually controlled by user-presses on spacebar by default. PID control can be started by pressing 'P'. Control gain bars and telemtry are at left, history plot of altitude, wind force, thrust and altitude set at bottom. Toggle panel at right sets controls.</span> 
+{% include video.html file="begin_toggle_pid.mp4" height="600" caption="Figure 1; Brief sample of gameplay. Game is started with button press and manually controlled by user-presses on spacebar by default. PID control can be started by pressing 'P'. Control gain bars and telemtry are at left, history plot of altitude, wind force, thrust and altitude set at bottom. Toggle panel at right sets controls." %}
 
-<!-- {% include image-gallery.html images="plot_toggle.gif" height="600" %}
-<span style="font-size: 14px">Figure 1; The full flight console: telemetry and per-term control effort (left), flight view with wind streaks (center), controller design panel (right), 20-second history strips, analysis plot, and mission sequence editor (bottom).</span>
+<!-- {% include image-gallery.html images="plot_toggle.gif" height="600" caption="Figure 1; The full flight console: telemetry and per-term control effort (left), flight view with wind streaks (center), controller design panel (right), 20-second history strips, analysis plot, and mission sequence editor (bottom)." %}
 
  -->
 
-{% include video.html file="plot_toggle.mp4" height="600" %}
-<span style="font-size: 14px">Figure 2; Changing plots between bode, phase, root locus and step response</span> 
+{% include video.html file="plot_toggle.mp4" height="600" caption="Figure 2; Changing plots between bode, phase, root locus and step response" %}
 
-{% include video.html file="set_sequence.mp4" height="600" %}
-<span style="font-size: 14px">Figure 3; Adjusting flight sequence, number of altitudes, timespan and altitude setting. Errors and effort are logged for plays on each sequence. Control weights can be adjusted and tested against known sequence.</span> 
+{% include video.html file="set_sequence.mp4" height="600" caption="Figure 3; Adjusting flight sequence, number of altitudes, timespan and altitude setting. Errors and effort are logged for plays on each sequence. Control weights can be adjusted and tested against known sequence." %}
 
 <!-- <a href="https://youtu.be/yYE1kUrhGyA" target="_blank">
   <img src="https://img.youtube.com/vi/yYE1kUrhGyA/maxresdefault.jpg" alt="PIDlander gameplay sequence" width="800" />
 </a>
  -->
 
-{% include youtube-video.html id="yYE1kUrhGyA" title="pid-lander flying a mission sequence" width="1200px" %}
-<span style="font-size: 14px">Figure 5; Youtube video of sample playing the sequence. Craft is landed successfully as displayed with m/s landing speed. Sequence can be rerun with different parameters.</span>
+{% include youtube-video.html id="yYE1kUrhGyA" title="pid-lander flying a mission sequence" width="1200px" caption="Figure 5; Youtube video of sample playing the sequence. Craft is landed successfully as displayed with m/s landing speed. Sequence can be rerun with different parameters." %}
 
 ## The Plant: Physics & Real-Time Architecture
 
@@ -130,8 +125,8 @@ Four live analysis plots share a panel:
 * **Predicted step response** - a linear closed-loop simulation for the *current* slider gains, redrawn live, with predicted overshoot and settling time printed next to the *measured* values from the last real step the craft flew. Theory and reality, side by side, updating as you drag sliders.
 
 <!-- TODO screenshot pending — uncomment when bode_locus.png is added:
-{% include image-gallery.html images="bode_locus.png" height="500" %}
-<span style="font-size: 14px">Root locus and Bode views. The Bode panel prints an exact STABLE/UNSTABLE verdict alongside the advisory margins - see below for why the margins alone were not enough.</span> -->
+{% include image-gallery.html images="bode_locus.png" height="500" caption="Root locus and Bode views. The Bode panel prints an exact STABLE/UNSTABLE verdict alongside the advisory margins - see below for why the margins alone were not enough." %}
+-->
 
 ### When Phase Margin Lies: Conditional Stability
 
@@ -164,8 +159,8 @@ Control performance is subjective until it is scored. The mission system makes i
 * **Landing grading** - every touchdown is graded at the point of impact ("LANDED - 2.3 m/s impact", colour-coded soft/firm), and exceeding the crash-speed threshold destroys the craft in a debris shower. Impact is reported as touchdown *speed* rather than a fictional force figure, because impact force is undefined for a rigid contact - and speed compares directly against the crash threshold.
 
 <!-- TODO screenshot pending — uncomment when sequence_scores.png is added:
-{% include image-gallery.html images="sequence_scores.png" height="500" %}
-<span style="font-size: 14px">A mission profile being flown: the gold staircase is the commanded profile, the white trace the flight, and each completed run drops IAE/ITAE/effort scores onto the board for the tune that flew it.</span> -->
+{% include image-gallery.html images="sequence_scores.png" height="500" caption="A mission profile being flown: the gold staircase is the commanded profile, the white trace the flight, and each completed run drops IAE/ITAE/effort scores onto the board for the tune that flew it." %}
+-->
 
 ## Challenges & Bugs
 

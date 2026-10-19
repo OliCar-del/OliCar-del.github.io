@@ -33,12 +33,10 @@ The architecture was engineered for simplicity and component availability, relyi
 | **Power Path Switching** | NDT2955 (P-Channel) | Acts as the primary switch isolating the battery when USB voltage is present, preventing back-feeding while offering very low $R_{DS(on)}$. |
 | **Voltage Regulation** | AP2112K-3.3TRG1 | A high-speed, low-dropout (LDO) regulator providing a clean 600mA 3.3V supply, ideal for noise-sensitive microcontrollers. |
 
-{% include image-gallery.html images="Schematic.png" height="600" %}
-<span style="font-size: 14px">Figure 1: Overall Schematic: Detailing the USB-C configuration, MCP73831 battery charger, load-sharing power path, and LDO isolation circuits.</span>
+{% include image-gallery.html images="Schematic.png" height="600" caption="Figure 1: Overall Schematic: Detailing the USB-C configuration, MCP73831 battery charger, load-sharing power path, and LDO isolation circuits." %}
 
 
-{% include image-gallery.html images="bom.png" height="400" %}
-<span style="font-size: 14px">Figure 2: Bill of Materials (BOM) excerpt highlighting the critical power management components.</span>
+{% include image-gallery.html images="bom.png" height="400" caption="Figure 2: Bill of Materials (BOM) excerpt highlighting the critical power management components." %}
 
 
 ## Hot-Swap Power Path Design & Simulation
@@ -47,24 +45,20 @@ To ensure the 3.3V rail would not drop during power hand-offs, the load-sharing 
 
 The circuit utilizes a P-Channel MOSFET and a Schottky diode. When USB 5V is present, the diode conducts power to the LDO, while the MOSFET gate is pulled high, isolating the LiPo battery. The MCP73831 is then free to charge the battery independently. When USB power is removed, the gate is pulled low, swiftly turning on the MOSFET and allowing the battery to take over the load instantaneously.
 
-{% include image-gallery.html images="hotswap.png" height="500" %}
-<span style="font-size: 14px">Figure 3: LTspice transient analysis circuit verifying the hand-off timing and voltage stability between the USB and Battery sources.</span>
+{% include image-gallery.html images="hotswap.png" height="500" caption="Figure 3: LTspice transient analysis circuit verifying the hand-off timing and voltage stability between the USB and Battery sources." %}
 
 
 ## Bring-up Process
 
 The circuit was breadboarded and simulated before layout, then manufactured and brought up stage by stage. Abundant test points and solder bridges meant every net could be probed and each stage isolated while fault-finding.
 
-{% include image-gallery.html images="copper_art.png" height="500" %}
-<span style="font-size: 14px">Figure 4: 2-Layer PCB Copper Artwork</span>
+{% include image-gallery.html images="copper_art.png" height="500" caption="Figure 4: 2-Layer PCB Copper Artwork" %}
 
 
-{% include image-gallery.html images="render.png" height="600" %}
-<span style="font-size: 14px">Figure 5: Final 3D Render of the populated board, demonstrating the physical layout, robust USB-C mounting, and strategically placed test points.</span>
+{% include image-gallery.html images="render.png" height="600" caption="Figure 5: Final 3D Render of the populated board, demonstrating the physical layout, robust USB-C mounting, and strategically placed test points." %}
 
 
-{% include image-gallery.html images="constructed.jpeg" height="600" %}
-<span style="font-size: 14px">Figure 6: Constructed and tested final PCB. Some testpoints unpopulated. Easy access to different nets and molex terminals for off-board connections.</span>
+{% include image-gallery.html images="constructed.jpeg" height="600" caption="Figure 6: Constructed and tested final PCB. Some testpoints unpopulated. Easy access to different nets and molex terminals for off-board connections." %}
 
 
 ## Necessary improvements

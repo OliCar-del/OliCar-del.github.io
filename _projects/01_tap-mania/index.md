@@ -47,47 +47,31 @@ The hardware was developed across four PCB versions, each spin fixing what testi
 ---
 
 **PCB Version 1 (PCBv1):** The focus was validating power pathing and battery charging via the MP2637 TQFN package. It integrated the audio IC, 3.3V LDO, SD card socket, and low-pass filters (-3dB @ ~340Hz) for user interface hardware debouncing. Extensive debug pins and solder bridges were included for isolated testing.
-{% include image-gallery.html images="PCBV1_render.webp" height="600" %}
-<span style="font-size: 14px">PCBv1 Altium render</span>
-{% include image-gallery.html images="PCBV1_copper.webp" height="600" %}
-<span style="font-size: 14px">PCBv1 Altium copper artwork</span>
-{% include image-gallery.html images="PCBV1_built.jpg" height="600" %}
-<span style="font-size: 14px">PCBv1 fully constructed, tested and functional prototype</span>
+{% include image-gallery.html images="PCBV1_render.webp" height="600" caption="PCBv1 Altium render" %}
+{% include image-gallery.html images="PCBV1_copper.webp" height="600" caption="PCBv1 Altium copper artwork" %}
+{% include image-gallery.html images="PCBV1_built.jpg" height="600" caption="PCBv1 fully constructed, tested and functional prototype" %}
 **PCB Version 2 (PCBv2):** Introduced a direct USB-C connector with a TPD8S300 protection IC (for ESD/overvoltage protection) and terminal lugs for direct arcade button interfacing. A backup SEEEDUINO socket was added for redundancy.
-{% include image-gallery.html images="PCBV2_render.webp" height="600" %}
-<span style="font-size: 14px">PCBv2 Altium render</span>
-{% include image-gallery.html images="PCBV2_copper.webp" height="600" %}
-<span style="font-size: 14px">PCBv2 Altium copper artwork</span>
-{% include image-gallery.html images="PCBV2_builtrotated.jpg" height="600" %}
-<span style="font-size: 14px">PCBv2 fully constructed, tested and functional prototype. Board has distinct areas noted on the silk screen. Bottom edge (L->R) has SD card socket, UI buttons connections, Arcade button connections. Top edge (L->R) has Programming header + MCU, USB input and protection, Audio chip+jack footprint and battery charger+boost supply.</span>
-{% include image-gallery.html images="PCBV2_test.webp" height="600" %}
-<span style="font-size: 14px">PCBv2 being tested for functionality</span>
-{% include image-gallery.html images="PCBV2_batt.webp" height="600" %}
-<span style="font-size: 14px">PCBv2 running off battery power</span>
+{% include image-gallery.html images="PCBV2_render.webp" height="600" caption="PCBv2 Altium render" %}
+{% include image-gallery.html images="PCBV2_copper.webp" height="600" caption="PCBv2 Altium copper artwork" %}
+{% include image-gallery.html images="PCBV2_builtrotated.jpg" height="600" caption="PCBv2 fully constructed, tested and functional prototype. Board has distinct areas noted on the silk screen. Bottom edge (L->R) has SD card socket, UI buttons connections, Arcade button connections. Top edge (L->R) has Programming header + MCU, USB input and protection, Audio chip+jack footprint and battery charger+boost supply." %}
+{% include image-gallery.html images="PCBV2_test.webp" height="600" caption="PCBv2 being tested for functionality" %}
+{% include image-gallery.html images="PCBV2_batt.webp" height="600" caption="PCBv2 running off battery power" %}
 
 ---
 
 **PCB Version 3 (PCBv3):** Major functional and robustness overhauls. Audio pins were re-routed to SAI1 (LCLOCK, BCLOCK) for proper I2S function. Arcade button LEDs were shifted to the 5V rail and switched via BSS138 N-channel MOSFETs, so the 3.3V GPIOs never source LED current directly. Spade terminals were replaced with keyed JST-PH 2.0mm connectors to make mis-wiring physically impossible.
-{% include image-gallery.html images="PCBV3_render.png" height="600" %}
-<span style="font-size: 14px">PCBv3 Altium render showing removal of USB input/protection and inclusion of keyed connectors</span>
-{% include image-gallery.html images="PCBV3_copper.webp" height="600" %}
-<span style="font-size: 14px">PCBv3 Altium copper artwork showing longer USB UART Connections and revised battery charging wiring. 3.3V rail is in aqua, 5V input is in pale yellow, Arcade button signals/power in bright yellow.</span>
-{% include image-gallery.html images="PCBV3_built.jpg" height="600" %}
-<span style="font-size: 14px">PCBv3 fully constructed, tested and functional prototype. Full functionality was achieved at this point; the remaining work was robustness rather than features.</span>
-{% include image-gallery.html images="PCBV3_test.webp" height="600" %}
-<span style="font-size: 14px">PCBv3 showing informative debug output via USART to PC, while playing the game on LED matrix.</span>
+{% include image-gallery.html images="PCBV3_render.png" height="600" caption="PCBv3 Altium render showing removal of USB input/protection and inclusion of keyed connectors" %}
+{% include image-gallery.html images="PCBV3_copper.webp" height="600" caption="PCBv3 Altium copper artwork showing longer USB UART Connections and revised battery charging wiring. 3.3V rail is in aqua, 5V input is in pale yellow, Arcade button signals/power in bright yellow." %}
+{% include image-gallery.html images="PCBV3_built.jpg" height="600" caption="PCBv3 fully constructed, tested and functional prototype. Full functionality was achieved at this point; the remaining work was robustness rather than features." %}
+{% include image-gallery.html images="PCBV3_test.webp" height="600" caption="PCBv3 showing informative debug output via USART to PC, while playing the game on LED matrix." %}
 
 ---
 
 **PCB Version 4 (PCBv4 - Final):** Focused on final polish, mounting clearance and robustness. Added a 5V rail power indicator LED, nylon spacers for OLED clearance, solder bridges to isolate the 5V system rail for safer fault finding, and a unified ground plane strategy for the arcade switches.
-{% include image-gallery.html images="PCBV4_render.webp" height="600" %}
-<span style="font-size: 14px">PCBv4 Altium render showing the final layout</span>
-{% include image-gallery.html images="PCBV4_copper.webp" height="600" %}
-<span style="font-size: 14px">PCBv4 Altium copper artwork showing minor changes to V3. Some trace widening and minor debug and ESD inclusions.</span>
-{% include image-gallery.html images="PCBV4_test.jpg" height="600" %}
-<span style="font-size: 14px">PCBv4 fully constructed showing routing of wiring harness into playcase and abundance of keyed connections and mounting hardware.</span>
-{% include image-gallery.html images="PCBV4_play.jpg" height="600" %}
-<span style="font-size: 14px">PCBv4 in situ, mounted to acrylic playcase with LED matrix and OLED displaying game information. Game currently being played. </span>
+{% include image-gallery.html images="PCBV4_render.webp" height="600" caption="PCBv4 Altium render showing the final layout" %}
+{% include image-gallery.html images="PCBV4_copper.webp" height="600" caption="PCBv4 Altium copper artwork showing minor changes to V3. Some trace widening and minor debug and ESD inclusions." %}
+{% include image-gallery.html images="PCBV4_test.jpg" height="600" caption="PCBv4 fully constructed showing routing of wiring harness into playcase and abundance of keyed connections and mounting hardware." %}
+{% include image-gallery.html images="PCBV4_play.jpg" height="600" caption="PCBv4 in situ, mounted to acrylic playcase with LED matrix and OLED displaying game information. Game currently being played." %}
 
 ---
 

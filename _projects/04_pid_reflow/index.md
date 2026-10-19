@@ -29,11 +29,9 @@ redirect_from:   # older addresses for this page, kept working
 
 I wrote the project to a specification I drafted first (a 400-line `ROADMAP.md` treating the lander as architectural reference and parts donor), and used it to force a second design decision: the plant-agnostic modules - PID, immediate-mode UI, relay autotuner, utilities - were factored into a shared `controlkit/` library consumed by both applications via a documented `config.h` contract. The reflow-specific code is seven modules (~3,400 lines including tests): thermal plant, Smith predictor, process scoring, history chart, profile editor, analysis plots, and the console.
 
-{% include image-gallery.html images="console.png" height="600" %}
-<span style="font-size: 14px">Figure 1; The console mid-reflow: telemetry and per-term PID effort (left), oven cross-section with heater glow, temperature-mapped PCB and thermometer scale (center), controller/plant/sensor sliders (right), 120 s history chart, analysis plot and draggable solder-profile editor (bottom).</span>
+{% include image-gallery.html images="console.png" height="600" caption="Figure 1; The console mid-reflow: telemetry and per-term PID effort (left), oven cross-section with heater glow, temperature-mapped PCB and thermometer scale (center), controller/plant/sensor sliders (right), 120 s history chart, analysis plot and draggable solder-profile editor (bottom)." %}
 
-{% include video.html file="smith.mp4" height="600" %}
-<span style="font-size: 14px">Figure 2; The AGGRESSIVE preset (Kp = 120, deliberately past the delay-limited ultimate gain) limit-cycling on a 150 °C hold; pressing SMITH: ON with the same gains collapses the oscillation.</span>
+{% include video.html file="smith.mp4" height="600" caption="Figure 2; The AGGRESSIVE preset (Kp = 120, deliberately past the delay-limited ultimate gain) limit-cycling on a 150 °C hold; pressing SMITH: ON with the same gains collapses the oscillation." %}
 
 ## The Plant
 
@@ -83,8 +81,7 @@ The acceptance demonstration is an assertion in `test_pid.c` - gains past the de
 
 The Bode plot draws the open loop `L(jω) = C(jω)·G(jω)·e^(−jωτ_d)` with the delay's phase **exact - I refused a Padé approximation**. Dragging the delay slider tilts the phase floor down without bound and collapses the margins, which is the behavior the app exists to show.
 
-{% include video.html file="bode_delay.mp4" height="500" %}
-<span style="font-size: 14px">Figure 3; Dragging the sensor-delay slider 0 → 8 s on the BODE view: gain unchanged, phase falling without bound, margins collapsing, verdict flipping to UNSTABLE.</span>
+{% include video.html file="bode_delay.mp4" height="500" caption="Figure 3; Dragging the sensor-delay slider 0 → 8 s on the BODE view: gain unchanged, phase falling without bound, margins collapsing, verdict flipping to UNSTABLE." %}
 
 Exactness has a consequence I had to design around: the closed-loop characteristic equation becomes transcendental, so the lander's Routh-Hurwitz verdict is mathematically unavailable - there is no polynomial to give it. Margins alone were already ruled out (the lander's conditional-stability episode showed a positive phase margin on a provably unstable loop). So the stability verdict here is computed by the method the lander used only as a *validator*: the linearized closed loop - exact discrete PID, the real delay line, the derivative filter, the Smith predictor when enabled - is simulated over six dominant time constants and tested for amplitude decay. To keep that affordable per frame, every parameter the verdict depends on sits in one padding-free struct and a `memcmp` decides whether anything changed since the last frame; the simulation reruns only when a slider actually moves. The same linear simulation drives the predicted-STEP plot, with predicted and measured overshoot/settling printed side by side as in the lander.
 
@@ -106,8 +103,8 @@ The profile editor is the lander's sequence editor with one substantive change: 
 plus IAE / ITAE / max error / heater effort kept per run in a four-slot scoreboard with the gains that flew them. Three presets ship: `SAC305` (the standard lead-free profile; earns `GOOD SOLDER` with the shipped gains), `LEADED` (Sn63/Pb37 - flown well it still scores `COLD JOINT`, because the pass bands judge lead-free solder and its 183 °C alloy never needs to reach 217; I kept that mismatch deliberately), and `SLOW` (long-soak, wide margins).
 
 <!-- TODO recording pending — uncomment when sac305_run.gif is added:
-{% include image-gallery.html images="sac305_run.gif" height="600" %}
-<span style="font-size: 14px">Figure 4; A SAC305 run at 16×: gold staircase is the recipe, white the air, amber the board lagging it; the solder bead melts above the liquidus line, the door opens on the cooldown segment, and the run posts peak/TAL/ramp scores and a GOOD SOLDER verdict.</span> -->
+{% include image-gallery.html images="sac305_run.gif" height="600" caption="Figure 4; A SAC305 run at 16×: gold staircase is the recipe, white the air, amber the board lagging it; the solder bead melts above the liquidus line, the door opens on the cooldown segment, and the run posts peak/TAL/ramp scores and a GOOD SOLDER verdict." %}
+-->
 
 ## Challenges & Bugs
 

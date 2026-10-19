@@ -801,6 +801,58 @@ footer p {
     background: #111;
 }
 
+/* Images/videos with captions (caption="..." on the image, video and YouTube includes) */
+.post-view .content .figure {
+    margin: 0 0 1em;
+}
+
+.post-view .content .figure figcaption {
+    font-size: 14px;
+    color: var(--text-color);
+    margin-top: 4px;
+}
+
+/* Click a project image to see it full size (assets/js/script.js) */
+.post-view .content .image-gallery img {
+    cursor: zoom-in;
+}
+
+.lightbox {
+    padding: 0;
+    border: none;
+    background: transparent;
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow: visible;
+}
+
+.lightbox::backdrop {
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.lightbox img {
+    display: block;
+    max-width: 96vw;
+    max-height: 92vh;
+    object-fit: contain;
+    background: #fff;
+    cursor: zoom-out;
+}
+
+.lightbox-close {
+    position: fixed;
+    top: 8px;
+    right: 12px;
+    width: 44px;
+    height: 44px;
+    font-size: 32px;
+    line-height: 1;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
 /* Inline SVG icons (_includes/icon.html) */
 .icon {
     display: inline-block;

@@ -1,11 +1,24 @@
 {%- comment -%}
-  One or more images from the project's own folder (or full https:// URLs), side by side.
-  Usage: {% include image-gallery.html images="a.png, b.png" height="400" alt="What the images show" %}
+  One or more images from the project's own folder (or full https:// URLs), side by side,
+  with an optional caption underneath. Click an image to see it full size.
+  Usage: {% include image-gallery.html images="a.webp, b.webp" height="400" caption="Figure 1: ..." %}
+    caption  shown under the images; markdown like *italics* and [links](...) works.
+             Use single quotes around it if it contains a double quote: caption='3/4" ply'.
+    alt      what the images show, for screen readers and image search (defaults to the caption)
+    height   maximum display height in px (default 300)
 {%- endcomment -%}
 {%- include asset-base.html -%}
 {%- assign image_paths = include.images | split: "," -%}
 {%- assign gallery_height = include.height | default: "300" -%}
-
+{%- if include.caption -%}
+  {%- assign caption_html = include.caption | markdownify | remove: "<p>" | remove: "</p>" | strip -%}
+{%- endif -%}
+{%- if include.alt -%}
+  {%- assign image_alt = include.alt | escape -%}
+{%- elsif include.caption -%}
+  {%- assign image_alt = caption_html | strip_html | strip | truncatewords: 30 | replace: '"', '&quot;' -%}
+{%- endif %}
+{% if include.caption %}<figure class="figure">{% endif %}
 <div class="image-gallery" style="--gallery-height: {{ gallery_height }}px;">
   {%- for image_path in image_paths -%}
     {%- assign image_name = image_path | strip -%}
@@ -14,6 +27,10 @@
     {%- else -%}
       {%- assign image_src = asset_base | append: image_name | relative_url -%}
     {%- endif %}
-  <img src="{{ image_src }}" alt="{{ include.alt | default: image_name }}" loading="lazy" decoding="async">
+  <img src="{{ image_src }}" alt="{{ image_alt | default: image_name }}" loading="lazy" decoding="async">
   {%- endfor %}
 </div>
+{%- if include.caption %}
+<figcaption>{{ caption_html }}</figcaption>
+</figure>
+{%- endif %}

@@ -2,16 +2,23 @@
   A muted, looping MP4 from the project's own folder; behaves like a GIF at a fraction of the size.
   It only downloads and plays while on screen (assets/js/script.js), and shows a play button
   instead for people whose system asks for reduced motion.
-  Usage: {% include video.html file="clip.mp4" height="500" %}
-  `height` caps the display height in px; add ratio="4 / 3" for clips that aren't 16:9.
+  Usage: {% include video.html file="clip.mp4" height="500" caption="Figure 2: ..." %}
+    height   maximum display height in px (default 600)
+    caption  optional, shown underneath; markdown works
+    ratio    for clips that aren't 16:9, e.g. ratio="4 / 3"
+  Make the MP4 from a screen recording or GIF with ffmpeg (see README).
 {%- endcomment -%}
 {%- include asset-base.html -%}
 {%- assign video_height = include.height | default: "600" -%}
 {%- assign video_src = asset_base | append: include.file | strip | relative_url -%}
-
+{% if include.caption %}<figure class="figure">{% endif %}
 <div class="image-gallery" style="--gallery-height: {{ video_height }}px; --video-ratio: {{ include.ratio | default: '16 / 9' }};">
   <video class="loop-video" data-autoplay loop muted playsinline preload="none">
     <source src="{{ video_src }}" type="video/mp4">
     Your browser does not support embedded video.
   </video>
 </div>
+{%- if include.caption %}
+<figcaption>{{ include.caption | markdownify | remove: "<p>" | remove: "</p>" | strip }}</figcaption>
+</figure>
+{%- endif %}
