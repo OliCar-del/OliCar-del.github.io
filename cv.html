@@ -22,9 +22,15 @@ image: /assets/images/profile-image/cropped_headshot.png
         <h1>{{ cv.name }}</h1>
         <p class="cv-headline">{{ cv.headline }}</p>
         <ul class="cv-contact">
+            {%- if cv.email %}
             <li><a href="mailto:{{ cv.email }}">{{ cv.email }}</a></li>
+            {%- endif %}
+            {%- if cv.phone %}
             <li><a href="tel:{{ cv.phone | remove: ' ' }}">{{ cv.phone }}</a></li>
+            {%- endif %}
+            {%- if cv.location %}
             <li>{{ cv.location }}</li>
+            {%- endif %}
         </ul>
         <ul class="cv-contact">
             {%- for link in cv.links %}

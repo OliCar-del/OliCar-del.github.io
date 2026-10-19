@@ -11,6 +11,7 @@
 
 name: Oliver Carnew
 headline: Graduate Electrical Engineer
+# Shown as tap-to-email and tap-to-call links. Delete a line to leave it off the web page.
 email: oli.carnew@gmail.com
 location: Tennyson, QLD 4105
 links:
