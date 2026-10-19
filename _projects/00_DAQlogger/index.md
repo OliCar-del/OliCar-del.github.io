@@ -12,7 +12,8 @@ skills:
  - Hardware Bring-up & Bench Test
  - BOM Management & Cost Engineering
 
-image: /projects/00_DAQlogger/AltiumRender.png
+image: /projects/00_DAQlogger/AltiumRender.jpg
+thumb: /projects/00_DAQlogger/thumb.webp
 permalink: /projects/00_DAQlogger/
 redirect_from:   # older addresses for this page, kept working
   - /projects/00_DAQlogger/index/
@@ -137,7 +138,7 @@ V1 proved the concept where it mattered: the digital domain was fully functional
 | Smaller board outline (within 100mm) | ~$10 cheaper — drops a PCB price tier and buys BOM headroom |
 | Silkscreen, fiducial and test point overhaul | Self-documenting on the bench — every rail, terminal and connector labelled; fiducials for assembly alignment |
 
-{% include image-gallery.html images="AltiumRender.png" height="550" %}
+{% include image-gallery.html images="AltiumRender.jpg" height="550" %}
 <span style="font-size: 14px">Figure 5: V2 Altium render. Input terminal blocks and current source outputs on the left edge, labelled alarm LED banks per channel on the right, ±12V switching supplies bottom, TOSLINK socket and receive tuning top.</span>
 
 {% include image-gallery.html images="CopperArt.png" height="500" %}

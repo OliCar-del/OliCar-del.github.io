@@ -10,6 +10,7 @@ skills:
  - Schematic Capture & BOM Management
 
 image: /projects/05_usb-lipo/constructed.jpeg
+thumb: /projects/05_usb-lipo/thumb.webp
 permalink: /projects/05_usb-lipo/
 redirect_from:   # older addresses for this page, kept working
   - /projects/05_usb-lipo/index/

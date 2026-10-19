@@ -1,14 +1,16 @@
 {%- comment -%}
   A muted, looping MP4 from the project's own folder; behaves like a GIF at a fraction of the size.
+  It only downloads and plays while on screen (assets/js/script.js), and shows a play button
+  instead for people whose system asks for reduced motion.
   Usage: {% include video.html file="clip.mp4" height="500" %}
+  `height` caps the display height in px; add ratio="4 / 3" for clips that aren't 16:9.
 {%- endcomment -%}
 {%- include asset-base.html -%}
 {%- assign video_height = include.height | default: "600" -%}
 {%- assign video_src = asset_base | append: include.file | strip | relative_url -%}
 
-<div class="image-gallery" style="--gallery-height: {{ video_height }}px;">
-  <video autoplay loop muted playsinline preload="metadata"
-         style="max-width: 100%; height: auto; max-height: {{ video_height }}px;">
+<div class="image-gallery" style="--gallery-height: {{ video_height }}px; --video-ratio: {{ include.ratio | default: '16 / 9' }};">
+  <video class="loop-video" data-autoplay loop muted playsinline preload="none">
     <source src="{{ video_src }}" type="video/mp4">
     Your browser does not support embedded video.
   </video>

@@ -114,16 +114,21 @@ nav .mobile-nav a span:last-child:hover {
 /* Navbar Mobile Menu Button */
 nav .menu-toggle {
     display: none;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 10px;
+    padding: 0;
 }
 
 nav .hamburger {
     display: block;
-    width: 24px;
-    height: 2px;  /* Changed from 5px to 2px */
+    width: 26px;
+    height: 3px;
+    border-radius: 2px;
     background: var(--text-color);
     position: relative;
     transition: background 0.2s;
@@ -133,9 +138,10 @@ nav .hamburger::before,
 nav .hamburger::after {
     content: '';
     position: absolute;
-    left: 0;  /* Added to ensure proper alignment */
-    width: 24px;  /* Made consistent with parent width */
-    height: 2px;
+    left: 0;
+    width: 26px;
+    height: 3px;
+    border-radius: 2px;
     background: var(--text-color);
     transition: transform 0.2s;
 }
@@ -186,7 +192,7 @@ nav .mobile-nav {
     font-size: 50px;
 }
 
-.hero-section .text .external-links i {
+.hero-section .text .external-links .icon {
     font-size: 20px;
     padding: 0 5px;
     color: var(--text-color);
@@ -740,6 +746,68 @@ footer p {
     left: 0;
     width: 100%;
     height: 100%;
+    border: 0;
+}
+
+/* Click-to-play YouTube thumbnail (_includes/youtube-video.html) */
+.youtube-aspect-ratio a.youtube-facade {
+    position: absolute;
+    inset: 0;
+    display: block;
+    margin: 0;
+    background: #000;
+}
+
+.youtube-facade img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.youtube-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 68px;
+    height: 48px;
+    transform: translate(-50%, -50%);
+    border-radius: 14px;
+    background: rgba(23, 23, 23, 0.8);
+    transition: background-color 0.2s;
+}
+
+.youtube-play::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-40%, -50%);
+    border-style: solid;
+    border-width: 11px 0 11px 19px;
+    border-color: transparent transparent transparent #fff;
+}
+
+.youtube-facade:hover .youtube-play,
+.youtube-facade:focus-visible .youtube-play {
+    background: #f00;
+}
+
+/* Looping clips (_includes/video.html): reserve the right-sized box before the video loads */
+.image-gallery .loop-video {
+    width: min(100%, calc(var(--gallery-height) * (var(--video-ratio))));
+    aspect-ratio: var(--video-ratio);
+    height: auto;
+    background: #111;
+}
+
+/* Inline SVG icons (_includes/icon.html) */
+.icon {
+    display: inline-block;
+    height: 1em;
+    width: auto;
+    vertical-align: -0.125em;
+    overflow: visible;
 }
 
 
@@ -791,10 +859,10 @@ footer p {
     }
 
     nav .menu-toggle {
-        display: block;  
+        display: flex;
     }
     .menu-toggle {
-        display: block;
+        display: flex;
     }
 
     .mobile-nav {
@@ -850,7 +918,7 @@ footer p {
         font-size: 40px;   
       }
     
-    .hero-section .group .text h1 .external-links i {
+    .hero-section .group .text h1 .external-links .icon {
         font-size: 16px; /* Example: reducing icon size */
         margin: 0
     }

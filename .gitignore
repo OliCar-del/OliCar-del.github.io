@@ -5,3 +5,7 @@
 _site/
 .jekyll-cache/
 .sass-cache/
+
+# Local tool and editor folders
+.*/
+!.github/
