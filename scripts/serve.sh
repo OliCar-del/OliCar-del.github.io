@@ -7,5 +7,5 @@ eval "$(rbenv init - bash)"
 cd "$(dirname "$0")/.."
 # --force_polling: WSL can't see file-change events on Windows drives, so poll instead.
 # Output goes to a Linux folder because writing to the Windows drive from WSL is slow.
-exec bundle exec jekyll serve --host 0.0.0.0 --port 4000 --livereload --force_polling \
+exec bundle exec jekyll serve --host localhost --port 4000 --livereload --force_polling \
   --destination "$HOME/portfolio-preview" "$@"
