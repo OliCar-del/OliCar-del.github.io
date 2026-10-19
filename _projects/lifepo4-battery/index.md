@@ -1,21 +1,23 @@
 ---
 layout: post
-title: 314Ah Auxiliary Vehicle Battery
+title: 12V 314Ah Automotive LiFePO4 Auxiliary System
 description: Large capacity 4S EVE MB31 314Ah LiFePO4 construction battery with protection, 200A JK BMS and case construction/compression for automotive and off-grid camping applications. Acts as the foundation for a future custom MPPT solar controller and integration with a 200W solar panel.
 skills:
   - Battery Pack Assembly & Compression
   - Power Distribution & Fusing
   - BMS Integration (JK Active Balancing)
   - Automotive 12V Systems
-image: /projects/07_batt/batt.jpg
-thumb: /projects/07_batt/thumb.webp
-permalink: /projects/07_batt/
+tags: [LiFePO4, BMS, 12V systems]   # short labels on the project card
+areas: [power]   # filter buttons: power, pcb, embedded, control, rf, software
+order: 7   # position on the site, lowest first
+image: /projects/lifepo4-battery/batt.jpg
+thumb: /projects/lifepo4-battery/thumb.webp
+permalink: /projects/lifepo4-battery/
 redirect_from:   # older addresses for this page, kept working
+  - /projects/07_batt/
   - /projects/07_batt/index/
   - /_projects/07_batt/
 ---
-# 12V 314Ah Automotive LiFePO4 Auxiliary System
-
 ## Project Overview & Scope
 
 Modern vehicle-based travel and off-grid camping require significant, reliable power to run 12V compressor fridges, cabin fans, lighting, and device chargers continuously. The objective of this project was to design and construct a high-capacity, heavy-duty 12V auxiliary battery system capable of sustaining these loads for extended periods without relying on the vehicle's alternator.

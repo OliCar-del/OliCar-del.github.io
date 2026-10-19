@@ -1,0 +1,14 @@
+# Filter buttons above the project grid, in this order. Tag a project with
+# `areas: [power, pcb]` in its front matter. /projects/?tag=power opens with that filter on.
+- key: power
+  label: Power
+- key: pcb
+  label: PCB
+- key: embedded
+  label: Embedded
+- key: control
+  label: Control
+- key: rf
+  label: RF
+- key: software
+  label: Software

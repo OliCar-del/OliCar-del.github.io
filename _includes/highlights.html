@@ -1,0 +1,19 @@
+{%- comment -%} Key results under the intro on the home page; edit them in _data/highlights.yml. {%- endcomment -%}
+{%- if site.data.highlights %}
+<section class="highlights" aria-labelledby="highlights-heading">
+    <h2 id="highlights-heading" class="visually-hidden">Highlights</h2>
+    <ul>
+        {%- for highlight in site.data.highlights %}
+        {%- assign project_path = "_projects/" | append: highlight.project | append: "/index.md" -%}
+        {%- assign project = site.projects | where: "path", project_path | first -%}
+        {%- assign short_title = project.title | split: " - " | first | default: highlight.project %}
+        <li>
+            <a href="{{ project.url | default: project_path | relative_url }}">
+                <span class="result">{{ highlight.text }}</span>
+                <span class="project">{{ highlight.label | default: short_title }} →</span>
+            </a>
+        </li>
+        {%- endfor %}
+    </ul>
+</section>
+{%- endif %}

@@ -9,15 +9,17 @@ skills:
  - Circuit Simulation (LTspice)
  - Schematic Capture & BOM Management
 
-image: /projects/05_usb-lipo/constructed.jpeg
-thumb: /projects/05_usb-lipo/thumb.webp
-permalink: /projects/05_usb-lipo/
+tags: [Power path, USB-C, PCB (Altium), LTspice]   # short labels on the project card
+areas: [power, pcb]   # filter buttons: power, pcb, embedded, control, rf, software
+order: 6   # position on the site, lowest first
+image: /projects/usb-lipo/constructed.jpeg
+thumb: /projects/usb-lipo/thumb.webp
+permalink: /projects/usb-lipo/
 redirect_from:   # older addresses for this page, kept working
+  - /projects/05_usb-lipo/
   - /projects/05_usb-lipo/index/
   - /_projects/05_usb-lipo/
 ---
-# Uninterruptible 3.3V Power Management PCB
-
 ## Project Overview
 
 A dedicated power-management sub-system: arbitrate between a 5V USB-C source and a 3.7V single-cell LiPo battery, and step whichever is active down to a clean, continuous 3.3V output. The defining requirement was hot-swapping - plugging or unplugging the USB-C cable must not brown out the downstream 3.3V logic.

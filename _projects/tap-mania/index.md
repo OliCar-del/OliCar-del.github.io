@@ -1,6 +1,6 @@
 ---
 layout: post
-title: tap-mania
+title: tap-mania - Miniaturised Music-Based Rhythm Game
 description: An embedded systems project to design and build a miniaturised arcade rhythm and dance game played with fingers, based on STM32 architecture. The project involved multi-stage PCB prototyping, power management, audio generation, and modular firmware development.
 skills:
   - PCB Design & Routing
@@ -11,15 +11,17 @@ skills:
   - Hardware Debugging & Validation
   - State Machine (FSM) Implementation
 
-image: /projects/01_tap-mania/mainpicture2.jpg
-thumb: /projects/01_tap-mania/thumb.webp
-permalink: /projects/01_tap-mania/
+tags: [PCB (Altium), STM32, Battery power, I2S audio]   # short labels on the project card
+areas: [pcb, embedded, power]   # filter buttons: power, pcb, embedded, control, rf, software
+order: 2   # position on the site, lowest first
+image: /projects/tap-mania/mainpicture2.jpg
+thumb: /projects/tap-mania/thumb.webp
+permalink: /projects/tap-mania/
 redirect_from:   # older addresses for this page, kept working
+  - /projects/01_tap-mania/
   - /projects/01_tap-mania/index/
   - /_projects/01_tap-mania/
 ---
-
-# tap-mania - Miniaturised Music-Based Rhythm Game
 
 ## Project Overview & Scope
 
