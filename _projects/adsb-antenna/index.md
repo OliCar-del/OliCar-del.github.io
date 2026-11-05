@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 1090 MHz ADS-B Antenna - NEC2 Modelling
-description: NEC2 models of a quarter-wave groundplane for 1090 MHz aircraft reception, tuned by sweeping radial droop and then radiator length, with a three-element Yagi modelled for comparison. Simulation only, with solver output and convergence checks retained for a later build.
+description: NEC2 models of a quarter-wave groundplane for 1090 MHz aircraft reception, tuned by sweeping radial droop and then radiator length, with a three-element Yagi modelled for comparison. Solver output and convergence checks are retained for a later build.
 skills:
   - Antenna Modelling (NEC2 / Method of Moments)
   - Impedance Matching & S-Parameters
@@ -32,7 +32,7 @@ So this is the modelling stage. Two geometries in NEC2, a design decision, and e
 | Formulation | Method of moments | Wires are segmented, the tangential E-field is forced to zero on each conductor, and the resulting matrix is solved for the current distribution. |
 | Conductor | PEC, 0.5 mm radius | Perfectly conducting circular wire. No connector, coax, mast or surroundings. |
 | Environment | Free space | Finite radials, not an infinite ground plane. |
-| Reference | Real 50 Ω | S11 is computed from the NEC complex impedance. None of it is measured. |
+| Reference | Real 50 Ω | S11 is computed from the NEC complex impedance. |
 | Source | 6 mm voltage segment | Centred 3 mm above the radial junction. A finite numerical stand-in for a physical feed. |
 
 Coarse sweeps ran 950 to 1250 MHz in 5 MHz steps, with 1 MHz refinement near the candidate. Mesh convergence and repeatability gates were applied to every configuration that supports a claim.
@@ -111,7 +111,7 @@ One number worth keeping next to the elevation cut: an airliner at 35,000 ft sit
 
 The model is idealised. Perfect conductors, nominal dimensions, free space, and a numerical approximation to the feed. It leaves out the connector, insulation, coax common-mode current, the mast, the roof and the surrounding buildings, and several of those routinely dominate what a real antenna measures.
 
-This establishes a simulated design decision. It does not establish measured gain, EMC compliance, or any improvement in ADS-B message rate or range. The solver is the author-distributed NEC2dXS build rather than anything I wrote.
+The solver is the author-distributed NEC2dXS build rather than anything I wrote.
 
 ## Next stage
 

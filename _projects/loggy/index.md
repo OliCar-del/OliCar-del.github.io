@@ -41,7 +41,7 @@ Design targets for the sensor unit:
 * An optical transceiver built at component level — a bare 3mm LED and a BPW34 photodiode, not an integrated module
 * A hard cost ceiling: whole-product BOM under $125 AUD
 
-Work split four ways: sensor unit hardware, sensor unit firmware, control unit hardware and firmware, and PC GUI. This entry covers my scope — the sensor unit hardware end-to-end (circuit design, simulation, schematic capture, PCB layout, construction), testing of the sensor board and TOSLINK transceiver, integration testing against the control board, firmware for the alarm indicators, and the project BOM.
+Work split four ways: sensor unit hardware, sensor unit firmware, control unit hardware and firmware, and PC GUI. This entry covers my scope — the sensor unit hardware end-to-end (circuit design, simulation, schematic capture, PCB layout, construction), testing of the sensor board and TOSLINK transceiver, integration testing against the control board, the alarm indicators (driver hardware and firmware), and the project BOM.
 
 ## Architecture
 
@@ -82,7 +82,7 @@ The transceiver is built at component level — a bare LED and photodiode rather
 
 {% include image-gallery.html images="TOSLINK_transmit_ltspice.png, TOSLINK_receive_ltspice.png" height="350" caption="Figure 4: LTspice simulation of the optical link. Left — transmitter: UART-shaped pulse driving the LED through the NPN switch. Right — receiver: the photodiode modelled as a 5nA-6µA pulsed current source into the transimpedance stage, with the comparator thresholding TIA_OUT against a potentiometer-set reference to recover the logic-level RX signal." %}
 
-The transceiver was validated standalone in loopback, then end-to-end against the control unit: the final sensor board communicated with the control unit over the fibre, with the transimpedance receiver recovering UART framing reliably once the comparator threshold was tuned.
+The transceiver was validated standalone in loopback, then end-to-end against the control unit: the V2 sensor board communicated with the control unit over the fibre, with the transimpedance receiver recovering UART framing reliably once the comparator threshold was tuned.
 
 <!-- TODO photo pending — uncomment and renumber figures when added:
 {% include image-gallery.html images="toslink_bench.jpg" height="500" caption="Figure X: TOSLINK transceiver bench validation against the control unit." %}
@@ -92,7 +92,7 @@ The transceiver was validated standalone in loopback, then end-to-end against th
 
 The 48-pin package is fully allocated — SWD, debug USART, TOSLINK USART, two I2C buses (accelerometer, ADC), three MUX select lines, SPI2 plus latch/output-enable for the LED driver, and the sampling LED account for every usable pin. Driving 16 alarm LEDs from discrete GPIOs was never an option; the TLC5927 reduces them to a 16-bit mask shifted out over SPI2, with a single 2kΩ R-EXT setting ~9.4mA per LED. The LEDs are powered from the battery rail directly, keeping their current out of the 3.3V regulator. The same squeeze applied to timers: with the 16-bit timers already committed, the sampling scheduler runs from a 12-bit timer instead, with the prescaler making up the range.
 
-The alarm firmware implements three per-channel modes — disabled, live and latching. Each sample rebuilds the LED mask — for any configured channel exactly one LED of its pair is lit, indicating alarm or no-alarm — and latched alarms hold until an unlatch command arrives from the control unit over the fibre:
+I designed the alarm driver hardware and wrote the alarm firmware myself. The firmware implements three per-channel modes — disabled, live and latching. Each sample rebuilds the LED mask — for any configured channel exactly one LED of its pair is lit, indicating alarm or no-alarm — and latched alarms hold until an unlatch command arrives from the control unit over the fibre:
 
 ```c
 /* Rebuild alarm LED mask after each sample set. Latched
