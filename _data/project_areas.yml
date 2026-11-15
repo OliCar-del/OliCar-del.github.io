@@ -12,3 +12,5 @@
   label: RF
 - key: software
   label: Software
+- key: mechanical
+  label: Mechanical
