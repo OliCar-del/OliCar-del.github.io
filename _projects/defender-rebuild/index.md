@@ -13,7 +13,7 @@ skills:
   - CAD (Onshape)
 tags: [Suspension, Tooling, Fabrication]   # short labels on the project card
 areas: [mechanical]   # filter buttons: power, pcb, embedded, control, rf, software, mechanical
-order: 10   # position on the site, lowest first
+order: 4   # position on the site, lowest first
 image: /projects/defender-rebuild/bed-finished.jpg
 thumb: /projects/defender-rebuild/thumb.webp
 permalink: /projects/defender-rebuild/
