@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Defender 110 - Suspension Rebush and Sleeping Platform
+title: Defender 110 - Suspension Rebush/Build and Sleeping Platform
 description: >-
   Driveway rebuild of the suspension bushes and joints on a 2011 Land Rover Defender 110, done with
   a home-made threaded-rod press, followed by an insulated, carpeted sleeping platform in the rear.
