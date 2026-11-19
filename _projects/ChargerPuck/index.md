@@ -15,8 +15,8 @@ skills:
 tags: [PCB (KiCad 10.0), ESP32, Battery power, Power Design, Manufacturing]   # short labels on the project card
 areas: [pcb, embedded, power]   # filter buttons: power, pcb, embedded, control, rf, software
 order: 5   # position on the site, lowest first
-image: /_projects/ChargerPuck/charger_puck_fabircated+top.png
-thumb: /_projects/ChargerPuck/charger_puck_fabircated+top.png
+image: /projects/ChargerPuck/charger_puck_fabircated+top.png
+thumb: /projects/ChargerPuck/charger_puck_fabircated+top.png
 permalink: /projects/ChargerPuck/
 redirect_from:   # older addresses for this page, kept working
   # - /projects/01_tap-mania/
