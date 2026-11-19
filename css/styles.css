@@ -888,6 +888,46 @@ footer p {
     margin-top: 4px;
 }
 
+/* Inset / tightly wrapped images inside project posts */
+.post-view .content .wrap-left,
+.post-view .content .wrap-right {
+    width: clamp(240px, 38%, 440px);
+    max-width: 100%;
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.post-view .content .wrap-left {
+    float: left;
+    margin-right: 1.75rem;
+    margin-left: -25px; /* Pulls into the 50px content padding toward the outer edge; set to 0 to stay flush with text */
+}
+
+.post-view .content .wrap-right {
+    float: right;
+    margin-left: 1.75rem;
+    margin-right: -25px; /* Pulls into the 50px content padding toward the outer edge; set to 0 to stay flush with text */
+}
+
+.post-view .content .wrap-left img,
+.post-view .content .wrap-right img,
+.post-view .content .image-gallery.wrap-left img,
+.post-view .content .image-gallery.wrap-right img {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    display: block;
+    border-radius: 6px;
+}
+
+/* Keep section headings, dividers, and tables from wrapping beside a leftover float */
+.post-view .content h2,
+.post-view .content h3,
+.post-view .content hr,
+.post-view .content table {
+    clear: both;
+}
+
 /* Click a project image to see it full size (assets/js/script.js) */
 .post-view .content .image-gallery img {
     cursor: zoom-in;
@@ -1136,7 +1176,12 @@ footer p {
     .desktop-nav {
         display: none;
     }
-
+    .post-view .content .wrap-left,
+    .post-view .content .wrap-right {
+        float: none;
+        width: 100%;
+        margin: 1rem 0;
+    }
     nav .menu-toggle {
         display: flex;
     }
