@@ -1,0 +1,32 @@
+{%- include asset-base.html -%}
+{%- assign image_paths = include.src | default: include.images | split: "," -%}
+{%- assign gallery_height = include.height | default: "300" -%}
+{%- assign cap = include.cap | default: include.caption -%}
+{%- assign wrap_class = "" -%}
+{%- if include.align == "left" or include.align == "right" -%}
+  {%- assign wrap_class = " wrap-" | append: include.align -%}
+{%- endif -%}
+{%- if cap -%}
+  {%- assign caption_html = cap | markdownify | remove: "<p>" | remove: "</p>" | strip -%}
+{%- endif -%}
+{%- if include.alt -%}
+  {%- assign image_alt = include.alt | escape -%}
+{%- elsif cap -%}
+  {%- assign image_alt = caption_html | strip_html | strip | truncatewords: 30 | replace: '"', '&quot;' -%}
+{%- endif %}
+{% if cap %}<figure class="figure{{ wrap_class }}">{% endif %}
+<div class="image-gallery{% unless cap %}{{ wrap_class }}{% endunless %}" style="--gallery-height: {{ gallery_height }}px;">
+  {%- for image_path in image_paths -%}
+    {%- assign image_name = image_path | strip -%}
+    {%- if image_name contains '://' -%}
+      {%- assign image_src = image_name -%}
+    {%- else -%}
+      {%- assign image_src = asset_base | append: image_name | relative_url -%}
+    {%- endif %}
+  <img src="{{ image_src }}" alt="{{ image_alt | default: image_name }}" loading="lazy" decoding="async">
+  {%- endfor %}
+</div>
+{%- if cap %}
+<figcaption>{{ caption_html }}</figcaption>
+</figure>
+{%- endif %}
