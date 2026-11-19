@@ -39,11 +39,7 @@ Each port can draw up to 3A and monitors for:
  - VCONN over-current (for USB-C)
  - USB-C attachment/sink
  - Port Enable/Disable via UI/ESP32
-<!-- 
-<figure class="figure wrap-right">
-  <img src="bed-finished.jpg" alt="View through the rear of a Defender cabin toward the front seats, with a finished carpeted bed platform filling the foreground and reflective insulation lining the roof. Greenery is visible through the windows; the quiet, practical interior appears ready for camping. No text is visible.">
-  <figcaption>PCBv1 Altium render</figcaption>
-</figure> -->
+
  Designing for a vehicle installation had its own considerations. I determined appropriate wire to board choices - opting for large, spring terminals for vibration (WAGO 2-pin spring terminal), as well as thermal considerations. The board has fan control and thermal lockout due to the excessive ambient temperatures in a 'black greenhouse' (my car).
 
 ***Charger Puck*** is my first 6 layer board designed in KiCad, with high density routing to accomodate 54 IO ports on the maximum allowable 102mm x 102mm PCB before size-pricing is applied. Having 10 switching supplies (1 for each port) necessitated bottom side assembly with groundplanes and power/signal planes in between. The 150W maximum power also requires heat management and sensing, as well as safety cutouts and throttling. Assembling the PCB made use of recently constructed ToastControl PID controller on toaster oven to reflow the board correctly due to use of VQFN chips and ~600 components. 
