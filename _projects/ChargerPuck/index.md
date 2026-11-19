@@ -30,7 +30,7 @@ redirect_from:   # older addresses for this page, kept working
 
 {% include image-gallery.html images="bed-finished.jpg" caption="BED" align="right" %}The device is intended for installation in the vehicle cabin of a Defender 110 station wagon (see [the rebuild](https://olicar-del.github.io/projects/defender-rebuild/)) so that devices can be charged while camping/on the road. As space is at a premium in the cabin, and fabrication is far cheaper for 100mm<sup>2</sup> boards, the panel is kept small. Additionally, the panel does double duty working as a 'light switch' panel, given the availability of cheap USB-A/C supplied lighting. Cabin/exterior lights can be switched off at the panel or via ESP32 WiFi app provided by contorl of port outputs via ESP32. {% include image-gallery.html images="bed-finished.jpg" height="600" caption="Bed platform in the vehicle where the panel will be installed" %}
 
-
+[bed-finished.jpg]{: .wrap-right }
 The panel was designed such that the entire board could be fabricated in one-shot - thus there are many testpoints, isolation links, staged bringup and rail checks. The board was therefore designed to be as robust as possible - where excess could be applied it was. While the board is not a production level board, it tested my assembly and construction abilities due to the sheer number of parts and connections and opportunity for things to go wrong. This was intended to be both the prototype and final model so every effort was made to enable debugging and fixes on the prototype. A polished version is doable but not worth the extra cost.
 
 Each port can draw up to 3A and monitors for:
@@ -41,6 +41,11 @@ Each port can draw up to 3A and monitors for:
  - USB-C attachment/sink
  - Port Enable/Disable via UI/ESP32
 
+<figure class="figure wrap-right">
+  <img src="bed-finished.jpg" alt="PCBv1 Altium render">
+  <figcaption>PCBv1 Altium render</figcaption>
+</figure>
+PCB Version 1 (PCBv1):** The focus was validating power pathing...
  Designing for a vehicle installation had its own considerations. I determined appropriate wire to board choices - opting for large, spring terminals for vibration (WAGO 2-pin spring terminal), as well as thermal considerations. The board has fan control and thermal lockout due to the excessive ambient temperatures in a 'black greenhouse' (my car).
 
 ***Charger Puck*** is my first 6 layer board designed in KiCad, with high density routing to accomodate 54 IO ports on the maximum allowable 102mm x 102mm PCB before size-pricing is applied. Having 10 switching supplies (1 for each port) necessitated bottom side assembly with groundplanes and power/signal planes in between. The 150W maximum power also requires heat management and sensing, as well as safety cutouts and throttling. Assembling the PCB made use of recently constructed ToastControl PID controller on toaster oven to reflow the board correctly due to use of VQFN chips and ~600 components. 
