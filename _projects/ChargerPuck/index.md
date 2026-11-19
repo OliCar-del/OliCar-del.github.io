@@ -19,14 +19,18 @@ image: /_projects/ChargerPuck/charger_puck_fabircated+top.png
 thumb: /_projects/ChargerPuck/charger_puck_fabircated+top.png
 permalink: /projects/ChargerPuck/
 redirect_from:   # older addresses for this page, kept working
-  - /projects/01_tap-mania/
-  - /projects/01_tap-mania/index/
-  - /_projects/01_tap-mania/
+  # - /projects/01_tap-mania/
+  # - /projects/01_tap-mania/index/
+  # - /_projects/01_tap-mania/
 ---
 
 ## Project Overview & Scope
 
-***tap-mania*** is a miniaturised arcade rhythm and dance game played with the fingers, drawing heavy inspiration from full-sized arcade cabinets like *Dance Dance Revolution* and *StepmaniaX*. The core objective is for players to follow rhythm cues displayed on a screen by hitting the correct arcade pushbuttons. The cues are perfectly synchronised to music, and the player's timing accuracy determines their score.
+***ChargerPuck*** is a cost optimised, 100mm^2 charging panel design to fast-charge up to 10 USB-C/A devices, running from an auxillary car LiFePO4 battery (nominal 12.8V). Each port can draw up to 3A and monitors for:
+ - Over temperature (71<sup>o</sup>C)
+ - VBUS over-voltage or over-current
+ - D+/D- or CC over-voltage
+ - VCONN over-current, miniaturised arcade rhythm and dance game played with the fingers, drawing heavy inspiration from full-sized arcade cabinets like *Dance Dance Revolution* and *StepmaniaX*. The core objective is for players to follow rhythm cues displayed on a screen by hitting the correct arcade pushbuttons. The cues are perfectly synchronised to music, and the player's timing accuracy determines their score.
 
 The project required building a fully functional embedded system from the ground up: a custom Printed Circuit Board (PCB), a constrained power architecture (3.7V LiPo battery, USB charging, 5V/3.3V rails), high-fidelity audio generation, sequence files parsed from a microSD card, gameplay output to a 1.3" OLED screen, and an LED matrix driven alongside individual arcade button LEDs while monitoring for millisecond-precise presses.
 
