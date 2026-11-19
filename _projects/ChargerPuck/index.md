@@ -42,7 +42,7 @@ Each port can draw up to 3A and monitors for:
  - Port Enable/Disable via UI/ESP32
 
 <figure class="figure wrap-right">
-  <img src="bed-finished.jpg" alt="PCBv1 Altium render">
+  <img src="bed-finished.jpg" alt="View through the rear of a Defender cabin toward the front seats, with a finished carpeted bed platform filling the foreground and reflective insulation lining the roof. Greenery is visible through the windows; the quiet, practical interior appears ready for camping. No text is visible.">
   <figcaption>PCBv1 Altium render</figcaption>
 </figure>
 PCB Version 1 (PCBv1):** The focus was validating power pathing...
