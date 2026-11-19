@@ -51,10 +51,12 @@ PCB Version 1 (PCBv1):** The focus was validating power pathing...
 ***Charger Puck*** is my first 6 layer board designed in KiCad, with high density routing to accomodate 54 IO ports on the maximum allowable 102mm x 102mm PCB before size-pricing is applied. Having 10 switching supplies (1 for each port) necessitated bottom side assembly with groundplanes and power/signal planes in between. The 150W maximum power also requires heat management and sensing, as well as safety cutouts and throttling. Assembling the PCB made use of recently constructed ToastControl PID controller on toaster oven to reflow the board correctly due to use of VQFN chips and ~600 components. 
 {% include image-gallery.html images="c5_a1_routing.png" height="600" caption="Routing gets tricky in the corners balancing 32 pins/port, USB DP/DM differential signals, switching pours and EMI, Kelvin sense traces and signalling." %}
 
+{% include img.html src="bed-finished.jpg" cap="Bed platform" align="right" %}
 The project required building a fully functional embedded system from the ground up: a custom Printed Circuit Board (PCB), a constrained power architecture (3.7V LiPo battery, USB charging, 5V/3.3V rails), high-fidelity audio generation, sequence files parsed from a microSD card, gameplay output to a 1.3" OLED screen, and an LED matrix driven alongside individual arcade button LEDs while monitoring for millisecond-precise presses.
 
 ## Hardware Architecture & Component Selection
 
+{% include img.html src="bed-finished.jpg" cap="Bed platform" %}
 The **STM32L433CCT6** anchors the design, chosen for a peripheral set that covers every subsystem without glue logic: a Serial Audio Interface (SAI) for audio, I2C for the OLED, SPI for the microSD card, and hardware timers/PWM for LED matrix control.
 
 | Subsystem | Selected Component | Justification |
@@ -68,7 +70,7 @@ The **STM32L433CCT6** anchors the design, chosen for a peripheral set that cover
 
 ## Iterative Prototyping Stages
 
-The hardware was developed across four PCB versions, each spin fixing what testing of the previous one exposed - from initial concept verification to the final product.
+[bed-finished.jpg]{: .wrap-right }The hardware was developed across four PCB versions, each spin fixing what testing of the previous one exposed - from initial concept verification to the final product.
 
 ---
 
