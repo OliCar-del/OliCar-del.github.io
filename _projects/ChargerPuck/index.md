@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Charger Puck - 10 Port USB-C/USB-A Fast-Charging Panel from a Car Battery
+title: Charger Puck - 150W 10 Port USB-C/USB-A Fast-Charging Panel from a Car Battery
 description: A compact, independently switchable, ten-port USB charging panel for a car, supplied from a fused auxiliary nominal-12 V LiFePO4 battery charged by a DC–DC charger and/or solar. The panel serves phones, portable power banks, watches, lights and other small USB devices. Small form factor and dense board, with added benefit of local/remote switching for controlling lighting/charging.
 skills:
   - PCB Design & Routing
@@ -26,11 +26,15 @@ redirect_from:   # older addresses for this page, kept working
 
 ## Project Overview & Scope
 
-***ChargerPuck*** is a cost optimised, 100mm^2 charging panel design to fast-charge up to 10 USB-C/A devices, running from an auxillary car LiFePO4 battery (nominal 12.8V). Each port can draw up to 3A and monitors for:
+***ChargerPuck*** is a cost optimised, 100mm<sup>2</sup> charging panel design to fast-charge up to 10 USB-C/A devices, running from an auxillary car LiFePO4 battery (nominal 12.8V). Each port can draw up to 3A and monitors for:
  - Over temperature (71<sup>o</sup>C)
  - VBUS over-voltage or over-current
  - D+/D- or CC over-voltage
- - VCONN over-current, miniaturised arcade rhythm and dance game played with the fingers, drawing heavy inspiration from full-sized arcade cabinets like *Dance Dance Revolution* and *StepmaniaX*. The core objective is for players to follow rhythm cues displayed on a screen by hitting the correct arcade pushbuttons. The cues are perfectly synchronised to music, and the player's timing accuracy determines their score.
+ - VCONN over-current (for USB-C)
+ - USB-C attachment/sink
+ - Port Enable/Disable via UI/ESP32
+
+***Charger Puck*** is my first 6 layer board designed in KiCad, with high density routing to accomodate 54 IO ports on the maximum allowable 102mm x 102mm PCB before size-pricing is applied. Having 10 switching supplies (1 for each port) necessitated bottom side assembly with groundplanes and power/signal planes in between. The 150W maximum power also requires heat management and sensing, as well as safety cutouts and throttling. Assembling the PCB made use of recently constructed ToastControl PID controller on toaster oven to reflow the board correctly due to use of VQFN chips and ~600 components.
 
 The project required building a fully functional embedded system from the ground up: a custom Printed Circuit Board (PCB), a constrained power architecture (3.7V LiPo battery, USB charging, 5V/3.3V rails), high-fidelity audio generation, sequence files parsed from a microSD card, gameplay output to a 1.3" OLED screen, and an LED matrix driven alongside individual arcade button LEDs while monitoring for millisecond-precise presses.
 
