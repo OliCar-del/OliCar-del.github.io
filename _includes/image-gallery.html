@@ -1,15 +1,20 @@
 {%- comment -%}
   One or more images from the project's own folder (or full https:// URLs), side by side,
   with an optional caption underneath. Click an image to see it full size.
-  Usage: {% include image-gallery.html images="a.webp, b.webp" height="400" caption="Figure 1: ..." %}
+  Usage: {% include image-gallery.html images="a.webp, b.webp" height="400" caption="Figure 1: ..." align="right" %}
     caption  shown under the images; markdown like *italics* and [links](...) works.
              Use single quotes around it if it contains a double quote: caption='3/4" ply'.
     alt      what the images show, for screen readers and image search (defaults to the caption)
     height   maximum display height in px (default 300)
+    align    optional "left" or "right" to wrap paragraph text tightly around the image
 {%- endcomment -%}
 {%- include asset-base.html -%}
 {%- assign image_paths = include.images | split: "," -%}
 {%- assign gallery_height = include.height | default: "300" -%}
+{%- assign wrap_class = "" -%}
+{%- if include.align == "left" or include.align == "right" -%}
+  {%- assign wrap_class = " wrap-" | append: include.align -%}
+{%- endif -%}
 {%- if include.caption -%}
   {%- assign caption_html = include.caption | markdownify | remove: "<p>" | remove: "</p>" | strip -%}
 {%- endif -%}
@@ -18,8 +23,8 @@
 {%- elsif include.caption -%}
   {%- assign image_alt = caption_html | strip_html | strip | truncatewords: 30 | replace: '"', '&quot;' -%}
 {%- endif %}
-{% if include.caption %}<figure class="figure">{% endif %}
-<div class="image-gallery" style="--gallery-height: {{ gallery_height }}px;">
+{% if include.caption %}<figure class="figure{{ wrap_class }}">{% endif %}
+<div class="image-gallery{% unless include.caption %}{{ wrap_class }}{% endunless %}" style="--gallery-height: {{ gallery_height }}px;">
   {%- for image_path in image_paths -%}
     {%- assign image_name = image_path | strip -%}
     {%- if image_name contains '://' -%}
