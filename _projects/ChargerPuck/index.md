@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Charger Puck - 150W 10 Port USB-C/USB-A Fast-Charging Panel from a Car Battery
+title: Charger Puck - 135W 10 Port USB-C/USB-A Fast-Charging Panel from a Car Battery
 description: A compact, independently switchable, ten-port USB charging panel for a car, supplied from a fused auxiliary nominal-12 V LiFePO4 battery charged by a DC–DC charger and/or solar. The panel serves phones, portable power banks, watches, lights and other small USB devices. Small form factor and dense board, with added benefit of local/remote switching for controlling lighting/charging.
 skills:
   - PCB Design & Routing
@@ -26,7 +26,13 @@ redirect_from:   # older addresses for this page, kept working
 
 ## Project Overview & Scope
 
-***ChargerPuck*** is a cost optimised, 100mm<sup>2</sup> charging panel design to fast-charge up to 10 USB-C/A devices, running from an auxillary car LiFePO4 battery (nominal 12.8V). Each port can draw up to 3A and monitors for:
+***ChargerPuck*** is a cost optimised, 100mm<sup>2</sup> charging panel design to fast-charge up to 10 USB-C/A devices, running from an auxillary car LiFePO4 battery (nominal 12.8V). The design features five 5V/3A USB-C ports and five 5V/2.4A USB-A ports, independetly locally/remotely switchable via ESP32. Each port is powered by its own buck converter.
+
+The device is intended for installation in the vehicle cabin of a Defender 110 station wagon (see [the rebuild](https://olicar-del.github.io/projects/defender-rebuild/)) so that devices can be charged while camping/on the road. As space is at a premium in the cabin, and fabrication is far cheaper for 100mm<sup>2</sup> boards, the panel is kept small. Additionally, the panel does double duty working as a 'light switch' panel, given the availability of cheap USB-A/C supplied lighting. Cabin/exterior lights can be switched off at the panel or via ESP32 WiFi app provided by contorl of port outputs via ESP32.
+
+The panel was designed such that the entire board could be fabricated in one-shot - thus there are many testpoints, isolation links, staged bringup and rail checks. The board was therefore designed to be as robust as possible - where excess could be applied it was. While the board is not a production level board, it tested my assembly and construction abilities due to the sheer number of parts and connections and opportunity for things to go wrong. This was intended to be both the prototype and final model so every effort was made to enable debugging and fixes on the prototype. A polished version is doable but not worth the extra cost.
+
+Each port can draw up to 3A and monitors for:
  - Over temperature (71<sup>o</sup>C)
  - VBUS over-voltage or over-current
  - D+/D- or CC over-voltage
